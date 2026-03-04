@@ -1,0 +1,27 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --minify",
+    "build": "npm run build:css && eleventy && npx pagefind --site _site",
+    "serve": "concurrently \"tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --watch\" \"eleventy --serve\""
+  },
+  "dependencies": {
+    "@11ty/eleventy-img": "^3.1.0",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "eleventy-plugin-toc": "^1.1.5",
+    "luxon": "^3.4.4"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@quasibit/eleventy-plugin-sitemap": "^2.1.4",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "eleventy-plugin-reading-time": "^0.0.1",
+    "pagefind": "^1.4.0",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0"
+  }
+}

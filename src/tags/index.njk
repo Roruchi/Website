@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: Tags
+permalink: /tags/index.html
+---
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">Tags</h1>
+  <p class="text-xl text-slate-500 dark:text-slate-400 mb-12">Browse posts by topic.</p>
+  <div class="flex flex-wrap gap-3">
+    {%- set allTags = [] -%}
+    {%- for post in collections.post -%}
+      {%- for tag in post.data.tags -%}
+        {%- if tag != "post" and tag not in allTags -%}
+          {%- set allTags = (allTags.push(tag), allTags) -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+    {%- for tag in allTags | sort -%}
+    {%- set tagCount = 0 -%}
+    {%- for post in collections.post -%}
+      {%- if tag in post.data.tags -%}{%- set tagCount = tagCount + 1 -%}{%- endif -%}
+    {%- endfor -%}
+    <a href="/tags/{{ tag | slug }}/" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 font-medium hover:bg-violet-200 dark:hover:bg-violet-900/50 transition-colors">
+      {{ tag }}
+      <span class="text-xs bg-violet-200 dark:bg-violet-800 text-violet-800 dark:text-violet-200 px-1.5 py-0.5 rounded-full">{{ tagCount }}</span>
+    </a>
+    {%- endfor -%}
+  </div>
+</div>

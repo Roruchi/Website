@@ -1,0 +1,67 @@
+---
+layout: base.njk
+title: Search
+description: Search all posts, talks, and trainings.
+permalink: /search/index.html
+---
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">Search</h1>
+  <p class="text-xl text-slate-500 dark:text-slate-400 mb-10">Search across all posts, talks, and trainings.</p>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <div id="search" class="mb-10"></div>
+
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+      });
+    });
+  </script>
+
+  <style>
+    /* Light mode overrides */
+    #search {
+      --pagefind-ui-scale: 1;
+      --pagefind-ui-primary: rgb(109 40 217);
+      --pagefind-ui-text: rgb(30 41 59);
+      --pagefind-ui-background: transparent;
+      --pagefind-ui-border: rgb(226 232 240);
+      --pagefind-ui-tag: rgb(241 245 249);
+      --pagefind-ui-border-width: 1px;
+      --pagefind-ui-border-radius: 0.75rem;
+      --pagefind-ui-font: inherit;
+    }
+    /* Dark mode overrides */
+    .dark #search {
+      --pagefind-ui-primary: rgb(167 139 250);
+      --pagefind-ui-text: rgb(226 232 240);
+      --pagefind-ui-background: transparent;
+      --pagefind-ui-border: rgb(51 65 85);
+      --pagefind-ui-tag: rgb(30 41 59);
+    }
+    .dark .pagefind-ui__search-input {
+      background-color: rgb(30 41 59);
+      color: rgb(226 232 240);
+    }
+    .dark .pagefind-ui__search-input::placeholder {
+      color: rgb(100 116 139);
+    }
+    .dark .pagefind-ui__result {
+      border-bottom-color: rgb(51 65 85);
+    }
+    .dark .pagefind-ui__result-excerpt {
+      color: rgb(148 163 184);
+    }
+    .dark .pagefind-ui__message {
+      color: rgb(100 116 139);
+    }
+    .dark .pagefind-ui__filter-panel {
+      background-color: rgb(30 41 59);
+    }
+  </style>
+</div>

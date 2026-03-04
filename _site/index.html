@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<script>
+  // Prevent flash of wrong theme
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | My Personal Site</title>
+  <meta name="description" content="Software engineer, speaker, and trainer.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Home | My Personal Site">
+  <meta property="og:description" content="Software engineer, speaker, and trainer.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:image" content="https://example.com/assets/images/og-default.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@yourhandle">
+  <meta name="twitter:title" content="Home | My Personal Site">
+  <meta name="twitter:description" content="Software engineer, speaker, and trainer.">
+  <meta name="twitter:image" content="https://example.com/assets/images/og-default.svg">
+
+  <!-- RSS autodiscovery -->
+  <link rel="alternate" type="application/atom+xml" title="My Personal Site" href="/feed/feed.xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/prism-tomorrow.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 font-sans antialiased">
+
+<!-- Reading progress bar -->
+<div id="progress-bar" class="fixed top-0 left-0 h-1 z-[60] bg-gradient-to-r from-violet-500 to-cyan-500 transition-all duration-75" style="width: 0%"></div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-50 bg-slate-900 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="text-xl font-bold bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
+          My Personal Site
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="/blog/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Blog</a>
+          <a href="/talks/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Talks</a>
+          <a href="/trainings/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Trainings</a>
+          <a href="/about/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">About</a>
+          <a href="/search/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Search</a>
+          <a href="https://github.com/yourname" target="_blank" rel="noopener" class="ml-2 px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+          </a>
+          <button id="theme-toggle" class="ml-1 p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 transition-colors" aria-label="Toggle dark mode">
+            <!-- Sun icon (shown in dark mode) -->
+            <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- Mobile menu button -->
+        <button id="menu-toggle" class="md:hidden p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 transition-colors" aria-label="Toggle menu">
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-t border-slate-700">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="/blog/" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Blog</a>
+        <a href="/talks/" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Talks</a>
+        <a href="/trainings/" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Trainings</a>
+        <a href="/about/" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">About</a>
+        <a href="/search/" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors">Search</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="min-h-screen">
+    
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 text-white py-24 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center gap-12">
+      <div class="flex-1">
+        <div class="inline-flex items-center gap-2 bg-violet-500/20 text-violet-300 text-sm font-medium px-3 py-1 rounded-full mb-6 border border-violet-500/30">
+          <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+          Available for workshops &amp; speaking
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">
+          Hi, I'm <span class="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">Your Name</span>
+        </h1>
+        <p class="text-xl text-slate-300 mb-8 leading-relaxed max-w-xl">
+          Software engineer, conference speaker, and trainer. I write about platform engineering, TypeScript, and developer experience.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/blog/" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+            Read the Blog
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="/about/" class="inline-flex items-center gap-2 bg-transparent hover:bg-white/10 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 transition-colors">
+            About Me
+          </a>
+        </div>
+      </div>
+      <!-- Avatar placeholder -->
+      <div class="flex-shrink-0">
+        <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden ring-4 ring-violet-500/50 ring-offset-4 ring-offset-slate-900 shadow-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
+          <span class="text-7xl">👨‍💻</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Bar -->
+<section class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div>
+        <div class="text-3xl font-bold text-violet-600">4</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Blog Posts</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-cyan-600">5</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Talks Given</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-violet-600">4</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Workshops</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-cyan-600">10+</div>
+        <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Cards -->
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">What I Do</h2>
+  <p class="text-slate-500 dark:text-slate-400 mb-12">Sharing knowledge through writing, speaking, and hands-on training.</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Blog Card -->
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700 hover:border-violet-200 hover:-translate-y-1">
+      <div class="bg-gradient-to-br from-violet-500 to-violet-700 p-6">
+        <div class="text-4xl mb-2">✍️</div>
+        <h3 class="text-xl font-bold text-white">Blog</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">In-depth articles on platform engineering, TypeScript, and developer experience.</p>
+        <ul class="space-y-2 mb-6"><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/blog/architecture-with-mermaid/" class="hover:text-violet-600 transition-colors">Visualising Architecture with Mermaid Diagrams</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/blog/getting-started-with-platform-engineering/" class="hover:text-violet-600 transition-colors">Getting Started with Platform Engineering</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/blog/typescript-tips-for-better-code/" class="hover:text-violet-600 transition-colors">5 TypeScript Tips for Better Code Quality</a></li></ul>
+        <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-violet-600 hover:text-violet-700 transition-colors gap-1">
+          All posts <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Talks Card -->
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700 hover:border-cyan-200 hover:-translate-y-1">
+      <div class="bg-gradient-to-br from-cyan-500 to-cyan-700 p-6">
+        <div class="text-4xl mb-2">🎤</div>
+        <h3 class="text-xl font-bold text-white">Talks</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Conference talks and workshops at events like PlatformCon, KubeCon, and TSConf.</p>
+        <ul class="space-y-2 mb-6"><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/talks/" class="hover:text-cyan-600 transition-colors">Talks</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/talks/2024-10-building-internal-developer-platforms/" class="hover:text-cyan-600 transition-colors">Building Internal Developer Platforms That Developers Actually Love</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/talks/2024-06-typescript-at-scale/" class="hover:text-cyan-600 transition-colors">TypeScript at Scale: Patterns for Large Codebases</a></li></ul>
+        <a href="/talks/" class="inline-flex items-center text-sm font-semibold text-cyan-600 hover:text-cyan-700 transition-colors gap-1">
+          All talks <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Trainings Card -->
+    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100 dark:border-slate-700 hover:border-emerald-200 hover:-translate-y-1">
+      <div class="bg-gradient-to-br from-emerald-500 to-emerald-700 p-6">
+        <div class="text-4xl mb-2">🎓</div>
+        <h3 class="text-xl font-bold text-white">Trainings</h3>
+      </div>
+      <div class="p-6">
+        <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">Hands-on workshops for engineering teams on platform engineering and TypeScript.</p>
+        <ul class="space-y-2 mb-6"><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/trainings/" class="hover:text-emerald-600 transition-colors">Trainings</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/trainings/typescript-for-teams/" class="hover:text-emerald-600 transition-colors">TypeScript for Teams: From Beginner to Production</a></li><li class="text-sm text-slate-700 dark:text-slate-300 truncate">→ <a href="/trainings/platform-engineering-foundations/" class="hover:text-emerald-600 transition-colors">Platform Engineering Foundations</a></li></ul>
+        <a href="/trainings/" class="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors gap-1">
+          All workshops <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Blog Posts -->
+<section class="bg-white dark:bg-slate-800 border-y border-slate-200 dark:border-slate-700 py-20">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Latest Posts</h2>
+        <p class="text-slate-500 dark:text-slate-400">Recent thoughts and tutorials.</p>
+      </div>
+      <a href="/blog/" class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-700 transition-colors">
+        View all <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6"><article class="group bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-700 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-violet-200 hover:shadow-md transition-all duration-200">
+        <div class="flex flex-wrap gap-2 mb-3"><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">architecture</span><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">developer-experience</span></div>
+        <h3 class="font-bold text-slate-900 dark:text-white mb-2 group-hover:text-violet-700 transition-colors leading-snug">
+          <a href="/blog/architecture-with-mermaid/">Visualising Architecture with Mermaid Diagrams</a>
+        </h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">How to use Mermaid.js to create clear, maintainable architecture diagrams directly in your markdown documentation.</p>
+        <div class="flex items-center text-xs text-slate-400">
+          <time datetime="2025-01-10">10 Jan 2025</time>
+        </div>
+      </article><article class="group bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-700 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-violet-200 hover:shadow-md transition-all duration-200">
+        <div class="flex flex-wrap gap-2 mb-3"><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">platform-engineering</span><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">devops</span></div>
+        <h3 class="font-bold text-slate-900 dark:text-white mb-2 group-hover:text-violet-700 transition-colors leading-snug">
+          <a href="/blog/getting-started-with-platform-engineering/">Getting Started with Platform Engineering</a>
+        </h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">An introduction to platform engineering and why it matters for modern software teams.</p>
+        <div class="flex items-center text-xs text-slate-400">
+          <time datetime="2024-11-15">15 Nov 2024</time>
+        </div>
+      </article><article class="group bg-slate-50 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-700 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-violet-200 hover:shadow-md transition-all duration-200">
+        <div class="flex flex-wrap gap-2 mb-3"><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">typescript</span><span class="text-xs font-medium text-violet-700 bg-violet-100 px-2 py-0.5 rounded-full">programming</span></div>
+        <h3 class="font-bold text-slate-900 dark:text-white mb-2 group-hover:text-violet-700 transition-colors leading-snug">
+          <a href="/blog/typescript-tips-for-better-code/">5 TypeScript Tips for Better Code Quality</a>
+        </h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2">Practical TypeScript patterns that will make your code more maintainable and type-safe.</p>
+        <div class="flex items-center text-xs text-slate-400">
+          <time datetime="2024-09-03">03 Sep 2024</time>
+        </div>
+      </article></div>
+  </div>
+</section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 mt-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-white font-semibold mb-3">My Personal Site</h3>
+          <p class="text-sm leading-relaxed">Software engineer, speaker, and trainer sharing thoughts on platform engineering, TypeScript, and developer experience.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-3">Navigation</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="/talks/" class="hover:text-white transition-colors">Talks</a></li>
+            <li><a href="/trainings/" class="hover:text-white transition-colors">Trainings</a></li>
+            <li><a href="/about/" class="hover:text-white transition-colors">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-3">Connect</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="https://github.com/yourname" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
+            <li><a href="https://twitter.com/@yourhandle" target="_blank" rel="noopener" class="hover:text-white transition-colors">Twitter / X</a></li>
+            <li><a href="/feed/feed.xml" class="hover:text-white transition-colors">RSS Feed</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 mt-8 pt-8 text-sm text-center">
+        &copy; Your Name 2025. Built with <a href="https://www.11ty.dev" class="hover:text-white transition-colors">Eleventy</a>.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reading progress -->
+  <script>
+    const bar = document.getElementById('progress-bar');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const doc = document.documentElement;
+        const scrolled = doc.scrollTop || document.body.scrollTop;
+        const total = doc.scrollHeight - doc.clientHeight;
+        bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+      }, { passive: true });
+    }
+  </script>
+
+  <!-- Dark mode toggle -->
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.theme = 'light';
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.theme = 'dark';
+        }
+      });
+    }
+  </script>
+
+  <!-- Mobile menu JS -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+    });
+    document.addEventListener('DOMContentLoaded', async () => {
+      const blocks = document.querySelectorAll('pre code.language-mermaid');
+      for (const block of blocks) {
+        const pre = block.parentElement;
+        const source = block.textContent;
+        const container = document.createElement('div');
+        container.className = 'mermaid flex justify-center my-6';
+        container.textContent = source;
+        pre.replaceWith(container);
+      }
+      await mermaid.run();
+    });
+  </script>
+</body>
+</html>

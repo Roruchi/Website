@@ -1,0 +1,5 @@
+{
+  "layout": "base.njk",
+  "tags": "training",
+  "permalink": "/trainings/{{ page.fileSlug }}/index.html"
+}

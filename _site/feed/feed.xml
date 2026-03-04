@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>My Personal Site</title>
+  <subtitle>Software engineer, speaker, and trainer sharing thoughts on platform engineering, TypeScript, and developer experience.</subtitle>
+  <link href="https://example.com/feed/feed.xml" rel="self"/>
+  <link href="https://example.com/"/>
+  <updated>2025-01-10T00:00:00Z</updated>
+  <id>https://example.com/</id>
+  <author><name>Your Name</name></author>
+  <entry>
+    <title>Visualising Architecture with Mermaid Diagrams</title>
+    <link href="https://example.com/blog/architecture-with-mermaid/"/>
+    <updated>2025-01-10T00:00:00Z</updated>
+    <id>https://example.com/blog/architecture-with-mermaid/</id>
+    <content type="html">&lt;p&gt;Good documentationlives close to the code. Mermaid diagrams let you define architecture visuals using plain text that you can commit alongside your code and render in any markdown-capable environment.&lt;/p&gt;
+&lt;h2&gt;Why Mermaid?&lt;/h2&gt;
+&lt;p&gt;Unlike static images, Mermaid diagrams are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Version-controlled&lt;/strong&gt; — you can diff and review changes to diagrams&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portable&lt;/strong&gt; — renders in GitHub, GitLab, Notion, and now this blog&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Maintainable&lt;/strong&gt; — update text, not pixels&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;A Simple Microservices Architecture&lt;/h2&gt;
+&lt;p&gt;Here&#39;s a typical event-driven microservices architecture:&lt;/p&gt;
+&lt;pre class=&quot;language-mermaid&quot;&gt;&lt;code class=&quot;language-mermaid&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;graph&lt;/span&gt; TB
+    Client&lt;span class=&quot;token text string&quot;&gt;([Browser / Mobile])&lt;/span&gt; &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; Gateway&lt;span class=&quot;token text string&quot;&gt;[API Gateway]&lt;/span&gt;
+    
+    Gateway &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; AuthSvc&lt;span class=&quot;token text string&quot;&gt;[Auth Service]&lt;/span&gt;
+    Gateway &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; UserSvc&lt;span class=&quot;token text string&quot;&gt;[User Service]&lt;/span&gt;
+    Gateway &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; OrderSvc&lt;span class=&quot;token text string&quot;&gt;[Order Service]&lt;/span&gt;
+    
+    AuthSvc &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; DB1&lt;span class=&quot;token text string&quot;&gt;[(Auth DB)]&lt;/span&gt;
+    UserSvc &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; DB2&lt;span class=&quot;token text string&quot;&gt;[(User DB)]&lt;/span&gt;
+    OrderSvc &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; DB3&lt;span class=&quot;token text string&quot;&gt;[(Order DB)]&lt;/span&gt;
+    
+    OrderSvc &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; Queue&lt;span class=&quot;token text string&quot;&gt;[Message Queue]&lt;/span&gt;
+    Queue &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; NotifySvc&lt;span class=&quot;token text string&quot;&gt;[Notification Service]&lt;/span&gt;
+    Queue &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; AnalyticsSvc&lt;span class=&quot;token text string&quot;&gt;[Analytics Service]&lt;/span&gt;
+    
+    NotifySvc &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; Email&lt;span class=&quot;token text string&quot;&gt;[Email Provider]&lt;/span&gt;
+    
+    &lt;span class=&quot;token keyword&quot;&gt;style&lt;/span&gt; Gateway &lt;span class=&quot;token style&quot;&gt;&lt;span class=&quot;token property&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;#7c3aed&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token property&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;#fff&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;style&lt;/span&gt; Queue &lt;span class=&quot;token style&quot;&gt;&lt;span class=&quot;token property&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;#0891b2&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;token property&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;#fff&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Deployment Pipeline&lt;/h2&gt;
+&lt;p&gt;Here&#39;s how a GitOps deployment pipeline works:&lt;/p&gt;
+&lt;pre class=&quot;language-mermaid&quot;&gt;&lt;code class=&quot;language-mermaid&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;sequenceDiagram&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; Dev as Developer
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; GH as GitHub
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; CI as CI Pipeline
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; Registry as Container Registry
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; Argo as ArgoCD
+    &lt;span class=&quot;token keyword&quot;&gt;participant&lt;/span&gt; K8s as Kubernetes
+
+    Dev&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;GH&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Push code / open PR
+    GH&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;CI&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Trigger workflow
+    CI&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;CI&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Build &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; test
+    CI&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;Registry&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Push container image
+    CI&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;GH&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Update image tag in GitOps repo
+    GH&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;Argo&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Detect config drift
+    Argo&lt;span class=&quot;token arrow operator&quot;&gt;-&gt;&gt;&lt;/span&gt;K8s&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Sync desired state
+    K8s&lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&gt;&lt;/span&gt;Argo&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Confirm deployment&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Platform Engineering Maturity&lt;/h2&gt;
+&lt;p&gt;A quadrant view of platform engineering maturity:&lt;/p&gt;
+&lt;pre class=&quot;language-mermaid&quot;&gt;&lt;code class=&quot;language-mermaid&quot;&gt;quadrantChart
+    title Platform Engineering Maturity
+    &lt;span class=&quot;token arrow operator&quot;&gt;x-&lt;/span&gt;axis Low Automation &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; High Automation
+    y-axis Low Self-Service &lt;span class=&quot;token arrow operator&quot;&gt;--&gt;&lt;/span&gt; High Self-Service
+    quadrant-1 Optimised Platform
+    quadrant-2 Automated Ops
+    quadrant-3 Manual Everything
+    quadrant-4 Developer Portal
+    Team A&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token text string&quot;&gt;[0.2, 0.3]&lt;/span&gt;
+    Team B&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token text string&quot;&gt;[0.5, 0.6]&lt;/span&gt;
+    Team C&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token text string&quot;&gt;[0.8, 0.85]&lt;/span&gt;
+    Industry Leader&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token text string&quot;&gt;[0.9, 0.9]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;To add Mermaid to your own 11ty site, include the Mermaid CDN script and a small initialisation snippet that detects &lt;code&gt;```&lt;/code&gt;mermaid code blocks and renders them client-side:&lt;/p&gt;
+&lt;pre class=&quot;language-js&quot;&gt;&lt;code class=&quot;language-js&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; mermaid &lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+mermaid&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;startOnLoad&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token literal-property property&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;default&#39;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;DOMContentLoaded&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; blocks &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;querySelectorAll&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;pre code.language-mermaid&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; block &lt;span class=&quot;token keyword&quot;&gt;of&lt;/span&gt; blocks&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; pre &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; block&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;parentElement&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; source &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; block&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;textContent&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; container &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;div&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;className &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;mermaid&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    container&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;textContent &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; source&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    pre&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;replaceWith&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;container&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;await&lt;/span&gt; mermaid&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That&#39;s all it takes. Diagrams as code, shipped with your content.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Getting Started with Platform Engineering</title>
+    <link href="https://example.com/blog/getting-started-with-platform-engineering/"/>
+    <updated>2024-11-15T00:00:00Z</updated>
+    <id>https://example.com/blog/getting-started-with-platform-engineering/</id>
+    <content type="html">&lt;p&gt;Platform engineeringhas become one of the hottest topics in the DevOps space, and for good reason. As organizations scale their engineering teams, the need for a solid internal developer platform (IDP) becomes increasingly critical.&lt;/p&gt;
+&lt;h2&gt;What is Platform Engineering?&lt;/h2&gt;
+&lt;p&gt;Platform engineering is the discipline of designing and building toolchains and workflows that enable self-service capabilities for software engineering teams. The goal is to reduce cognitive load on developers and increase their autonomy and velocity.&lt;/p&gt;
+&lt;p&gt;Think of it as building products for your internal customers — the developers at your company.&lt;/p&gt;
+&lt;h2&gt;Why Does It Matter?&lt;/h2&gt;
+&lt;p&gt;Traditional DevOps often led to a &amp;quot;you build it, you run it&amp;quot; model that placed significant operational burden on development teams. Platform engineering aims to abstract away the complexity of infrastructure and operations, giving developers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Self-service capabilities&lt;/strong&gt; — spin up environments, deploy services, and manage configurations without waiting for ops tickets&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Golden paths&lt;/strong&gt; — opinionated, well-supported workflows that make the right thing the easy thing&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Developer portals&lt;/strong&gt; — a single pane of glass for all developer tooling and documentation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+&lt;p&gt;If you&#39;re looking to start building an internal developer platform, here are the key steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Talk to your developers&lt;/strong&gt; — understand their pain points and friction points&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Start small&lt;/strong&gt; — don&#39;t try to build everything at once; focus on the highest-impact workflows&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Treat it as a product&lt;/strong&gt; — assign ownership, gather feedback, and iterate&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Measure adoption&lt;/strong&gt; — track usage and developer satisfaction&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Useful Tools&lt;/h2&gt;
+&lt;p&gt;Some popular tools in the platform engineering space:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Backstage&lt;/strong&gt; — open-source developer portal from Spotify&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Crossplane&lt;/strong&gt; — infrastructure-as-code with Kubernetes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ArgoCD / Flux&lt;/strong&gt; — GitOps continuous delivery&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Port&lt;/strong&gt; — internal developer portal&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Platform engineering is a journey, not a destination. Start with empathy for your users and iterate from there.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>5 TypeScript Tips for Better Code Quality</title>
+    <link href="https://example.com/blog/typescript-tips-for-better-code/"/>
+    <updated>2024-09-03T00:00:00Z</updated>
+    <id>https://example.com/blog/typescript-tips-for-better-code/</id>
+    <content type="html">&lt;p&gt;After yearsof writing TypeScript, I&#39;ve collected a set of patterns that consistently improve code quality. Here are my top 5.&lt;/p&gt;
+&lt;h2&gt;1. Use &lt;code&gt;unknown&lt;/code&gt; Instead of &lt;code&gt;any&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;When you don&#39;t know the type of something, reach for &lt;code&gt;unknown&lt;/code&gt; rather than &lt;code&gt;any&lt;/code&gt;. Unlike &lt;code&gt;any&lt;/code&gt;, &lt;code&gt;unknown&lt;/code&gt; forces you to narrow the type before using it.&lt;/p&gt;
+&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token comment&quot;&gt;// Bad&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;processData&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;any&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// No type checking!&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// Good&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;processData&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;unknown&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;typeof&lt;/span&gt; data &lt;span class=&quot;token operator&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;object&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; data &lt;span class=&quot;token operator&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;value&#39;&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; data&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;value&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// Type-safe&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. Leverage Discriminated Unions&lt;/h2&gt;
+&lt;p&gt;Discriminated unions make pattern matching on types explicit and exhaustive.&lt;/p&gt;
+&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Result&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;success&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; data&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; status&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;error&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; message&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;token generic-function&quot;&gt;&lt;span class=&quot;token function&quot;&gt;handleResult&lt;/span&gt;&lt;span class=&quot;token generic class-name&quot;&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; Result&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token constant&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;status&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;success&#39;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;data&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;error&#39;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;result&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;message&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. Use &lt;code&gt;satisfies&lt;/code&gt; for Type Validation Without Widening&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;satisfies&lt;/code&gt; operator lets you validate a value against a type without losing its specific type information.&lt;/p&gt;
+&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; config &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  port&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  host&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;localhost&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; satisfies Record&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token builtin&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// config.port is still typed as 3000, not number&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;4. Prefer Template Literal Types&lt;/h2&gt;
+&lt;p&gt;Template literal types are great for creating constrained string types.&lt;/p&gt;
+&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;EventName&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;Capitalize&lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;HttpMethod&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;GET&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;POST&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;PUT&#39;&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;DELETE&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;ApiRoute&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token template-string&quot;&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;/api/&lt;/span&gt;&lt;span class=&quot;token interpolation&quot;&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;token interpolation-punctuation punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token template-punctuation string&quot;&gt;`&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;5. Use &lt;code&gt;const&lt;/code&gt; Assertions&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;as const&lt;/code&gt; turns mutable objects into readonly tuples and narrows their types to literals.&lt;/p&gt;
+&lt;pre class=&quot;language-typescript&quot;&gt;&lt;code class=&quot;language-typescript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;DIRECTIONS&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&#39;north&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;south&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;east&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&#39;west&#39;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Direction&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;DIRECTIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// &#39;north&#39; | &#39;south&#39; | &#39;east&#39; | &#39;west&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;These patterns have saved me countless hours of debugging. Try incorporating them into your next TypeScript project!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Dev Containers for Consistent Development Environments</title>
+    <link href="https://example.com/blog/devcontainers-for-consistent-environments/"/>
+    <updated>2024-07-20T00:00:00Z</updated>
+    <id>https://example.com/blog/devcontainers-for-consistent-environments/</id>
+    <content type="html">&lt;p&gt;&amp;quot;It workson my machine&amp;quot; is the most dreaded phrase in software development. Dev Containers offer a solution.&lt;/p&gt;
+&lt;h2&gt;What Are Dev Containers?&lt;/h2&gt;
+&lt;p&gt;Dev Containers (development containers) allow you to define your development environment as code using a &lt;code&gt;.devcontainer/devcontainer.json&lt;/code&gt; file. This ensures every developer on your team has exactly the same tools, extensions, and runtime versions.&lt;/p&gt;
+&lt;p&gt;They work with VS Code, GitHub Codespaces, and other editors that support the Dev Container specification.&lt;/p&gt;
+&lt;h2&gt;A Simple Example&lt;/h2&gt;
+&lt;p&gt;Here&#39;s a basic &lt;code&gt;.devcontainer/devcontainer.json&lt;/code&gt; for a Node.js project:&lt;/p&gt;
+&lt;pre class=&quot;language-json&quot;&gt;&lt;code class=&quot;language-json&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Node.js Dev&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;image&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;mcr.microsoft.com/devcontainers/node:20&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;features&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;ghcr.io/devcontainers/features/git:1&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token property&quot;&gt;&quot;ghcr.io/devcontainers/features/github-cli:1&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;extensions&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&quot;dbaeumer.vscode-eslint&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token string&quot;&gt;&quot;esbenp.prettier-vscode&quot;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token property&quot;&gt;&quot;postCreateCommand&quot;&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;npm install&quot;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Benefits&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reproducible environments&lt;/strong&gt; — no more environment drift between machines&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Faster onboarding&lt;/strong&gt; — new team members are productive in minutes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Works with Codespaces&lt;/strong&gt; — seamlessly move between local and cloud development&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Version-controlled&lt;/strong&gt; — your environment config lives in source control&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Give Dev Containers a try on your next project!&lt;/p&gt;
+</content>
+  </entry>
+</feed>

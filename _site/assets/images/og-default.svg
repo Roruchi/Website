@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4c1d95;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1100" cy="80" r="200" fill="#7c3aed" fill-opacity="0.15"/>
+  <circle cx="100" cy="550" r="150" fill="#0891b2" fill-opacity="0.1"/>
+
+  <!-- Accent bar -->
+  <rect x="80" y="480" width="200" height="6" rx="3" fill="url(#accent)"/>
+
+  <!-- Site title -->
+  <text x="80" y="200" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="800" fill="white">My Personal Site</text>
+
+  <!-- Tagline -->
+  <text x="80" y="270" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="400" fill="#c4b5fd">Software engineer · Speaker · Trainer</text>
+
+  <!-- Decorative dots pattern -->
+  <g fill="#7c3aed" fill-opacity="0.3">
+    <circle cx="900" cy="300" r="4"/><circle cx="930" cy="300" r="4"/><circle cx="960" cy="300" r="4"/>
+    <circle cx="900" cy="330" r="4"/><circle cx="930" cy="330" r="4"/><circle cx="960" cy="330" r="4"/>
+    <circle cx="900" cy="360" r="4"/><circle cx="930" cy="360" r="4"/><circle cx="960" cy="360" r="4"/>
+  </g>
+
+  <!-- URL -->
+  <text x="80" y="560" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#94a3b8">example.com</text>
+</svg>
