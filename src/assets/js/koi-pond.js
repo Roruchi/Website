@@ -13,6 +13,8 @@
     gold:     '#b48a33',
     indigo:   '#1e293b',
     leaf:     'rgba(45, 60, 50, 0.12)',
+    rain:     'rgba(26, 26, 26, 0.14)',
+    mist:     'rgba(50, 60, 70, 0.06)',
   };
 
   const lerp    = (a, b, n) => (1 - n) * a + n * b;
@@ -46,6 +48,7 @@
 
     let food    = [];
     let ripples = [];
+    let rain    = [];
     let foodId  = 0;
 
     const fish = [
@@ -77,11 +80,32 @@
       const x = clientX - rect.left;
       const y = clientY - rect.top;
       food.push({ x, y, id: foodId++, r: 4 });
-      ripples.push({ x, y,         r: 0, opacity: 0.6 });
-      ripples.push({ x: x + 5, y: y - 5, r: 0, opacity: 0.2 });
+      ripples.push({ x, y, r: 0, opacity: 0.6, growth: 1.6, fade: 0.007 });
+      ripples.push({ x: x + 5, y: y - 5, r: 0, opacity: 0.2, growth: 1.1, fade: 0.006 });
+    }
+
+    var lastPaint = 0;
+    function paintWater(e) {
+      const clientX = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+      const clientY = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : null);
+      if (clientX == null) return;
+      const now = Date.now();
+      if (now - lastPaint < 80) return;
+      lastPaint = now;
+      const rect = canvas.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      ripples.push({ x, y, r: 0, opacity: 0.22, growth: 0.95, fade: 0.005 });
     }
     container.addEventListener('mousedown', dropFood);
     container.addEventListener('touchstart', dropFood, { passive: false });
+    container.addEventListener('mousemove', function(e) {
+      if (e.buttons === 1) paintWater(e);
+    });
+    container.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      paintWater(e);
+    }, { passive: false });
 
     const ctx = canvas.getContext('2d');
 
@@ -102,11 +126,21 @@
 
     function render() {
       const W = canvas.width, H = canvas.height;
+      const t = Date.now();
+      const weather = (Math.sin(t / 9000) + 1) * 0.5;
+      const rainIntensity = Math.max(0, weather - 0.32) * 1.7;
+      const wind = Math.sin(t / 5200) * 0.45;
+
       ctx.fillStyle = CFG.paper;
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(30, 41, 59,' + (0.02 + rainIntensity * 0.1) + ')';
       ctx.fillRect(0, 0, W, H);
 
       // ── Lily pads ──────────────────────────────────────────────────────────
       leaves.forEach(function(leaf) {
+        leaf.x += wind * 0.08;
+        leaf.y += Math.sin(t / 4200 + leaf.angle) * 0.04;
+        leaf.angle += 0.0008 + wind * 0.0005;
         ctx.save();
         ctx.translate(leaf.x % W, leaf.y % H);
         ctx.rotate(leaf.angle);
@@ -118,6 +152,59 @@
         ctx.restore();
       });
 
+      // ── Wave wash ──────────────────────────────────────────────────────────
+      ctx.save();
+      ctx.globalAlpha = 0.12 + rainIntensity * 0.08;
+      ctx.strokeStyle = CFG.mist;
+      ctx.lineWidth = 1;
+      for (var wy = 40; wy < H; wy += 36) {
+        ctx.beginPath();
+        for (var wx = 0; wx <= W + 20; wx += 20) {
+          var wave = Math.sin((wx * 0.018) + (wy * 0.011) + (t / 1200)) * (2 + rainIntensity * 4);
+          if (wx === 0) ctx.moveTo(wx, wy + wave + wind * 2);
+          else ctx.lineTo(wx, wy + wave + wind * 2);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // ── Rain ───────────────────────────────────────────────────────────────
+      var spawns = Math.floor(rainIntensity * 4);
+      for (var s = 0; s < spawns; s++) {
+        rain.push({
+          x: Math.random() * W,
+          y: -10 - Math.random() * 50,
+          vx: wind * 0.8,
+          vy: 4.5 + Math.random() * 2.5 + rainIntensity * 3,
+          len: 6 + Math.random() * 8,
+          life: 1,
+        });
+      }
+
+      rain.forEach(function(drop) {
+        drop.x += drop.vx;
+        drop.y += drop.vy;
+        drop.life -= 0.02;
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x - drop.vx * 2, drop.y - drop.len);
+        ctx.strokeStyle = CFG.rain;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+        if (drop.y > H || drop.life <= 0) {
+          ripples.push({
+            x: (drop.x % W + W) % W,
+            y: H - 1,
+            r: 0,
+            opacity: 0.2 + rainIntensity * 0.22,
+            growth: 0.85 + rainIntensity * 1.2,
+            fade: 0.008,
+          });
+          drop.dead = true;
+        }
+      });
+      rain = rain.filter(function(drop) { return !drop.dead; }).slice(-220);
+
       // ── Ripples ────────────────────────────────────────────────────────────
       ripples.forEach(function(r) {
         ctx.beginPath();
@@ -125,8 +212,8 @@
         ctx.strokeStyle = 'rgba(0,0,0,' + (r.opacity * 0.15) + ')';
         ctx.lineWidth   = 1;
         ctx.stroke();
-        r.r       += 1.4;
-        r.opacity -= 0.007;
+        r.r       += r.growth || 1.4;
+        r.opacity -= r.fade || 0.007;
       });
       ripples = ripples.filter(function(r) { return r.opacity > 0; });
 
@@ -164,7 +251,8 @@
           }
         } else {
           f.angle += Math.sin(Date.now() / 2400 + f.phase) * 0.015;
-          f.speed  = lerp(f.speed, 1.2, 0.02);
+          f.angle += wind * 0.01;
+          f.speed  = lerp(f.speed, 1.15 + rainIntensity * 0.28, 0.02);
         }
 
         f.x += Math.cos(f.angle) * f.speed;
