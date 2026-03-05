@@ -84,7 +84,7 @@
       ripples.push({ x: x + 5, y: y - 5, r: 0, opacity: 0.2, growth: 1.1, fade: 0.006 });
     }
 
-    var lastPaint = 0;
+    let lastPaint = 0;
     function paintWater(e) {
       const clientX = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : null);
       const clientY = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : null);
@@ -157,10 +157,10 @@
       ctx.globalAlpha = 0.12 + rainIntensity * 0.08;
       ctx.strokeStyle = CFG.mist;
       ctx.lineWidth = 1;
-      for (var wy = 40; wy < H; wy += 36) {
+      for (let wy = 40; wy < H; wy += 36) {
         ctx.beginPath();
-        for (var wx = 0; wx <= W + 20; wx += 20) {
-          var wave = Math.sin((wx * 0.018) + (wy * 0.011) + (t / 1200)) * (2 + rainIntensity * 4);
+        for (let wx = 0; wx <= W + 20; wx += 20) {
+          let wave = Math.sin((wx * 0.018) + (wy * 0.011) + (t / 1200)) * (2 + rainIntensity * 4);
           if (wx === 0) ctx.moveTo(wx, wy + wave + wind * 2);
           else ctx.lineTo(wx, wy + wave + wind * 2);
         }
@@ -169,8 +169,9 @@
       ctx.restore();
 
       // ── Rain ───────────────────────────────────────────────────────────────
-      var spawns = Math.floor(rainIntensity * 4);
-      for (var s = 0; s < spawns; s++) {
+      let spawns = Math.floor(rainIntensity * 4);
+      if (rain.length > 0) spawns = Math.min(spawns, Math.max(0, 220 - rain.length));
+      for (let s = 0; s < spawns; s++) {
         rain.push({
           x: Math.random() * W,
           y: -10 - Math.random() * 50,
