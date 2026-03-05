@@ -8,10 +8,10 @@ permalink: /search/index.html
   <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Search</h1>
   <p class="text-xl text-stone-500 mb-10">Search across all posts, talks, and trainings.</p>
 
-  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <link href="{{ '/pagefind/pagefind-ui.css' | url }}" rel="stylesheet">
   <div id="search" class="mb-10"></div>
 
-  <script src="/pagefind/pagefind-ui.js"></script>
+  <script src="{{ '/pagefind/pagefind-ui.js' | url }}"></script>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
       new PagefindUI({

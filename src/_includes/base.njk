@@ -23,7 +23,7 @@
   <meta name="twitter:image" content="{{ site.url }}{{ image or '/assets/images/og-default.svg' }}">
 
   <!-- RSS autodiscovery -->
-  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed/feed.xml' | url }}">
 
   <!-- Fonts: Inter (headings/UI) · Source Serif 4 (body prose) · JetBrains Mono (code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,8 +31,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/prism-tomorrow.css">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | url }}">
+  <link rel="stylesheet" href="{{ '/assets/prism-tomorrow.css' | url }}">
 </head>
 <body class="bg-washi text-stone-900 font-sans antialiased">
 
@@ -43,21 +43,21 @@
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <a href="/" class="text-base font-bold tracking-tight text-stone-900 hover:text-amber-700 transition-colors">
+        <a href="{{ '/' | url }}" class="text-base font-bold tracking-tight text-stone-900 hover:text-amber-700 transition-colors">
           {{ site.title }}
         </a>
 
         <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-1">
-          <a href="/blog/"      class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Blog</a>
-          <a href="/talks/"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Talks</a>
-          <a href="/trainings/" class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Trainings</a>
-          <a href="/about/"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">About</a>
-          <a href="/search/"    class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Search</a>
+          <a href="{{ '/blog/' | url }}"      class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Blog</a>
+          <a href="{{ '/talks/' | url }}"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Talks</a>
+          <a href="{{ '/trainings/' | url }}" class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Trainings</a>
+          <a href="{{ '/about/' | url }}"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">About</a>
+          <a href="{{ '/search/' | url }}"    class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Search</a>
           <a href="{{ site.github }}" target="_blank" rel="noopener" class="ml-2 p-2 text-stone-400 hover:text-stone-900 transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
           </a>
-          <a href="/about/" class="ml-3 px-5 py-2 text-sm font-semibold border border-stone-800 text-stone-900 rounded-full hover:bg-stone-900 hover:text-white transition-all">Contact</a>
+          <a href="{{ '/about/' | url }}" class="ml-3 px-5 py-2 text-sm font-semibold border border-stone-800 text-stone-900 rounded-full hover:bg-stone-900 hover:text-white transition-all">Contact</a>
         </nav>
 
         <!-- Mobile menu button -->
@@ -71,11 +71,11 @@
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100">
       <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="/blog/"      class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Blog</a>
-        <a href="/talks/"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Talks</a>
-        <a href="/trainings/" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Trainings</a>
-        <a href="/about/"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">About</a>
-        <a href="/search/"    class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Search</a>
+        <a href="{{ '/blog/' | url }}"      class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Blog</a>
+        <a href="{{ '/talks/' | url }}"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Talks</a>
+        <a href="{{ '/trainings/' | url }}" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Trainings</a>
+        <a href="{{ '/about/' | url }}"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">About</a>
+        <a href="{{ '/search/' | url }}"    class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Search</a>
       </div>
     </div>
   </header>
@@ -96,10 +96,10 @@
         <div>
           <h3 class="text-white font-semibold mb-3">Navigation</h3>
           <ul class="space-y-2 text-sm">
-            <li><a href="/blog/"      class="hover:text-white transition-colors">Blog</a></li>
-            <li><a href="/talks/"     class="hover:text-white transition-colors">Talks</a></li>
-            <li><a href="/trainings/" class="hover:text-white transition-colors">Trainings</a></li>
-            <li><a href="/about/"     class="hover:text-white transition-colors">About</a></li>
+            <li><a href="{{ '/blog/' | url }}"      class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="{{ '/talks/' | url }}"     class="hover:text-white transition-colors">Talks</a></li>
+            <li><a href="{{ '/trainings/' | url }}" class="hover:text-white transition-colors">Trainings</a></li>
+            <li><a href="{{ '/about/' | url }}"     class="hover:text-white transition-colors">About</a></li>
           </ul>
         </div>
         <div>
@@ -107,7 +107,7 @@
           <ul class="space-y-2 text-sm">
             <li><a href="{{ site.github }}" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
             <li><a href="https://twitter.com/{{ site.twitter }}" target="_blank" rel="noopener" class="hover:text-white transition-colors">Twitter / X</a></li>
-            <li><a href="/feed/feed.xml" class="hover:text-white transition-colors">RSS Feed</a></li>
+            <li><a href="{{ '/feed/feed.xml' | url }}" class="hover:text-white transition-colors">RSS Feed</a></li>
           </ul>
         </div>
       </div>

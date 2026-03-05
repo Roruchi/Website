@@ -24,7 +24,7 @@ eleventyExcludeFromCollections: true
           {%- endfor -%}
         </div>
         <h2 class="text-xl font-bold text-stone-900 group-hover:text-amber-800 transition-colors mb-3 leading-snug">
-          <a href="{{ post.url }}">{{ post.data.title }}</a>
+          <a href="{{ post.url | url }}">{{ post.data.title }}</a>
         </h2>
         <p class="text-stone-500 mb-4 leading-relaxed">{{ post.data.description }}</p>
         <div class="flex items-center gap-4 text-sm text-stone-400">

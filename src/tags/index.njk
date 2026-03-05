@@ -20,7 +20,7 @@ permalink: /tags/index.html
     {%- for post in collections.post -%}
       {%- if tag in post.data.tags -%}{%- set tagCount = tagCount + 1 -%}{%- endif -%}
     {%- endfor -%}
-    <a href="/tags/{{ tag | slug }}/" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-800 font-medium hover:bg-amber-200 transition-colors">
+    <a href="{{ ('/tags/' + (tag | slug) + '/') | url }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-800 font-medium hover:bg-amber-200 transition-colors">
       {{ tag }}
       <span class="text-xs bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded-full">{{ tagCount }}</span>
     </a>
