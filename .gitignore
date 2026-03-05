@@ -1,0 +1,30 @@
+# --- Eleventy specific ---
+# Default output directory (change if you customized 'dir.output' in .eleventy.js)
+_site/
+# Local cache for Eleventy Data Cascade
+.eleventy.cache/
+
+# --- Dependencies ---
+node_modules/
+package-lock.json
+# (Optional: keep lock files if you want deterministic builds across environments)
+
+# --- Environment & Secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Debug & Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Editor Specific ---
+.vscode/
+.idea/
+*.swp

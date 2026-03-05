@@ -7,34 +7,32 @@ tags: []
 eleventyExcludeFromCollections: true
 ---
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <!-- Page header -->
   <div class="mb-12">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">Blog</h1>
-    <p class="text-xl text-slate-500 dark:text-slate-400 max-w-2xl">Articles on platform engineering, TypeScript, developer experience, and software craftsmanship.</p>
+    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Blog</h1>
+    <p class="text-xl text-stone-500 max-w-2xl">Articles on platform engineering, TypeScript, developer experience, and software craftsmanship.</p>
   </div>
 
-  <!-- Posts grid -->
   <div class="grid grid-cols-1 gap-8">
     {%- for post in collections.post | reverse -%}
-    <article class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-violet-300 hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col md:flex-row">
+    <article class="group bg-white rounded-2xl border border-stone-200 hover:border-amber-300 hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col md:flex-row">
       <div class="flex-1 p-8">
         <div class="flex flex-wrap gap-2 mb-3">
           {%- for tag in post.data.tags -%}
           {%- if tag != "post" -%}
-          <span class="text-xs font-medium text-violet-700 bg-violet-100 px-2.5 py-1 rounded-full">{{ tag }}</span>
+          <span class="text-xs font-medium text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full">{{ tag }}</span>
           {%- endif -%}
           {%- endfor -%}
         </div>
-        <h2 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-violet-700 transition-colors mb-3 leading-snug">
+        <h2 class="text-xl font-bold text-stone-900 group-hover:text-amber-800 transition-colors mb-3 leading-snug">
           <a href="{{ post.url }}">{{ post.data.title }}</a>
         </h2>
-        <p class="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">{{ post.data.description }}</p>
-        <div class="flex items-center gap-4 text-sm text-slate-400">
+        <p class="text-stone-500 mb-4 leading-relaxed">{{ post.data.description }}</p>
+        <div class="flex items-center gap-4 text-sm text-stone-400">
           <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
         </div>
       </div>
-      <div class="md:w-48 bg-gradient-to-br from-violet-500 to-violet-700 flex items-center justify-center p-8 md:p-0">
-        <svg class="w-12 h-12 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+      <div class="md:w-48 bg-stone-900 flex items-center justify-center p-8 md:p-0">
+        <svg class="w-12 h-12 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
       </div>
     </article>
     {%- endfor -%}
