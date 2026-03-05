@@ -94,6 +94,17 @@ On `/blog/architecture-with-mermaid/`:
 
 ## Agent Instructions
 
+### Documentation Maintenance
+
+Every contributor and agent **must** keep the following documentation files up to date:
+
+- **[architecture.md](./architecture.md)** — Update when you add/remove/upgrade a dependency or plugin, change the build pipeline or deployment workflow, add a new content type or Eleventy collection, change the source directory structure, or change a design system token.
+- **[requirements.md](./requirements.md)** — Update when you add, change, or remove a user-visible feature or page, change the draft system or navigation behaviour, add/change SEO or accessibility requirements, or change the design system rules.
+
+These documents are the canonical reference for the project's architecture and requirements. Failing to keep them current leaves future contributors and agents without accurate context.
+
+### UI/Style Changes
+
 When an agent completes any task that touches templates or styles, it **must**:
 
 1. Run `npm run build` — fix all errors before marking done
