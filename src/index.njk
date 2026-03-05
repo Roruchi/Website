@@ -40,10 +40,10 @@ description: Software engineer, coach, and speaker mastering the intersection of
         </p>
 
         <div class="flex flex-wrap gap-4">
-          <a href="/talks/" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-7 py-3.5 rounded-full transition-colors shadow-lg shadow-amber-500/20">
+          <a href="{{ '/talks/' | url }}" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-7 py-3.5 rounded-full transition-colors shadow-lg shadow-amber-500/20">
             Invite {{ site.author }} to Speak
           </a>
-          <a href="/blog/" class="inline-flex items-center gap-2 bg-transparent hover:bg-stone-100 text-stone-900 font-semibold px-7 py-3.5 rounded-full border border-stone-300 transition-colors">
+          <a href="{{ '/blog/' | url }}" class="inline-flex items-center gap-2 bg-transparent hover:bg-stone-100 text-stone-900 font-semibold px-7 py-3.5 rounded-full border border-stone-300 transition-colors">
             Read the Blog
           </a>
         </div>
@@ -94,10 +94,10 @@ description: Software engineer, coach, and speaker mastering the intersection of
         <p class="text-stone-500 text-sm mb-4">In-depth articles on platform engineering, TypeScript, and developer experience.</p>
         <ul class="space-y-2 mb-6">
           {%- for post in collections.post | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ post.url }}" class="hover:text-amber-700 transition-colors">{{ post.data.title }}</a></li>
+          <li class="text-sm text-stone-700 truncate">→ <a href="{{ post.url | url }}" class="hover:text-amber-700 transition-colors">{{ post.data.title }}</a></li>
           {%- endfor -%}
         </ul>
-        <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
+        <a href="{{ '/blog/' | url }}" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
           All posts <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -113,10 +113,10 @@ description: Software engineer, coach, and speaker mastering the intersection of
         <p class="text-stone-500 text-sm mb-4">Conference talks and workshops at events like PlatformCon, KubeCon, and TSConf.</p>
         <ul class="space-y-2 mb-6">
           {%- for talk in collections.talk | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ talk.url }}" class="hover:text-amber-700 transition-colors">{{ talk.data.title }}</a></li>
+          <li class="text-sm text-stone-700 truncate">→ <a href="{{ talk.url | url }}" class="hover:text-amber-700 transition-colors">{{ talk.data.title }}</a></li>
           {%- endfor -%}
         </ul>
-        <a href="/talks/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
+        <a href="{{ '/talks/' | url }}" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
           All talks <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -132,10 +132,10 @@ description: Software engineer, coach, and speaker mastering the intersection of
         <p class="text-stone-500 text-sm mb-4">Hands-on workshops for engineering teams on platform engineering and TypeScript.</p>
         <ul class="space-y-2 mb-6">
           {%- for training in collections.training | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ training.url }}" class="hover:text-amber-700 transition-colors">{{ training.data.title }}</a></li>
+          <li class="text-sm text-stone-700 truncate">→ <a href="{{ training.url | url }}" class="hover:text-amber-700 transition-colors">{{ training.data.title }}</a></li>
           {%- endfor -%}
         </ul>
-        <a href="/trainings/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
+        <a href="{{ '/trainings/' | url }}" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
           All workshops <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -152,7 +152,7 @@ description: Software engineer, coach, and speaker mastering the intersection of
         <h2 class="text-3xl font-bold text-stone-900 mb-2">Latest Posts</h2>
         <p class="text-stone-500">Recent thoughts and tutorials.</p>
       </div>
-      <a href="/blog/" class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-stone-700 hover:text-amber-700 transition-colors">
+      <a href="{{ '/blog/' | url }}" class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-stone-700 hover:text-amber-700 transition-colors">
         View all <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
     </div>
@@ -168,7 +168,7 @@ description: Software engineer, coach, and speaker mastering the intersection of
           {%- endfor -%}
         </div>
         <h3 class="font-bold text-stone-900 mb-2 group-hover:text-amber-800 transition-colors leading-snug">
-          <a href="{{ post.url }}">{{ post.data.title }}</a>
+          <a href="{{ post.url | url }}">{{ post.data.title }}</a>
         </h3>
         <p class="text-sm text-stone-500 mb-4 line-clamp-2">{{ post.data.description }}</p>
         <div class="flex items-center text-xs text-stone-400">
@@ -180,4 +180,4 @@ description: Software engineer, coach, and speaker mastering the intersection of
   </div>
 </section>
 
-<script src="/assets/js/koi-pond.js"></script>
+<script src="{{ '/assets/js/koi-pond.js' | url }}"></script>

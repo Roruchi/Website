@@ -2,24 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mermaid diagram container */
+/* ── Zen Garden design tokens ─────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --color-washi:    #f8f6f1;
+    --color-ink:      #1a1a1a;
+    --color-cinnabar: #c2410c;
+    --color-gold:     #b48a33;
+  }
+
+  /* Use Source Serif 4 for long-form prose; Inter for UI */
+  .font-prose, article.prose, .prose {
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
+
+  code, pre, kbd, samp {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ── Components ───────────────────────────────────────────────────────────── */
 @layer components {
   .mermaid {
     @apply flex justify-center my-6;
   }
 }
 
-/* Let Tailwind prose control the code block background; only keep Prism token colors */
+/* ── Koi pond container must fill its parent ─────────────────────────────── */
+#koi-pond-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ── Prism overrides (keep token colors, drop bg) ────────────────────────── */
 pre[class*="language-"] {
   background: transparent !important;
   margin: 0 !important;
 }
 
-/* Prevent inline code prose styles from bleeding into fenced code blocks */
 .prose pre code {
-  background: transparent !important;
-  color: inherit !important;
-  padding: 0 !important;
-  font-size: inherit !important;
+  background:    transparent !important;
+  color:         inherit !important;
+  padding:       0 !important;
+  font-size:     inherit !important;
   border-radius: 0 !important;
 }
