@@ -1,8 +1,11 @@
 {
-  "title": "My Personal Site",
-  "author": "Your Name",
-  "url": "https://example.com",
-  "description": "Software engineer, speaker, and trainer sharing thoughts on platform engineering, TypeScript, and developer experience.",
-  "twitter": "@yourhandle",
-  "github": "https://github.com/yourname"
+  "title": "Roel van Bergen",
+  "author": "Roel van Bergen",
+  "url": "https://roelvanbergen.nl",
+  "description": "Software engineer, coach, speaker, and Zen teacher exploring how technology, leadership, and attention can help people build with more clarity, trust, and care.",
+  "linkedin": "https://www.linkedin.com/in/roelvanbergen/",
+  "sessionize": "https://sessionize.com/roel-van-bergen/",
+  "teamRockstars": "https://www.teamrockstars.nl/",
+  "medium": "https://medium.com/@roel.v.bergen",
+  "github": "https://github.com/Roruchi"
 }

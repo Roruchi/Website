@@ -1,44 +1,81 @@
 ---
 layout: base.njk
-title: Trainings
-description: Hands-on workshops for engineering teams.
+title: Sessions
+description: Areas in which Roel van Bergen can help teams and people develop.
 permalink: /trainings/index.html
+eleventyExcludeFromCollections: true
 ---
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <div class="mb-12">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Trainings</h1>
-    <p class="text-xl text-stone-500 max-w-2xl">Hands-on workshops for engineering teams on platform engineering, TypeScript, and developer experience.</p>
+
+<section class="page-hero workshop-hero">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    <div class="eyebrow mb-6">How I can help</div>
+    <h1>Bring me the question your team keeps circling around.</h1>
+    <p class="page-lead">I work with teams and individuals where technology, attention, and personal development meet. Rather than selling a fixed catalogue, I shape a talk, workshop, or conversation around the change you want to create.</p>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="help-intro">
+    <div class="eyebrow">Areas we can explore</div>
+    <h2>Different entry points, one common thread: helping people work with more intention.</h2>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-    {%- for training in collections.training | reverse -%}
-    <article class="group bg-white rounded-2xl border border-stone-200 hover:border-amber-300 hover:shadow-xl transition-all duration-200 overflow-hidden hover:-translate-y-0.5">
-      <div class="bg-stone-900 p-6">
-        <h2 class="text-lg font-bold text-white leading-snug group-hover:text-stone-200 transition-colors">
-          <a href="{{ training.url }}">{{ training.data.title }}</a>
-        </h2>
-        <div class="flex flex-wrap gap-2 mt-3">
-          <span class="text-xs font-medium text-stone-300 bg-stone-700 px-2.5 py-1 rounded-full">⏱ {{ training.data.duration }}</span>
-          <span class="text-xs font-medium text-stone-300 bg-stone-700 px-2.5 py-1 rounded-full">👥 {{ training.data.audience | truncate(30) }}</span>
-        </div>
-      </div>
-      <div class="p-6">
-        <p class="text-stone-500 text-sm leading-relaxed mb-4">{{ training.data.description }}</p>
-        <a href="{{ training.url }}" class="inline-flex items-center text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors gap-1">
-          View curriculum →
-        </a>
+  <div class="help-area-grid mt-12">
+    <article class="help-area-card">
+      <span>01</span>
+      <div>
+        <p class="pillar-label">Mindful engineering</p>
+        <h3>Better focus, clearer choices, healthier pace.</h3>
+        <p>Explore context switching, cognitive load, craftsmanship, flow, and how engineering teams can create space for deep and meaningful work.</p>
       </div>
     </article>
-    {%- endfor -%}
+    <article class="help-area-card">
+      <span>02</span>
+      <div>
+        <p class="pillar-label">AI integration</p>
+        <h3>Adopt AI without becoming a passenger.</h3>
+        <p>Find a deliberate balance between acceleration and understanding, with attention to ownership, guardrails, mastery, and the human side of adoption.</p>
+      </div>
+    </article>
+    <article class="help-area-card">
+      <span>03</span>
+      <div>
+        <p class="pillar-label">Personal leadership</p>
+        <h3>Lead from awareness rather than perfection.</h3>
+        <p>Work with the inner critic, communicate intention, navigate discomfort, and build the confidence to show up before everything feels polished.</p>
+      </div>
+    </article>
   </div>
+</section>
 
-  <!-- CTA -->
-  <div class="bg-stone-900 rounded-2xl p-8 md:p-12 text-white text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to upskill your team?</h2>
-    <p class="text-stone-400 mb-8 max-w-xl mx-auto">All workshops are available in-person or virtually and can be customised for your team&rsquo;s needs.</p>
-    <a href="/about/" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-3 rounded-full transition-colors shadow-lg">
-      Get in touch
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-    </a>
+<section class="session-feature">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="session-feature-grid">
+      <div>
+        <div class="eyebrow mb-5">Existing session</div>
+        <h2>Working Like a Buddha</h2>
+      </div>
+      <div>
+        <p>A practical session about attention and flow in busy organizations. It translates Zen principles into the ordinary working day without incense, mysticism, or pretending that Slack does not exist.</p>
+        <ul>
+          <li>Recognize when busyness turns into mental thrashing</li>
+          <li>Experiment with focus, slowing down, and single-tasking</li>
+          <li>Leave with practices that can survive a real workweek</li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="workshop-note">
+    <div>
+      <div class="eyebrow mb-4">Start with your context</div>
+      <h2>Not sure whether you need a talk, workshop, or facilitated conversation?</h2>
+    </div>
+    <div>
+      <p>Share what is happening in your team, what feels stuck, or what you want people to see differently. From there, we can discover a useful format together.</p>
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-primary mt-7">Start on LinkedIn</a>
+    </div>
+  </div>
+</section>

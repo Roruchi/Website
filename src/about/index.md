@@ -1,70 +1,68 @@
 ---
 layout: base.njk
-title: About Me
-description: Software engineer, conference speaker, and trainer.
+title: About
+description: "Meet Roel van Bergen: software engineer at Team Rockstars IT, coach, speaker, father, and Zen teacher."
 ---
 
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<section class="page-hero">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    <div class="eyebrow mb-6">About Roel</div>
+    <h1>Engineering is technical work. Great engineering is human work.</h1>
+    <p class="page-lead">I am a software engineer at Team Rockstars IT, coach, speaker, proud father, and Zen teacher. My work explores how strong technology and strong humans can grow together.</p>
+  </div>
+</section>
 
-<!-- Hero -->
-<div class="flex flex-col md:flex-row items-start gap-12 mb-16">
-  <div class="flex-shrink-0">
-    <div class="w-40 h-40 rounded-2xl overflow-hidden shadow-2xl bg-stone-900 flex items-center justify-center ring-4 ring-stone-200">
-      <span class="text-6xl">👨‍💻</span>
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="about-intro">
+    <div class="about-profile-card">
+      <div class="about-seal">
+        <img src="/assets/images/ripple-spark.svg" alt="Ripple Spark, Roel's mark">
+      </div>
+      <div>
+        <div class="eyebrow mb-3">Current work</div>
+        <h2>Software Engineer at Team Rockstars IT</h2>
+        <p>I build software, explore thoughtful AI integration, and help make the decisions, team dynamics, and engineering practices around the code more explicit.</p>
+      </div>
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-primary">Connect on LinkedIn</a>
+    </div>
+
+    <article class="prose prose-stone prose-lg max-w-none about-prose">
+      <p class="lead">I thrive on both creating and connecting. Writing software gives me the joy of solving complex problems; coaching, teaching, and speaking let me work with the human dynamics behind those problems.</p>
+
+      <p>At Team Rockstars IT, I work as a software engineer while developing a broader path around mindful engineering, AI integration, and personal leadership. I am interested in what happens when high-performance code meets high-performance humans, especially when speed and automation begin to challenge ownership, focus, and craft.</p>
+
+      <h2>What guides my work</h2>
+
+      <p>I want technology to make people and teams more capable, not more disconnected. Sometimes that means writing better software. Sometimes it means making architecture decisions explicit, creating shared understanding, or slowing down long enough to see the problem behind the problem.</p>
+
+      <p>For me, good engineering creates clarity and trust. AI can accelerate the work, but it cannot replace judgment, discipline, or care; often, it reveals where those things were missing. Leadership is part of the same practice: creating the conditions in which people can decide, grow, and build together with confidence.</p>
+
+      <h2>Technology with a human centre</h2>
+
+      <p>I am enthusiastic about AI and the opportunities it creates. I am equally interested in what we should not outsource: judgment, curiosity, connection, and the struggle through which mastery develops. My aim is not to slow innovation down, but to help people stay awake and intentional inside it.</p>
+
+      <h2>Learning in public</h2>
+
+      <p>Zen, coaching, engineering, and fatherhood all keep teaching me versions of the same lesson: growth rarely comes from having everything under control. It comes from paying attention, speaking honestly, and being willing to step forward before you feel completely ready.</p>
+
+      <p>This website is where I share that ongoing practice. Some articles are technical, some deeply personal, but all of them ask how we can create meaningful work without losing ourselves in the process.</p>
+    </article>
+  </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <div class="about-life-grid">
+    <div>
+      <span>At work</span>
+      <strong>Software engineering, AI integration, and team dynamics</strong>
+    </div>
+    <div>
+      <span>In practice</span>
+      <strong>Coaching, speaking, personal leadership, and Zen</strong>
+    </div>
+    <div>
+      <span>Off-screen</span>
+      <strong>Fatherhood, board games, cycling, and Lego</strong>
     </div>
   </div>
-  <div class="flex-1">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Hi, I'm Your Name 👋</h1>
-    <p class="text-xl text-stone-600 leading-relaxed mb-6">Software engineer and developer advocate with a passion for building great developer experiences, sharing knowledge, and helping teams work more effectively.</p>
-    <div class="flex flex-wrap gap-3">
-      <a href="mailto:hello@example.com" class="inline-flex items-center gap-2 text-sm font-semibold text-amber-800 bg-amber-100 hover:bg-amber-200 px-4 py-2 rounded-lg transition-colors">✉️ Email me</a>
-      <a href="https://github.com/yourname" class="inline-flex items-center gap-2 text-sm font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded-lg transition-colors">🐙 GitHub</a>
-      <a href="https://linkedin.com/in/yourname" class="inline-flex items-center gap-2 text-sm font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded-lg transition-colors">💼 LinkedIn</a>
-    </div>
-  </div>
-</div>
-
-<!-- Skills -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-  <div class="bg-white rounded-2xl border border-stone-200 p-8">
-    <h2 class="text-2xl font-bold text-stone-900 mb-6">What I Do</h2>
-    <div class="space-y-4">
-      <div class="flex items-start gap-3"><span class="text-2xl">🏗️</span><div><div class="font-semibold text-stone-900">Platform Engineering</div><div class="text-sm text-stone-500">Building internal developer platforms and golden paths</div></div></div>
-      <div class="flex items-start gap-3"><span class="text-2xl">🎤</span><div><div class="font-semibold text-stone-900">Conference Speaking</div><div class="text-sm text-stone-500">Talks at KubeCon, PlatformCon, TSConf and more</div></div></div>
-      <div class="flex items-start gap-3"><span class="text-2xl">🎓</span><div><div class="font-semibold text-stone-900">Training & Workshops</div><div class="text-sm text-stone-500">Hands-on workshops for engineering teams</div></div></div>
-      <div class="flex items-start gap-3"><span class="text-2xl">✍️</span><div><div class="font-semibold text-stone-900">Technical Writing</div><div class="text-sm text-stone-500">In-depth articles on engineering topics</div></div></div>
-    </div>
-  </div>
-  <div class="bg-white rounded-2xl border border-stone-200 p-8">
-    <h2 class="text-2xl font-bold text-stone-900 mb-6">Technologies</h2>
-    <div class="flex flex-wrap gap-2">
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">TypeScript</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">JavaScript</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">Python</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">Go</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">Kubernetes</span>
-      <span class="px-3 py-1.5 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">Azure</span>
-      <span class="px-3 py-1.5 bg-amber-100 text-amber-800 text-sm font-medium rounded-full">AWS</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">Docker</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">GitOps</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">Backstage</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">DevEx</span>
-      <span class="px-3 py-1.5 bg-stone-100 text-stone-700 text-sm font-medium rounded-full">CI/CD</span>
-    </div>
-  </div>
-</div>
-
-<!-- Background prose -->
-  <div class="bg-white rounded-2xl border border-stone-200 p-8 mb-16 prose prose-stone prose-lg max-w-none">
-
-## Background
-
-I've been working in software engineering for over a decade, starting out as a backend developer before moving into platform engineering and developer advocacy. I've worked at both startups and large enterprises, giving me a broad perspective on how teams build and ship software.
-
-I'm particularly interested in the intersection of **developer experience** and **platform engineering** — how the right tools and workflows can make engineers more effective and happier at their jobs.
-
-When I'm not coding, you'll find me hiking, reading, or experimenting with new recipes in the kitchen.
-
-</div>
-
-</div>
+</section>

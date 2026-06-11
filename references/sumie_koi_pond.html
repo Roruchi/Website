@@ -1,0 +1,418 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronRight, Wind, Feather, Droplets, Menu, X, MousePointer2 } from 'lucide-react';
+
+/**
+ * THE ZEN MASTERPIECE REFINEMENTS:
+ * 1. Fixed Feeding: Unified click/touch logic with visual feedback.
+ * 2. Independent Shadow Pass: Shadows now have a blurred, deep-water look without stacking.
+ * 3. Floating Elements: Ink-wash Lily Pads added for environmental depth.
+ * 4. Physics: 30-segment ultra-smooth serpentine movement.
+ */
+
+const POND_CONFIG = {
+  paper: '#f8f6f1',
+  ink: '#1a1a1a',
+  inkShadow: 'rgba(0, 0, 0, 0.03)',
+  cinnabar: '#c2410c',
+  gold: '#b48a33',
+  indigo: '#1e293b',
+  leaf: 'rgba(45, 60, 50, 0.12)'
+};
+
+const lerp = (a, b, n) => (1 - n) * a + n * b;
+const getDist = (p1, p2) => Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
+
+const SumieKoiPond = () => {
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const foodRef = useRef([]);
+  const ripplesRef = useRef([]);
+  const leavesRef = useRef([]);
+  
+  const fishRef = useRef([
+    {
+      x: 200, y: 200, angle: 0,
+      color: POND_CONFIG.ink, accent: POND_CONFIG.cinnabar,
+      size: 38, speed: 1.1, phase: 0,
+      spine: Array(28).fill({x: 200, y: 200}),
+      pattern: 'kohaku'
+    },
+    {
+      x: 600, y: 400, angle: Math.PI,
+      color: POND_CONFIG.indigo, accent: null,
+      size: 45, speed: 0.9, phase: 2.5,
+      spine: Array(32).fill({x: 600, y: 400}),
+      pattern: 'sumi'
+    },
+    {
+      x: 300, y: 600, angle: 2,
+      color: POND_CONFIG.ink, accent: POND_CONFIG.gold,
+      size: 32, speed: 1.4, phase: 5,
+      spine: Array(24).fill({x: 300, y: 600}),
+      pattern: 'ogon'
+    }
+  ]);
+
+  const dropFood = (e) => {
+    // Prevent default to stop scrolling/zooming on mobile taps
+    if (e.type === 'touchstart') e.preventDefault();
+
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    
+    if (clientX === undefined || clientY === undefined) return;
+
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    
+    // Add food item
+    foodRef.current.push({ x, y, id: Date.now(), r: 4 });
+    
+    // Add multiple ripples for a "splatter" effect
+    ripplesRef.current.push({ x, y, r: 0, opacity: 0.6 });
+    ripplesRef.current.push({ x: x + 5, y: y - 5, r: 0, opacity: 0.2 });
+  };
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationId;
+
+    // Generate random lily pads once
+    leavesRef.current = Array.from({ length: 5 }, () => ({
+        x: Math.random() * 1200,
+        y: Math.random() * 1200,
+        r: 40 + Math.random() * 60,
+        angle: Math.random() * Math.PI * 2
+    }));
+
+    const drawKoiFin = (x, y, angle, length, width, opacity, color) => {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(length * 0.4, -width, length, -width * 0.2, length * 1.1, -width * 0.7);
+        ctx.bezierCurveTo(length * 0.8, 0, length * 0.8, 0, length * 1.1, width * 0.7);
+        ctx.bezierCurveTo(length, width * 0.2, length * 0.4, width, 0, 0);
+        ctx.fill();
+        ctx.restore();
+    };
+
+    const render = () => {
+      ctx.fillStyle = POND_CONFIG.paper;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // --- Draw Environmental Leaves (Background) ---
+      leavesRef.current.forEach(leaf => {
+          ctx.save();
+          ctx.translate(leaf.x % canvas.width, leaf.y % canvas.height);
+          ctx.rotate(leaf.angle);
+          ctx.fillStyle = POND_CONFIG.leaf;
+          ctx.beginPath();
+          ctx.arc(0, 0, leaf.r, 0, Math.PI * 1.8);
+          ctx.lineTo(0, 0);
+          ctx.fill();
+          ctx.restore();
+      });
+
+      // --- Ripples ---
+      ripplesRef.current.forEach(r => {
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(0,0,0,${r.opacity * 0.15})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        r.r += 1.4;
+        r.opacity -= 0.007;
+      });
+      ripplesRef.current = ripplesRef.current.filter(r => r.opacity > 0);
+
+      // --- Food ---
+      foodRef.current.forEach(f => {
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fill();
+        // Subtle glow
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,0,0,0.03)';
+        ctx.fill();
+      });
+
+      // --- Fish Pass ---
+      fishRef.current.forEach(fish => {
+        // Target Logic
+        let target = null;
+        let minDist = 600;
+        foodRef.current.forEach(f => {
+          const d = getDist(fish, f);
+          if (d < minDist) { minDist = d; target = f; }
+        });
+
+        if (target) {
+          const targetAngle = Math.atan2(target.y - fish.y, target.x - fish.x);
+          let diff = targetAngle - fish.angle;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          fish.angle += diff * 0.05;
+          fish.speed = lerp(fish.speed, 3.8, 0.05);
+          
+          // EATING: Slightly larger radius for high-speed eating
+          if (minDist < 18) {
+            foodRef.current = foodRef.current.filter(f => f.id !== target.id);
+            // Feeding splash
+            ripplesRef.current.push({ x: fish.x, y: fish.y, r: 0, opacity: 0.4 });
+          }
+        } else {
+          fish.angle += Math.sin(Date.now() / 2400 + fish.phase) * 0.015;
+          fish.speed = lerp(fish.speed, 1.2, 0.02);
+        }
+
+        fish.x += Math.cos(fish.angle) * fish.speed;
+        fish.y += Math.sin(fish.angle) * fish.speed;
+
+        // Wrapping
+        const b = 200;
+        if (fish.x < -b) fish.x = canvas.width + b;
+        if (fish.x > canvas.width + b) fish.x = -b;
+        if (fish.y < -b) fish.y = canvas.height + b;
+        if (fish.y > canvas.height + b) fish.y = -b;
+
+        // Physics Update
+        fish.spine[0] = { x: fish.x, y: fish.y };
+        for (let i = 1; i < fish.spine.length; i++) {
+          const prev = fish.spine[i - 1];
+          const curr = fish.spine[i];
+          const angle = Math.atan2(curr.y - prev.y, curr.x - prev.x);
+          fish.spine[i] = {
+            x: prev.x + Math.cos(angle) * 5.5,
+            y: prev.y + Math.sin(angle) * 5.5
+          };
+        }
+
+        const { spine, color, accent, size, pattern } = fish;
+
+        // --- LAYER 1: Deep Shadows ---
+        ctx.save();
+        ctx.globalAlpha = 0.04;
+        ctx.fillStyle = '#000';
+        const sOff = 18;
+        spine.forEach((seg, i) => {
+            const prog = i / spine.length;
+            const w = i < 4 ? size * (0.6 + i*0.1) : size * (1 - prog * 0.9);
+            ctx.beginPath();
+            ctx.arc(seg.x + sOff, seg.y + sOff, w * 0.75, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        ctx.restore();
+
+        // --- LAYER 2: Fins ---
+        const head = spine[0];
+        const pFinPos = spine[3];
+        const pAngle = Math.atan2(spine[1].y - head.y, spine[1].x - head.x);
+        drawKoiFin(pFinPos.x, pFinPos.y, pAngle + Math.PI/2.4, size * 0.8, size * 0.3, 0.12, color);
+        drawKoiFin(pFinPos.x, pFinPos.y, pAngle - Math.PI/2.4, size * 0.8, -size * 0.3, 0.12, color);
+
+        // --- LAYER 3: The Main Body ---
+        ctx.globalAlpha = 0.85;
+        spine.forEach((seg, i) => {
+          const prog = i / spine.length;
+          const w = i < 4 ? size * (0.6 + i*0.1) : size * (1 - prog * 0.9);
+          ctx.beginPath();
+          ctx.arc(seg.x, seg.y, w * 0.65, 0, Math.PI * 2);
+          
+          if (pattern === 'kohaku' && i > 3 && i < 14) {
+              ctx.fillStyle = i % 4 === 0 ? accent : color;
+          } else if (pattern === 'ogon') {
+              ctx.fillStyle = i < 10 ? accent : color;
+          } else {
+              ctx.fillStyle = color;
+          }
+          ctx.fill();
+        });
+
+        // --- LAYER 4: Dorsal Fin ---
+        ctx.beginPath();
+        ctx.globalAlpha = 0.15;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size * 0.22;
+        ctx.lineCap = 'round';
+        ctx.moveTo(spine[4].x, spine[4].y);
+        for(let i=5; i < Math.floor(spine.length * 0.65); i++) {
+            ctx.lineTo(spine[i].x, spine[i].y);
+        }
+        ctx.stroke();
+
+        // --- LAYER 5: Eyes ---
+        ctx.globalAlpha = 1.0;
+        ctx.fillStyle = '#fff';
+        const eAng = Math.atan2(spine[1].y - head.y, spine[1].x - head.x);
+        ctx.beginPath();
+        ctx.arc(head.x + Math.cos(eAng + 0.42)*size*0.42, head.y + Math.sin(eAng + 0.42)*size*0.42, 1.2, 0, Math.PI*2);
+        ctx.arc(head.x + Math.cos(eAng - 0.42)*size*0.42, head.y + Math.sin(eAng - 0.42)*size*0.42, 1.2, 0, Math.PI*2);
+        ctx.fill();
+      });
+
+      animationId = requestAnimationFrame(render);
+    };
+
+    render();
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current && canvasRef.current) {
+        canvasRef.current.width = containerRef.current.offsetWidth;
+        canvasRef.current.height = containerRef.current.offsetHeight;
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div 
+      ref={containerRef} 
+      className="w-full h-full relative overflow-hidden bg-[#f8f6f1] cursor-crosshair"
+      onMouseDown={dropFood}
+      onTouchStart={dropFood}
+    >
+      <svg className="hidden">
+        <filter id="inkBleed">
+          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
+        </filter>
+      </svg>
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/handmade-paper.png')` }} />
+      <canvas 
+        ref={canvasRef} 
+        className="w-full h-full mix-blend-multiply pointer-events-none" 
+        style={{ filter: 'url(#inkBleed)' }} 
+      />
+    </div>
+  );
+};
+
+export default function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const workshopItems = [
+    { title: "Working Like a Buddha", desc: "Finding flow in corporate environments." },
+    { title: "Leren Vertragen", desc: "The art of slowing down to move faster." },
+    { title: "Mindful Coding", desc: "Intentionality in every line of logic." }
+  ];
+
+  return (
+    <div className="relative min-h-screen bg-[#f8f6f1] text-stone-900 font-serif selection:bg-stone-200 overflow-x-hidden">
+      
+      {/* BACKGROUND POND - Full Bleed */}
+      <div className="fixed inset-0 z-0 opacity-80 lg:opacity-100">
+        <SumieKoiPond />
+      </div>
+
+      {/* Navigation - Glassmorphism */}
+      <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-6 lg:px-16 lg:py-12 bg-white/10 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none transition-all">
+        <div className="group cursor-pointer flex items-center gap-4 pointer-events-auto">
+          <div className="w-12 h-12 rounded-full border border-stone-300 flex items-center justify-center text-xl font-light bg-white/40 shadow-sm">R</div>
+          <div className="hidden sm:block">
+            <p className="text-[10px] font-bold uppercase tracking-[0.4em]">Roel van Bergen</p>
+            <p className="text-[9px] text-stone-400 uppercase tracking-widest mt-0.5">Zen Teacher & Engineer</p>
+          </div>
+        </div>
+        
+        <div className="hidden lg:flex gap-16 text-[11px] font-bold uppercase tracking-[0.4em] text-stone-400 pointer-events-auto">
+          <a href="#" className="hover:text-stone-900 transition-colors">Philosophy</a>
+          <a href="#" className="hover:text-stone-900 transition-colors">Workshops</a>
+          <a href="#" className="hover:text-stone-900 transition-colors">Speaking</a>
+          <button className="px-8 py-3 bg-stone-900 text-white rounded-full text-[9px] hover:bg-stone-800 transition-all shadow-xl shadow-stone-900/10">Contact</button>
+        </div>
+
+        <button className="lg:hidden p-3 rounded-full bg-white/60 border border-stone-200 pointer-events-auto" onClick={() => setIsMenuOpen(true)}>
+            <Menu size={20} />
+        </button>
+      </nav>
+
+      {/* Main Content Overlay */}
+      <main className="relative z-10 pt-32 lg:pt-0 pointer-events-none">
+        <div className="flex flex-col lg:flex-row min-h-screen">
+            
+            {/* Story Side - Ensure text is readable but pond is reachable */}
+            <div className="flex-1 flex flex-col justify-center p-8 lg:p-24">
+                <div className="max-w-2xl animate-in fade-in slide-in-from-bottom-12 duration-1000 pointer-events-auto">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-10 h-[1.5px] bg-amber-600" />
+                        <span className="text-[10px] uppercase tracking-[0.6em] font-bold text-amber-700">Practical Zen</span>
+                    </div>
+                    
+                    <h1 className="text-5xl md:text-7xl lg:text-[9rem] font-light leading-[0.8] tracking-tighter mb-12 drop-shadow-sm select-none">
+                        Slow <span className="italic font-normal text-stone-400">Code.</span> <br/>
+                        Fast <span className="font-bold">Mind.</span>
+                    </h1>
+                    
+                    <div className="bg-white/30 backdrop-blur-xl border border-white/40 p-8 lg:p-12 rounded-[2rem] shadow-2xl shadow-stone-900/5 mb-12 max-w-lg">
+                        <p className="text-lg md:text-xl text-stone-600 leading-relaxed font-light mb-8">
+                            Roel van Bergen bridges the precision of software architecture with the serenity of Zen. 
+                            Helping teams find flow in a world of constant noise.
+                        </p>
+                        
+                        <button className="flex items-center gap-6 group">
+                            <div className="w-14 h-14 rounded-full bg-stone-900 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <ChevronRight size={20} />
+                            </div>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.4em]">The Method</span>
+                        </button>
+                    </div>
+
+                    {/* Workshop Ticker (Desktop only) */}
+                    <div className="hidden lg:grid grid-cols-3 gap-12 border-t border-stone-200 pt-12">
+                        {workshopItems.map(item => (
+                            <div key={item.title} className="group cursor-help">
+                                <p className="text-[9px] font-bold uppercase tracking-[0.4em] text-amber-600 mb-2">{item.title}</p>
+                                <p className="text-[11px] text-stone-400 leading-tight group-hover:text-stone-900 transition-colors">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="hidden lg:block lg:flex-1" />
+        </div>
+      </main>
+
+      {/* Signature Text */}
+      <div className="fixed right-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-6 py-8 pointer-events-none opacity-20">
+        <div className="w-[1px] h-32 bg-stone-900" />
+        <p className="vertical-text text-[9px] font-bold uppercase tracking-[1.5em] text-stone-900 whitespace-nowrap" style={{ writingMode: 'vertical-rl' }}>
+            LEER DENKEN WAT JE WILT DENKEN
+        </p>
+        <div className="w-[1px] h-32 bg-stone-900" />
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-[100] bg-[#f8f6f1] p-12 flex flex-col justify-center items-center gap-10 animate-in fade-in zoom-in duration-300">
+            <button className="absolute top-8 right-8 text-stone-400" onClick={() => setIsMenuOpen(false)}>
+                <X size={32} />
+            </button>
+            <a href="#" className="text-4xl font-light tracking-tighter" onClick={() => setIsMenuOpen(false)}>Philosophy</a>
+            <a href="#" className="text-4xl font-light tracking-tighter" onClick={() => setIsMenuOpen(false)}>Workshops</a>
+            <a href="#" className="text-4xl font-light tracking-tighter" onClick={() => setIsMenuOpen(false)}>Speaking</a>
+            <button className="w-full py-6 bg-stone-900 text-white rounded-[2rem] font-bold uppercase tracking-widest mt-8">Get in Touch</button>
+        </div>
+      )}
+
+      {/* Interaction Hint */}
+      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 opacity-30 animate-bounce pointer-events-none">
+          <MousePointer2 size={12} />
+          <span className="text-[8px] uppercase tracking-[0.6em] font-bold">Feed the Koi</span>
+      </div>
+    </div>
+  );
+}

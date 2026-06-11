@@ -13,12 +13,18 @@ package-lock.json
 .env
 .env.local
 .env.*.local
+.env*
 
 # --- Debug & Logs ---
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .eslintcache
+*.log
+
+# --- Build Artifacts ---
+dist/
+build/
 
 # --- OS Specific ---
 .DS_Store

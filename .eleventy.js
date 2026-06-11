@@ -41,7 +41,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(pluginSitemap, {
     sitemap: {
-      hostname: "https://example.com",
+      hostname: "https://roelvanbergen.nl",
     },
   });
 

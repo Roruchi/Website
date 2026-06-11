@@ -1,181 +1,109 @@
 ---
 layout: base.njk
 title: Home
-description: Software engineer, coach, and speaker mastering the intersection of code, coaching, and zen.
+description: Roel van Bergen writes and speaks about software craft, AI, personal growth, and practical Zen.
 ---
 
-<!-- ══════════════════════════════════════════════════════════════════════════
-     HERO — Full-viewport Sumi-e Koi Pond with text overlay
-     ══════════════════════════════════════════════════════════════════════════ -->
-<section class="relative min-h-[90vh] overflow-hidden bg-washi">
-
-  <!-- Koi pond canvas fills the full section (click/tap to feed the fish) -->
-  <div id="koi-pond-container" class="absolute inset-0"></div>
-
-  <!-- "Feed the Koi" hint -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 opacity-30 pointer-events-none animate-bounce select-none">
-    <svg class="w-3 h-3 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
-    <span class="text-[9px] uppercase tracking-[0.6em] font-bold text-stone-700">Feed the Koi</span>
-  </div>
-
-  <!-- Text overlay — left half of viewport -->
-  <div class="relative z-10 min-h-[90vh] flex items-center pointer-events-none">
-    <div class="max-w-6xl mx-auto px-8 sm:px-12 lg:px-24 w-full">
-      <div class="max-w-lg lg:max-w-xl pointer-events-auto">
-
-        <!-- Eyebrow line -->
-        <div class="flex items-center gap-3 mb-8">
-          <div class="w-8 h-px bg-amber-600"></div>
-          <span class="text-[10px] uppercase tracking-[0.5em] font-bold text-amber-700">Practical Zen</span>
-        </div>
-
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tighter mb-8 text-stone-900">
-          Mastering the intersection of
-          <span class="block mt-1">Code, Coaching,</span>
-          <span class="block mt-2 font-light italic text-stone-500">and Zen</span>
-        </h1>
-
-        <p class="text-lg text-stone-600 mb-10 leading-relaxed">
-          {{ site.author }} is a software engineer, coach, and speaker — bridging technical precision with human insight.
-        </p>
-
-        <div class="flex flex-wrap gap-4">
-          <a href="/talks/" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-7 py-3.5 rounded-full transition-colors shadow-lg shadow-amber-500/20">
-            Invite {{ site.author }} to Speak
-          </a>
-          <a href="/blog/" class="inline-flex items-center gap-2 bg-transparent hover:bg-stone-100 text-stone-900 font-semibold px-7 py-3.5 rounded-full border border-stone-300 transition-colors">
-            Read the Blog
-          </a>
-        </div>
-
+<section class="hero-pond">
+  <div id="koi-pond-container" aria-hidden="true"></div>
+  <div class="hero-paper"></div>
+  <div class="hero-content relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 min-h-[88vh] flex items-center">
+    <div class="max-w-3xl py-24">
+      <div class="eyebrow mb-8">Practical Zen for the augmented age</div>
+      <h1 class="hero-title">
+        High-performance code.<br>
+        <span>Fully human work.</span>
+      </h1>
+      <p class="hero-copy">
+        I am Roel van Bergen, a software engineer, coach, speaker, and Zen teacher. I build and explore technology that helps people work with more clarity, trust, and capability without losing craft, attention, or one another.
+      </p>
+      <div class="flex flex-wrap gap-3 mt-10">
+        <a href="/blog/" class="button-primary">Enter the writing garden</a>
+        <a href="/talks/" class="button-secondary">Explore speaking topics</a>
       </div>
+      <p class="interaction-hint">Click or tap the pond to feed the koi.</p>
     </div>
   </div>
 </section>
 
-<!-- ── Stats Bar ─────────────────────────────────────────────────────────── -->
-<section class="bg-white border-y border-stone-100 shadow-sm">
-  <div class="max-w-6xl mx-auto px-4 py-8">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="section-intro">
+    <div class="eyebrow">Three connected paths</div>
+    <h2>The engine, the inner voice, and the space between.</h2>
+    <p>My work lives where engineering practice meets human attention. Software is a human system before it is a technical one, and each shapes how the other can grow.</p>
+  </div>
+
+  <div class="pillar-grid mt-12">
+    <article class="pillar-card pillar-engineering">
+      <span class="pillar-number">01</span>
       <div>
-        <div class="text-3xl font-bold text-stone-900">{{ collections.post | length }}</div>
-        <div class="text-sm text-stone-400 mt-1">Blog Posts</div>
+        <p class="pillar-label">Engineering</p>
+        <h3>The engine</h3>
+        <p>Software craftsmanship, explicit architecture, humane AI collaboration, and the engineering discipline that turns speed into dependable progress.</p>
       </div>
+    </article>
+    <article class="pillar-card pillar-coaching">
+      <span class="pillar-number">02</span>
       <div>
-        <div class="text-3xl font-bold text-amber-600">{{ collections.talk | length }}</div>
-        <div class="text-sm text-stone-400 mt-1">Talks Given</div>
+        <p class="pillar-label">Coaching</p>
+        <h3>The inner voice</h3>
+        <p>Perfectionism, self-compassion, sustainable performance, and learning to work with the critic rather than beneath it.</p>
       </div>
+    </article>
+    <article class="pillar-card pillar-zen">
+      <span class="pillar-number">03</span>
       <div>
-        <div class="text-3xl font-bold text-stone-900">{{ collections.training | length }}</div>
-        <div class="text-sm text-stone-400 mt-1">Workshops</div>
+        <p class="pillar-label">Zen</p>
+        <h3>The presence</h3>
+        <p>Attention as a practical skill: slowing down enough to see clearly, choose deliberately, and become one with what you do.</p>
       </div>
-      <div>
-        <div class="text-3xl font-bold text-amber-600">10+</div>
-        <div class="text-sm text-stone-400 mt-1">Years Experience</div>
-      </div>
-    </div>
+    </article>
   </div>
 </section>
 
-<!-- ── What I Do ─────────────────────────────────────────────────────────── -->
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-  <h2 class="text-3xl font-bold text-stone-900 mb-2">What I Do</h2>
-  <p class="text-stone-500 mb-12">Sharing knowledge through writing, speaking, and hands-on training.</p>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-    <!-- Blog Card -->
-    <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-stone-100 hover:border-amber-200 hover:-translate-y-1">
-      <div class="bg-stone-900 p-6">
-        <div class="text-4xl mb-2">✍️</div>
-        <h3 class="text-xl font-bold text-white">Blog</h3>
+<section class="ink-section">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div class="section-intro section-intro-light">
+        <div class="eyebrow">Fresh from the garden</div>
+        <h2>Latest writing</h2>
       </div>
-      <div class="p-6">
-        <p class="text-stone-500 text-sm mb-4">In-depth articles on platform engineering, TypeScript, and developer experience.</p>
-        <ul class="space-y-2 mb-6">
-          {%- for post in collections.post | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ post.url }}" class="hover:text-amber-700 transition-colors">{{ post.data.title }}</a></li>
-          {%- endfor -%}
-        </ul>
-        <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
-          All posts <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-      </div>
+      <a href="/blog/" class="text-link text-stone-300">View all {{ collections.post | length }} articles</a>
     </div>
 
-    <!-- Talks Card -->
-    <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-stone-100 hover:border-amber-200 hover:-translate-y-1">
-      <div class="bg-amber-600 p-6">
-        <div class="text-4xl mb-2">🎤</div>
-        <h3 class="text-xl font-bold text-white">Talks</h3>
-      </div>
-      <div class="p-6">
-        <p class="text-stone-500 text-sm mb-4">Conference talks and workshops at events like PlatformCon, KubeCon, and TSConf.</p>
-        <ul class="space-y-2 mb-6">
-          {%- for talk in collections.talk | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ talk.url }}" class="hover:text-amber-700 transition-colors">{{ talk.data.title }}</a></li>
-          {%- endfor -%}
-        </ul>
-        <a href="/talks/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
-          All talks <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Trainings Card -->
-    <div class="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-stone-100 hover:border-amber-200 hover:-translate-y-1">
-      <div class="bg-stone-700 p-6">
-        <div class="text-4xl mb-2">🎓</div>
-        <h3 class="text-xl font-bold text-white">Trainings</h3>
-      </div>
-      <div class="p-6">
-        <p class="text-stone-500 text-sm mb-4">Hands-on workshops for engineering teams on platform engineering and TypeScript.</p>
-        <ul class="space-y-2 mb-6">
-          {%- for training in collections.training | reverse | head(3) -%}
-          <li class="text-sm text-stone-700 truncate">→ <a href="{{ training.url }}" class="hover:text-amber-700 transition-colors">{{ training.data.title }}</a></li>
-          {%- endfor -%}
-        </ul>
-        <a href="/trainings/" class="inline-flex items-center text-sm font-semibold text-stone-900 hover:text-amber-700 transition-colors gap-1">
-          All workshops <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Latest Posts ───────────────────────────────────────────────────────── -->
-<section class="bg-white border-y border-stone-100 py-20">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between mb-12">
-      <div>
-        <h2 class="text-3xl font-bold text-stone-900 mb-2">Latest Posts</h2>
-        <p class="text-stone-500">Recent thoughts and tutorials.</p>
-      </div>
-      <a href="/blog/" class="hidden md:inline-flex items-center gap-1 text-sm font-semibold text-stone-700 hover:text-amber-700 transition-colors">
-        View all <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="featured-post-grid">
       {%- for post in collections.post | reverse | head(3) -%}
-      <article class="group bg-washi hover:bg-white rounded-xl p-6 border border-stone-200 hover:border-amber-200 hover:shadow-md transition-all duration-200">
-        <div class="flex flex-wrap gap-2 mb-3">
-          {%- for tag in post.data.tags -%}
-          {%- if tag != "post" -%}
-          <span class="text-xs font-medium text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">{{ tag }}</span>
-          {%- endif -%}
-          {%- endfor -%}
-        </div>
-        <h3 class="font-bold text-stone-900 mb-2 group-hover:text-amber-800 transition-colors leading-snug">
-          <a href="{{ post.url }}">{{ post.data.title }}</a>
-        </h3>
-        <p class="text-sm text-stone-500 mb-4 line-clamp-2">{{ post.data.description }}</p>
-        <div class="flex items-center text-xs text-stone-400">
-          <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+      <article class="featured-post">
+        <a href="{{ post.url }}" class="featured-image">
+          <img src="{{ post.data.cover }}" alt="" loading="lazy">
+        </a>
+        <div class="featured-body">
+          <div class="post-meta">
+            <span>{{ post.data.pillar }}</span>
+            <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+          </div>
+          <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+          <p>{{ post.data.description }}</p>
+          <a href="{{ post.url }}" class="text-link">Continue reading</a>
         </div>
       </article>
       {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="invitation-panel">
+    <div>
+      <div class="eyebrow mb-5">Bring the conversation into the room</div>
+      <h2>Speaking and workshops for teams navigating speed, craft, and humanity.</h2>
+    </div>
+    <div>
+      <p>I turn these ideas into practical talks and reflective sessions that help engineering teams build shared clarity, make better decisions, and work together with confidence.</p>
+      <div class="flex flex-wrap gap-3 mt-7">
+        <a href="/talks/" class="button-primary">Speaking topics</a>
+        <a href="/trainings/" class="button-secondary">How I can help</a>
+      </div>
     </div>
   </div>
 </section>

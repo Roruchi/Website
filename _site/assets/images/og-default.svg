@@ -1,39 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e1b4b;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#4c1d95;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#fbf9f4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8ddc5;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
-    </linearGradient>
+    <filter id="bleed"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/></filter>
   </defs>
 
-  <!-- Background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- Decorative circles -->
-  <circle cx="1100" cy="80" r="200" fill="#7c3aed" fill-opacity="0.15"/>
-  <circle cx="100" cy="550" r="150" fill="#0891b2" fill-opacity="0.1"/>
-
-  <!-- Accent bar -->
-  <rect x="80" y="480" width="200" height="6" rx="3" fill="url(#accent)"/>
-
-  <!-- Site title -->
-  <text x="80" y="200" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="800" fill="white">My Personal Site</text>
-
-  <!-- Tagline -->
-  <text x="80" y="270" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="400" fill="#c4b5fd">Software engineer · Speaker · Trainer</text>
-
-  <!-- Decorative dots pattern -->
-  <g fill="#7c3aed" fill-opacity="0.3">
-    <circle cx="900" cy="300" r="4"/><circle cx="930" cy="300" r="4"/><circle cx="960" cy="300" r="4"/>
-    <circle cx="900" cy="330" r="4"/><circle cx="930" cy="330" r="4"/><circle cx="960" cy="330" r="4"/>
-    <circle cx="900" cy="360" r="4"/><circle cx="930" cy="360" r="4"/><circle cx="960" cy="360" r="4"/>
+  <g opacity="0.12" fill="#465448">
+    <circle cx="1010" cy="110" r="150"/>
+    <circle cx="1110" cy="520" r="220"/>
   </g>
-
-  <!-- URL -->
-  <text x="80" y="560" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#94a3b8">example.com</text>
+  <g filter="url(#bleed)">
+    <path d="M910 190 C1000 110 1110 180 1090 275 C1070 365 940 350 900 430 C860 510 760 470 800 370 C835 285 840 250 910 190Z" fill="#191815" opacity="0.78"/>
+    <path d="M970 225 C1015 205 1050 235 1030 270 C1010 305 955 295 935 330" fill="none" stroke="#c2410c" stroke-width="24" stroke-linecap="round"/>
+  </g>
+  <rect x="78" y="108" width="46" height="4" fill="#c2410c"/>
+  <text x="78" y="185" font-family="Inter, sans-serif" font-size="68" font-weight="800" fill="#191815">Roel van Bergen</text>
+  <text x="78" y="250" font-family="Georgia, serif" font-size="37" font-style="italic" fill="#57534e">Code with care. Grow with attention.</text>
+  <text x="78" y="530" font-family="Inter, sans-serif" font-size="20" letter-spacing="5" fill="#9a3412">ENGINEERING  COACHING  ZEN</text>
+  <text x="78" y="575" font-family="Inter, sans-serif" font-size="18" fill="#78716c">roelvanbergen.nl</text>
 </svg>

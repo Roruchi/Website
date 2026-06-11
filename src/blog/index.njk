@@ -1,40 +1,38 @@
 ---
 layout: base.njk
-title: Blog
-description: Articles on platform engineering, TypeScript, developer experience, and software craftsmanship.
+title: Writing
+description: Articles on engineering, AI, leadership, human growth, and the practices that help people build with clarity and care.
 permalink: /blog/index.html
 tags: []
 eleventyExcludeFromCollections: true
 ---
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <div class="mb-12">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Blog</h1>
-    <p class="text-xl text-stone-500 max-w-2xl">Articles on platform engineering, TypeScript, developer experience, and software craftsmanship.</p>
-  </div>
 
-  <div class="grid grid-cols-1 gap-8">
+<section class="page-hero">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    <div class="eyebrow mb-6">The writing garden</div>
+    <h1>Notes from the intersection of code and consciousness.</h1>
+    <p class="page-lead">I write about engineering, AI, leadership, and human growth: how disciplined technology and honest attention can help people make better decisions and do better work together.</p>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="blog-grid">
     {%- for post in collections.post | reverse -%}
-    <article class="group bg-white rounded-2xl border border-stone-200 hover:border-amber-300 hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col md:flex-row">
-      <div class="flex-1 p-8">
-        <div class="flex flex-wrap gap-2 mb-3">
-          {%- for tag in post.data.tags -%}
-          {%- if tag != "post" -%}
-          <span class="text-xs font-medium text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full">{{ tag }}</span>
-          {%- endif -%}
-          {%- endfor -%}
+    <article class="blog-card">
+      <a href="{{ post.url }}" class="blog-card-image">
+        <img src="{{ post.data.cover }}" alt="" loading="lazy">
+        <span>{{ post.data.pillar }}</span>
+      </a>
+      <div class="blog-card-body">
+        <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+        <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+        <p>{{ post.data.description }}</p>
+        <div class="blog-card-footer">
+          <a href="{{ post.url }}" class="text-link">Continue reading</a>
+          <span>{{ post.templateContent | readingTime }}</span>
         </div>
-        <h2 class="text-xl font-bold text-stone-900 group-hover:text-amber-800 transition-colors mb-3 leading-snug">
-          <a href="{{ post.url }}">{{ post.data.title }}</a>
-        </h2>
-        <p class="text-stone-500 mb-4 leading-relaxed">{{ post.data.description }}</p>
-        <div class="flex items-center gap-4 text-sm text-stone-400">
-          <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
-        </div>
-      </div>
-      <div class="md:w-48 bg-stone-900 flex items-center justify-center p-8 md:p-0">
-        <svg class="w-12 h-12 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
       </div>
     </article>
     {%- endfor -%}
   </div>
-</div>
+</section>

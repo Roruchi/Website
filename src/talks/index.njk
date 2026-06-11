@@ -1,61 +1,93 @@
 ---
 layout: base.njk
-title: Talks
-description: Conference talks and workshops on platform engineering, TypeScript, and developer experience.
+title: Speaking
+description: Talks by Roel van Bergen about agentic engineering, AI orchestration, mindfulness, and sustainable software development.
 permalink: /talks/index.html
+eleventyExcludeFromCollections: true
 ---
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <div class="mb-12">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Talks</h1>
-    <p class="text-xl text-stone-500 max-w-2xl">Conference talks and workshops on platform engineering, TypeScript, and developer experience.</p>
-  </div>
 
-  <!-- Timeline -->
-  <div class="relative">
-    <div class="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-stone-200"></div>
-    <div class="space-y-8">
-      {%- for talk in collections.talk | reverse -%}
-      <div class="relative pl-12 md:pl-20">
-        <!-- Timeline dot -->
-        <div class="absolute left-2 md:left-6 top-6 w-4 h-4 rounded-full bg-amber-500 border-4 border-white shadow-sm ring-2 ring-amber-200"></div>
-
-        <article class="group bg-white rounded-2xl border border-stone-200 hover:border-amber-300 hover:shadow-lg transition-all duration-200 p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
-            <div>
-              <h2 class="text-lg font-bold text-stone-900 group-hover:text-amber-800 transition-colors leading-snug">
-                <a href="{{ talk.url }}">{{ talk.data.title }}</a>
-              </h2>
-            </div>
-            <div class="flex-shrink-0 flex flex-wrap gap-2">
-              <span class="inline-flex items-center text-xs font-medium text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full whitespace-nowrap">
-                🏛️ {{ talk.data.event }}
-              </span>
-              <span class="inline-flex items-center text-xs font-medium text-stone-600 bg-stone-100 px-2.5 py-1 rounded-full whitespace-nowrap">
-                📅 {{ talk.data.date }}
-              </span>
-            </div>
-          </div>
-          <p class="text-stone-500 text-sm leading-relaxed mb-4">{{ talk.data.description }}</p>
-          <div class="flex gap-3">
-            {%- if talk.data.slides -%}
-            <a href="{{ talk.data.slides }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition-colors">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
-              Slides
-            </a>
-            {%- endif -%}
-            {%- if talk.data.video -%}
-            <a href="{{ talk.data.video }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-lg transition-colors">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Watch
-            </a>
-            {%- endif -%}
-            <a href="{{ talk.url }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-stone-800 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition-colors">
-              Details →
-            </a>
-          </div>
-        </article>
-      </div>
-      {%- endfor -%}
+<section class="page-hero speaking-hero">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    <div class="eyebrow mb-6">Talks and conference sessions</div>
+    <h1>Making complex technology more explicit, practical, and human.</h1>
+    <p class="page-lead">I speak about agentic software engineering, multi-agent systems, and attention under pressure. The technical and reflective topics share one aim: helping people create clarity, retain judgment, and work together with more confidence.</p>
+    <div class="flex flex-wrap gap-3 mt-9">
+      <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-primary">View my Sessionize profile</a>
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-secondary">Connect on LinkedIn</a>
     </div>
   </div>
-</div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="section-intro mb-10">
+    <div class="eyebrow">Featured talk</div>
+    <h2>A practical model for agentic engineering.</h2>
+  </div>
+
+  <article class="talk-feature">
+    <div class="talk-feature-meta">
+      <span class="talk-status talk-status-presented">Presented</span>
+      <span>Advanced · AI-assisted development</span>
+    </div>
+    <div>
+      <p class="pillar-label">Engineering Triad</p>
+      <h2>The Agentic Developer</h2>
+      <p class="talk-subtitle">Stop with Vibe Coding and Master the Engineering Triad</p>
+      <p class="talk-alternate-title">Also presented as <strong>The Agentic Engineer: Making Implicit Engineering Explicit</strong>. These are two titles for the same session.</p>
+      <p>Generated code is not delivered work. This talk introduces a practical model for making agent contributions reliable, observable, and safe by making three parts of engineering explicit: intent, context, and execution.</p>
+      <p>Using a password-reset flow as a running example, the session moves from vague prompting to durable specifications, BDD scenarios, repository rules, focused agent roles, validation gates, and human acceptance.</p>
+      <p class="topic-outcome">Audience takeaway: when execution becomes cheap, clarity becomes the engineering bottleneck. Do not only fix an agent's output; improve the environment that produced it.</p>
+    </div>
+  </article>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+  <div class="section-intro mb-10">
+    <div class="eyebrow">Conference talks</div>
+    <h2>Developed, presented, and ready for a new audience.</h2>
+    <p>These sessions have already been given at conferences and communities. They can be adapted to the room while keeping their practical core.</p>
+  </div>
+
+  <div class="topic-list">
+    <article class="topic-card">
+      <span class="topic-index">01</span>
+      <div>
+        <div class="talk-card-meta">
+          <span class="talk-status">Presented</span>
+          <span>Advanced · Multi-agent systems</span>
+        </div>
+        <h2>Orchestrating a Game Dev Team Using Microsoft Agent Framework</h2>
+        <p>What happens when I want to build a game but do not have a studio? I build the studio from AI agents. This practical case follows specialised Game Designer, Developer, QA, Producer, and Reviewer agents working on one product.</p>
+        <p class="topic-outcome">Takeaway: design clear roles, shared artifacts, review gates, and stop criteria so multi-agent speed does not become multi-agent chaos, and understand where the human engineer remains indispensable.</p>
+      </div>
+    </article>
+    <article class="topic-card">
+      <span class="topic-index">02</span>
+      <div>
+        <div class="talk-card-meta">
+          <span class="talk-status">Presented</span>
+          <span>Beginner · Mindfulness for developers</span>
+        </div>
+        <h2>Working Like a Buddha: Less Stress, More Joy</h2>
+        <p>Software developers move constantly between code, chat, meetings, reviews, incidents, and production. This down-to-earth session translates Buddhist principles such as attention, simplicity, and presence into ordinary engineering work, without incense or vague promises.</p>
+        <p class="topic-outcome">Takeaway: recognise the cost of context switching and use small, practical habits to bring more focus, calm, and enjoyment to coding, reviews, meetings, and incidents.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <div class="invitation-panel">
+    <div>
+      <div class="eyebrow mb-5">Invite me to speak</div>
+      <h2>Conference, meetup, or an engineering team that wants to go deeper.</h2>
+    </div>
+    <div>
+      <p>The sessions can be adapted to the audience, time slot, and technical depth. Each one connects concrete engineering practice with the human conditions needed to make it work. My Sessionize profile contains the current talk information; LinkedIn is the easiest place to start a conversation.</p>
+      <div class="flex flex-wrap gap-3 mt-7">
+        <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-primary">Open Sessionize</a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-secondary">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -6,158 +6,128 @@
   <title>{{ title }} | {{ site.title }}</title>
   <meta name="description" content="{{ description or site.description }}">
 
-  <!-- Open Graph -->
   <meta property="og:title" content="{{ title }} | {{ site.title }}">
   <meta property="og:description" content="{{ description or site.description }}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{% if tags and 'post' in tags %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}{{ image or '/assets/images/og-default.svg' }}">
+  <meta property="og:image" content="{{ site.url }}/assets/images/og-default.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="{{ site.twitter }}">
   <meta name="twitter:title" content="{{ title }} | {{ site.title }}">
   <meta name="twitter:description" content="{{ description or site.description }}">
-  <meta name="twitter:image" content="{{ site.url }}{{ image or '/assets/images/og-default.svg' }}">
+  <meta name="twitter:image" content="{{ site.url }}/assets/images/og-default.svg">
 
-  <!-- RSS autodiscovery -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed/feed.xml">
-
-  <!-- Fonts: Inter (headings/UI) · Source Serif 4 (body prose) · JetBrains Mono (code) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/prism-tomorrow.css">
 </head>
 <body class="bg-washi text-stone-900 font-sans antialiased">
+  <div id="progress-bar" class="fixed top-0 left-0 h-0.5 z-[60] bg-amber-600 transition-all duration-75" style="width: 0%"></div>
 
-<!-- Reading progress bar -->
-<div id="progress-bar" class="fixed top-0 left-0 h-0.5 z-[60] bg-amber-500 transition-all duration-75" style="width: 0%"></div>
-
-  <!-- Navigation -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
+  <header class="site-header sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <a href="/" class="text-base font-bold tracking-tight text-stone-900 hover:text-amber-700 transition-colors">
-          {{ site.title }}
+        <a href="/" class="brand-mark" aria-label="{{ site.title }} home">
+          <span class="brand-seal" aria-hidden="true">
+            <img src="/assets/images/ripple-spark.svg" alt="">
+          </span>
+          <span>
+            <strong>{{ site.author }}</strong>
+            <small>Engineer, coach, zen teacher</small>
+          </span>
         </a>
 
-        <!-- Desktop nav -->
-        <nav class="hidden md:flex items-center gap-1">
-          <a href="/blog/"      class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Blog</a>
-          <a href="/talks/"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Talks</a>
-          <a href="/trainings/" class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Trainings</a>
-          <a href="/about/"     class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">About</a>
-          <a href="/search/"    class="px-3 py-2 text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">Search</a>
-          <a href="{{ site.github }}" target="_blank" rel="noopener" class="ml-2 p-2 text-stone-400 hover:text-stone-900 transition-colors">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.92.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-          </a>
-          <a href="/about/" class="ml-3 px-5 py-2 text-sm font-semibold border border-stone-800 text-stone-900 rounded-full hover:bg-stone-900 hover:text-white transition-all">Contact</a>
+        <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          <a href="/blog/" class="nav-link">Writing</a>
+          <a href="/talks/" class="nav-link">Speaking</a>
+          <a href="/trainings/" class="nav-link">How I help</a>
+          <a href="/about/" class="nav-link">About</a>
+          <a href="/search/" class="nav-link">Search</a>
+          <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="nav-cta">LinkedIn</a>
         </nav>
 
-        <!-- Mobile menu button -->
-        <button id="menu-toggle" class="md:hidden p-2 rounded-md text-stone-500 hover:text-stone-900 hover:bg-stone-100 transition-colors" aria-label="Toggle menu">
-          <svg id="menu-icon-open"  class="w-6 h-6"        fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <button id="menu-toggle" class="md:hidden p-2 text-stone-700" aria-label="Toggle menu" aria-expanded="false">
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
     </div>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-stone-100">
-      <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href="/blog/"      class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Blog</a>
-        <a href="/talks/"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Talks</a>
-        <a href="/trainings/" class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Trainings</a>
-        <a href="/about/"     class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">About</a>
-        <a href="/search/"    class="block px-3 py-2 rounded-md text-base font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors">Search</a>
-      </div>
+    <div id="mobile-menu" class="hidden md:hidden mobile-menu">
+      <nav class="px-4 py-4 grid gap-1" aria-label="Mobile navigation">
+        <a href="/blog/" class="mobile-nav-link">Writing</a>
+        <a href="/talks/" class="mobile-nav-link">Speaking</a>
+        <a href="/trainings/" class="mobile-nav-link">How I help</a>
+        <a href="/about/" class="mobile-nav-link">About</a>
+        <a href="/search/" class="mobile-nav-link">Search</a>
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="mobile-nav-link text-amber-800">LinkedIn</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Main content -->
   <main class="min-h-screen">
-    {{ content | safe }}
+{{ content | safe }}
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-stone-900 text-stone-400 mt-20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <footer class="site-footer">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
-          <h3 class="text-white font-semibold mb-3">{{ site.title }}</h3>
-          <p class="text-sm leading-relaxed">{{ site.description }}</p>
+          <div class="eyebrow mb-4">The digital zen garden</div>
+          <h2 class="text-2xl font-semibold text-stone-100 mb-3">Build with clarity. Lead with care.</h2>
+          <p class="text-sm text-stone-400 leading-relaxed">{{ site.description }}</p>
         </div>
         <div>
-          <h3 class="text-white font-semibold mb-3">Navigation</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/blog/"      class="hover:text-white transition-colors">Blog</a></li>
-            <li><a href="/talks/"     class="hover:text-white transition-colors">Talks</a></li>
-            <li><a href="/trainings/" class="hover:text-white transition-colors">Trainings</a></li>
-            <li><a href="/about/"     class="hover:text-white transition-colors">About</a></li>
-          </ul>
+          <h3 class="footer-heading">Explore</h3>
+          <div class="grid gap-2 text-sm">
+            <a href="/blog/">Writing</a>
+            <a href="/talks/">Speaking</a>
+            <a href="/trainings/">How I help</a>
+            <a href="/about/">About Roel</a>
+          </div>
         </div>
         <div>
-          <h3 class="text-white font-semibold mb-3">Connect</h3>
-          <ul class="space-y-2 text-sm">
-            <li><a href="{{ site.github }}" target="_blank" rel="noopener" class="hover:text-white transition-colors">GitHub</a></li>
-            <li><a href="https://twitter.com/{{ site.twitter }}" target="_blank" rel="noopener" class="hover:text-white transition-colors">Twitter / X</a></li>
-            <li><a href="/feed/feed.xml" class="hover:text-white transition-colors">RSS Feed</a></li>
-          </ul>
+          <h3 class="footer-heading">Connect</h3>
+          <div class="grid gap-2 text-sm">
+            <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="{{ site.sessionize }}" target="_blank" rel="noopener">Sessionize</a>
+            <a href="{{ site.teamRockstars }}" target="_blank" rel="noopener">Team Rockstars IT</a>
+            <a href="{{ site.medium }}" target="_blank" rel="noopener">Medium</a>
+            <a href="{{ site.github }}" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
       </div>
-      <div class="border-t border-stone-800 mt-8 pt-8 text-sm text-center">
-        &copy; {{ site.author }} 2025. Built with <a href="https://www.11ty.dev" class="hover:text-white transition-colors">Eleventy</a>.
+      <div class="border-t border-stone-800 mt-10 pt-6 text-xs text-stone-500 flex flex-wrap justify-between gap-3">
+        <span>&copy; {{ site.author }} 2026</span>
+        <span>Technology should leave people more capable and connected.</span>
       </div>
     </div>
   </footer>
 
-  <!-- Reading progress -->
   <script>
     var bar = document.getElementById('progress-bar');
-    if (bar) {
-      window.addEventListener('scroll', function() {
-        var doc = document.documentElement;
-        var scrolled = doc.scrollTop || document.body.scrollTop;
-        var total = doc.scrollHeight - doc.clientHeight;
-        bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
-      }, { passive: true });
-    }
-  </script>
+    window.addEventListener('scroll', function() {
+      var doc = document.documentElement;
+      var total = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = total > 0 ? ((doc.scrollTop / total) * 100) + '%' : '0%';
+    }, { passive: true });
 
-  <!-- Mobile menu JS -->
-  <script>
-    var toggle    = document.getElementById('menu-toggle');
-    var menu      = document.getElementById('mobile-menu');
-    var iconOpen  = document.getElementById('menu-icon-open');
-    var iconClose = document.getElementById('menu-icon-close');
+    var toggle = document.getElementById('menu-toggle');
+    var menu = document.getElementById('mobile-menu');
+    var openIcon = document.getElementById('menu-icon-open');
+    var closeIcon = document.getElementById('menu-icon-close');
     toggle.addEventListener('click', function() {
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
       menu.classList.toggle('hidden');
-      iconOpen.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    });
-  </script>
-
-  <!-- Mermaid -->
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
-    document.addEventListener('DOMContentLoaded', async () => {
-      const blocks = document.querySelectorAll('pre code.language-mermaid');
-      for (const block of blocks) {
-        const pre = block.parentElement;
-        const source = block.textContent;
-        const container = document.createElement('div');
-        container.className = 'mermaid flex justify-center my-6';
-        container.textContent = source;
-        pre.replaceWith(container);
-      }
-      await mermaid.run();
+      openIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
     });
   </script>
 </body>

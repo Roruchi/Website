@@ -1,39 +1,30 @@
 ---
 layout: base.njk
 title: Search
-description: Search all posts, talks, and trainings.
+description: Search Roel van Bergen's articles.
 permalink: /search/index.html
 ---
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-4">Search</h1>
-  <p class="text-xl text-stone-500 mb-10">Search across all posts, talks, and trainings.</p>
 
+<section class="page-hero">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="eyebrow mb-6">Find a thread</div>
+    <h1>Search the writing garden.</h1>
+    <p class="page-lead">Look across articles on engineering, AI, coaching, perfectionism, and Zen.</p>
+  </div>
+</section>
+
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
-  <div id="search" class="mb-10"></div>
-
+  <div id="search"></div>
   <script src="/pagefind/pagefind-ui.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', function() {
       new PagefindUI({
         element: '#search',
         showSubResults: true,
-        showImages: false,
-        resetStyles: false,
+        showImages: true,
+        resetStyles: false
       });
     });
   </script>
-
-  <style>
-    #search {
-      --pagefind-ui-scale: 1;
-      --pagefind-ui-primary: #b45309;
-      --pagefind-ui-text: #1c1917;
-      --pagefind-ui-background: transparent;
-      --pagefind-ui-border: #e7e5e0;
-      --pagefind-ui-tag: #f5f5f4;
-      --pagefind-ui-border-width: 1px;
-      --pagefind-ui-border-radius: 0.75rem;
-      --pagefind-ui-font: inherit;
-    }
-  </style>
-</div>
+</section>

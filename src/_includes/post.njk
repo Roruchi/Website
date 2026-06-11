@@ -1,118 +1,49 @@
 ---
 layout: base.njk
 ---
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-  <!-- Breadcrumb -->
-  <nav class="text-sm text-stone-400 mb-8">
-    <a href="/" class="hover:text-amber-700 transition-colors">Home</a>
-    <span class="mx-2">/</span>
-    <a href="/blog/" class="hover:text-amber-700 transition-colors">Blog</a>
-    <span class="mx-2">/</span>
-    <span class="text-stone-600">{{ title }}</span>
-  </nav>
-
-  <!-- Post header -->
-  <header class="mb-10 max-w-3xl">
-    <div class="flex flex-wrap gap-2 mb-4">
-      {%- for tag in tags -%}
-      {%- if tag != "post" -%}
-      <a href="/tags/{{ tag | slug }}/" class="text-xs font-medium text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full hover:bg-amber-200 transition-colors">{{ tag }}</a>
-      {%- endif -%}
-      {%- endfor -%}
-    </div>
-    <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 leading-tight mb-6">{{ title }}</h1>
-    <div class="flex items-center gap-4 text-sm text-stone-400 pb-6 border-b border-stone-200">
-      <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
-      <span>·</span>
-      <span>{{ content | readingTime }}</span>
+<article>
+  <header class="post-hero">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/blog/">Writing</a>
+        <span>/</span>
+        <span>{{ pillar }}</span>
+      </nav>
+      <div class="post-meta mt-8">
+        <span>{{ pillar }}</span>
+        <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+        <span>{{ content | readingTime }}</span>
+      </div>
+      <h1>{{ title }}</h1>
+      <p class="post-deck">{{ description }}</p>
     </div>
   </header>
 
-  <!-- Two-column layout: content + ToC -->
-  <div class="lg:grid lg:grid-cols-[1fr_240px] lg:gap-12">
-
-    <!-- Post content -->
-    <article class="prose prose-stone prose-lg max-w-none
-      prose-headings:font-bold
-      prose-a:text-amber-700 prose-a:no-underline hover:prose-a:underline
-      prose-code:text-stone-800 prose-code:bg-stone-100
-      prose-pre:bg-stone-900 prose-pre:shadow-lg prose-pre:relative prose-pre:rounded-xl
-      prose-blockquote:border-amber-400 prose-blockquote:bg-amber-50/50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
-      prose-img:rounded-xl prose-img:shadow-md">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="prose prose-stone prose-lg max-w-none article-body">
       {{ content | safe }}
-    </article>
-
-    <!-- Sticky Table of Contents -->
-    <aside class="hidden lg:block">
-      <div class="sticky top-24">
-        {%- set tocContent = content | toc -%}
-        {%- if tocContent -%}
-        <div class="bg-white rounded-xl border border-stone-200 p-5">
-          <h2 class="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-3">On this page</h2>
-          <nav class="toc text-sm [&_a]:text-stone-600 [&_a]:hover:text-amber-700 [&_a]:block [&_a]:py-0.5 [&_a]:transition-colors [&_ol]:pl-3 [&_ol]:mt-0.5 [&_ol]:space-y-0.5">
-            {{ tocContent | safe }}
-          </nav>
-        </div>
-        {%- endif -%}
-      </div>
-    </aside>
-
-  </div>
-
-  <!-- Related posts -->
-  {%- set related = collections.post | relatedPosts(page.url, tags, 3) -%}
-  {%- if related.length > 0 -%}
-  <section class="mt-16 pt-10 border-t border-stone-200 max-w-3xl">
-    <h2 class="text-xl font-bold text-stone-900 mb-6">Related Posts</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {%- for post in related -%}
-      <article class="bg-white rounded-xl border border-stone-200 p-4 hover:border-amber-300 hover:shadow-md transition-all">
-        <div class="flex flex-wrap gap-1 mb-2">
-          {%- for tag in post.data.tags -%}{%- if tag != "post" -%}
-          <span class="text-xs text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">{{ tag }}</span>
-          {%- endif -%}{%- endfor -%}
-        </div>
-        <h3 class="font-semibold text-stone-900 text-sm leading-snug mb-2">
-          <a href="{{ post.url }}" class="hover:text-amber-700 transition-colors">{{ post.data.title }}</a>
-        </h3>
-        <time class="text-xs text-stone-400">{{ post.date | readableDate }}</time>
-      </article>
-      {%- endfor -%}
     </div>
-  </section>
-  {%- endif -%}
 
-  <!-- Back link -->
-  <div class="mt-10 max-w-3xl">
-    <a href="/blog/" class="inline-flex items-center gap-2 text-sm font-semibold text-stone-700 hover:text-amber-700 transition-colors">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/></svg>
-      Back to Blog
-    </a>
+    <div class="source-note">
+      <span>First published on Medium</span>
+      <a href="{{ originalUrl }}" target="_blank" rel="noopener">View the original article</a>
+    </div>
+
+    {%- set related = collections.post | relatedPosts(page.url, tags, 3) -%}
+    {%- if related.length > 0 -%}
+    <section class="related-posts">
+      <div class="eyebrow mb-5">Continue wandering</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {%- for post in related -%}
+        <a href="{{ post.url }}" class="related-card">
+          <span>{{ post.data.pillar }}</span>
+          <strong>{{ post.data.title }}</strong>
+          <small>{{ post.date | readableDate }}</small>
+        </a>
+        {%- endfor -%}
+      </div>
+    </section>
+    {%- endif -%}
   </div>
-</div>
-
-<!-- Copy to clipboard for code blocks -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('pre').forEach(function(pre) {
-    var btn = document.createElement('button');
-    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>';
-    btn.className = 'absolute top-3 right-3 p-1.5 rounded bg-stone-700 hover:bg-stone-600 text-stone-300 hover:text-white transition-colors opacity-0 group-hover:opacity-100';
-    btn.setAttribute('aria-label', 'Copy code');
-    btn.addEventListener('click', function() {
-      var code = pre.querySelector('code');
-      var text = code ? code.innerText : pre.innerText;
-      navigator.clipboard.writeText(text).then(function() {
-        btn.innerHTML = '<svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
-        setTimeout(function() {
-          btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>';
-        }, 2000);
-      });
-    });
-    pre.style.position = 'relative';
-    pre.classList.add('group');
-    pre.appendChild(btn);
-  });
-});
-</script>
+</article>
