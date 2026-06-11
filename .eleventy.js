@@ -50,6 +50,7 @@ module.exports = function(eleventyConfig) {
 
   // Passthrough
   eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy("src/CNAME");
   eleventyConfig.addPassthroughCopy({
     "node_modules/prismjs/themes/prism-tomorrow.css": "assets/prism-tomorrow.css"
   });
@@ -97,7 +98,11 @@ module.exports = function(eleventyConfig) {
     api.getFilteredByTag("training").filter(isLive)
   );
 
+  const repo = process.env.GITHUB_REPOSITORY;
+  const pathPrefix = repo ? `/${repo.split('/')[1]}/` : '/';
+
   return {
+    pathPrefix,
     dir: {
       input: "src",
       output: "_site",
