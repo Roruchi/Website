@@ -1,32 +1,34 @@
-# Quickstart: Post-Publish Blog Crossposting
+# Quickstart: Manual Blog Crossposting
 
 ## 1. Preconditions
 - Node.js dependencies installed: `npm ci`
 - Site builds successfully: `npm run build`
 - A blog markdown source exists under `src/blog/`
 - Target article frontmatter includes `draft: false`
+- Target article includes tag `crosspost-medium` if it should be drafted on Medium
+- For local Medium runs, save auth once with `npm run crosspost:medium:auth`
 
-## 2. Configure Secrets For CI
-Add repository secrets in GitHub:
-- `MEDIUM_TOKEN`
+## 2. Configure Local Environment
+Set these locally before a non-dry-run:
+- `MEDIUM_STORAGE_STATE_PATH` or `MEDIUM_STORAGE_STATE`
 - `LINKEDIN_ACCESS_TOKEN`
 - `AI_PROVIDER_API_KEY`
+- `CROSSPOST_ALLOW_MANUAL=true`
 
 Notes:
+- `MEDIUM_STORAGE_STATE` should contain a Playwright `storageState` JSON blob for a logged-in Medium session, or you can point `MEDIUM_STORAGE_STATE_PATH` to the saved file.
 - LinkedIn safe mode is enabled by default and does not require live LinkedIn/AI calls.
-- Keep credentials in GitHub Actions secrets only. Do not print tokens in script logs.
+- Keep credentials out of the repository and do not print them in script logs.
 
-## 3. Wire Post-Deploy Step
-In `.github/workflows/deploy.yml`, add a step after deploy success to execute crosspost CLI.
+## 3. Manual Run
+Run the script yourself after the article is live on the website.
 
-Expected invocation shape:
-```bash
-node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id "$GITHUB_RUN_ID"
+Example:
+```powershell
+$env:CROSSPOST_ALLOW_MANUAL='true'
+$env:MEDIUM_STORAGE_STATE_PATH='.playwright/medium-auth.json'
+node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-manual-run
 ```
-
-Current workflow implementation uses:
-- `CROSSPOST_POST_DEPLOY=true`
-- `MEDIUM_TOKEN`, `LINKEDIN_ACCESS_TOKEN`, `AI_PROVIDER_API_KEY`
 
 ## 4. Local Dry-Run Validation
 Run crosspost in dry-run mode to validate parsing, draft gating, and summary output without external posting:
@@ -37,21 +39,33 @@ node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --p
 
 Expected outcomes:
 - Draft posts are skipped.
-- Non-draft posts are marked as publish candidates.
+- Posts with `originalUrl` are skipped for Medium.
+- Posts tagged `crosspost-medium` and missing `originalUrl` are marked as Medium draft candidates.
 - A run summary is printed with per-platform statuses.
 - LinkedIn shortpost generation runs in deterministic mode and returns a valid short-form payload.
 
-## 5. Recovery / Manual Re-Run
-After a successful website publish, manually re-run crosspost command with the same release ID to confirm dedup behavior or with a new release ID for replay scenarios.
+## 5. Medium Auth Bootstrap
+Create a local Playwright auth file for Medium:
+
+```powershell
+npm run crosspost:medium:auth
+```
+
+Default output path:
+- `.playwright/medium-auth.json`
+
+## 6. Recovery / Manual Re-Run
+After the website publish is live, manually re-run the crosspost command to confirm dedup behavior or to retry failed targets.
 
 Verification expectations:
-- Existing successful `releaseId + articleId + platform` entries are blocked as duplicates.
+- Existing `success` or `prepared` records for the same `articleId + platform` are blocked as duplicates.
 - Failed targets can be retried with clear summary output.
 
 Manual non-dry-run override for local verification:
 
 ```powershell
 $env:CROSSPOST_ALLOW_MANUAL='true'
+$env:MEDIUM_STORAGE_STATE_PATH='.playwright/medium-auth.json'
 node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-manual-run
 ```
 
@@ -60,26 +74,25 @@ LinkedIn generation-failure isolation check (LinkedIn-only skip, Medium continue
 ```powershell
 $env:CROSSPOST_ALLOW_MANUAL='true'
 $env:CROSSPOST_LINKEDIN_SAFE_MODE='false'
-$env:MEDIUM_TOKEN='dummy-token'
+$env:MEDIUM_STORAGE_STATE='{}'
 Remove-Item Env:AI_PROVIDER_API_KEY -ErrorAction SilentlyContinue
 node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-linkedin-gen-fail
 ```
 
 Expected result:
-- Medium statuses remain `success`.
+- Medium statuses remain `prepared` or `skipped`, depending on article eligibility.
 - LinkedIn statuses become `skipped` with reason `linkedin_shortpost_generation_failed:missing_ai_provider_api_key`.
 - Overall run remains non-blocked for other targets.
 
-## 6. Verification Checklist
+## 7. Verification Checklist
 - Build gate passes: `npm run build`
-- Deployment completes on GitHub Pages
-- Crosspost step runs only post-deploy success
+- Website publish completes before you run crosspost
+- Crosspost runs only when invoked manually
 - `draft: true` posts are not externally published
-- Medium receives long-form content
+- Medium drafts are created only for posts tagged for Medium and missing `originalUrl`
+- Final Medium publish is still performed manually in Medium
 - LinkedIn receives generated shortpost (safe-mode deterministic by default)
 - Final run summary includes success/failure/skipped reasons
-
-## 7. Verification Evidence (2026-03-23)
 
 ### Module load checks
 Command:
@@ -107,12 +120,12 @@ Outcome:
 Command:
 
 ```powershell
-$env:CROSSPOST_ALLOW_MANUAL='true'; $env:CROSSPOST_LINKEDIN_SAFE_MODE='false'; $env:MEDIUM_TOKEN='dummy-token'; Remove-Item Env:AI_PROVIDER_API_KEY -ErrorAction SilentlyContinue; node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-linkedin-gen-fail-20260323
+$env:CROSSPOST_ALLOW_MANUAL='true'; $env:CROSSPOST_LINKEDIN_SAFE_MODE='false'; $env:MEDIUM_STORAGE_STATE='{}'; Remove-Item Env:AI_PROVIDER_API_KEY -ErrorAction SilentlyContinue; node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-linkedin-gen-fail-20260323
 ```
 
 Outcome:
 - `overallStatus=success`
-- `succeeded=4` (Medium)
+- `prepared=0` or higher for Medium-eligible drafts
 - `skipped=4` (LinkedIn generation failures)
 - LinkedIn reasons: `linkedin_shortpost_generation_failed:missing_ai_provider_api_key`
 
@@ -120,11 +133,11 @@ Outcome:
 Command (same as above, same release ID):
 
 ```powershell
-$env:CROSSPOST_ALLOW_MANUAL='true'; $env:CROSSPOST_LINKEDIN_SAFE_MODE='false'; $env:MEDIUM_TOKEN='dummy-token'; Remove-Item Env:AI_PROVIDER_API_KEY -ErrorAction SilentlyContinue; node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-linkedin-gen-fail-20260323
+$env:CROSSPOST_ALLOW_MANUAL='true'; $env:CROSSPOST_LINKEDIN_SAFE_MODE='false'; $env:MEDIUM_STORAGE_STATE='{}'; Remove-Item Env:AI_PROVIDER_API_KEY -ErrorAction SilentlyContinue; node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id local-linkedin-gen-fail-20260323
 ```
 
 Outcome:
-- `duplicateBlocked=4` (Medium prior successes)
+- `duplicateBlocked` increases when the same article/platform was already prepared or published
 - `skipped=4` (LinkedIn generation failures, unchanged)
 
 ### Build gate and artifacts

@@ -6,6 +6,7 @@ function buildTotals(results, articlesEvaluated, articlesEligible) {
     articlesEligible,
     attempted: results.length,
     succeeded: 0,
+    prepared: 0,
     failed: 0,
     skipped: 0,
     duplicateBlocked: 0,
@@ -14,6 +15,8 @@ function buildTotals(results, articlesEvaluated, articlesEligible) {
   for (const result of results) {
     if (result.status === 'success') {
       totals.succeeded += 1;
+    } else if (result.status === 'prepared') {
+      totals.prepared += 1;
     } else if (result.status === 'failed') {
       totals.failed += 1;
     } else if (result.status === 'duplicate_blocked') {
@@ -30,10 +33,10 @@ function determineOverallStatus(totals) {
   if (totals.articlesEligible === 0) {
     return 'no_eligible_posts';
   }
-  if (totals.failed > 0 && totals.succeeded > 0) {
+  if (totals.failed > 0 && totals.succeeded + totals.prepared > 0) {
     return 'partial_success';
   }
-  if (totals.failed > 0 && totals.succeeded === 0) {
+  if (totals.failed > 0 && totals.succeeded + totals.prepared === 0) {
     return 'failed';
   }
   return 'success';
@@ -55,7 +58,7 @@ function printRunSummary(summary) {
   console.log(`Crosspost release: ${summary.releaseId}`);
   console.log(`Overall status: ${summary.overallStatus}`);
   console.log(
-    `Totals: evaluated=${summary.totals.articlesEvaluated}, eligible=${summary.totals.articlesEligible}, succeeded=${summary.totals.succeeded}, failed=${summary.totals.failed}, skipped=${summary.totals.skipped}, duplicateBlocked=${summary.totals.duplicateBlocked}`
+    `Totals: evaluated=${summary.totals.articlesEvaluated}, eligible=${summary.totals.articlesEligible}, succeeded=${summary.totals.succeeded}, prepared=${summary.totals.prepared}, failed=${summary.totals.failed}, skipped=${summary.totals.skipped}, duplicateBlocked=${summary.totals.duplicateBlocked}`
   );
 
   for (const result of summary.results) {

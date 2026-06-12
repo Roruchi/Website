@@ -60,11 +60,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Crosspost published articles
-        env:
-          CROSSPOST_POST_DEPLOY: 'true'
-          MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
-          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-          AI_PROVIDER_API_KEY: ${{ secrets.AI_PROVIDER_API_KEY }}
-        run: node scripts/crosspost/publish.js --source "src/blog/*.md" --platform medium --platform linkedin --release-id "${{ github.run_id }}"

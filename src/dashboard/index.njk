@@ -1,0 +1,156 @@
+---
+layout: base.njk
+title: Content dashboard
+description: Local-only overview of articles, talks, opportunities, and submissions.
+eleventyExcludeFromCollections: true
+---
+
+{% if localDashboard.enabled %}
+<section class="page-hero">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+    <div class="eyebrow mb-5">Local control panel</div>
+    <h1>Content dashboard</h1>
+    <p class="page-lead">A read-only view of the Markdown workflow. Generated {{ localDashboard.generatedAt }} and available only through the local development server.</p>
+    <div class="mt-7">
+      {% if localDashboard.errors.length %}
+      <span class="talk-status bg-red-50 text-red-900 border-red-300">{{ localDashboard.errors.length }} validation error(s)</span>
+      {% else %}
+      <span class="talk-status">Content checks pass</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+  <div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4 mb-12">
+    {% for metric in [
+      ["Draft articles", localDashboard.metrics.draftArticles],
+      ["Published", localDashboard.metrics.publishedArticles],
+      ["Private talks", localDashboard.metrics.privateTalks],
+      ["Showcased", localDashboard.metrics.showcasedTalks],
+      ["Opportunities", localDashboard.metrics.opportunities],
+      ["Submissions", localDashboard.metrics.submissions],
+      ["Warnings", localDashboard.metrics.warnings]
+    ] %}
+    <div class="rounded-xl border border-stone-300 bg-white/60 p-5">
+      <strong class="block text-3xl">{{ metric[1] }}</strong>
+      <span class="text-xs text-stone-500">{{ metric[0] }}</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-5 items-start">
+    {% macro groupedPanel(title, groups) %}
+    <section class="rounded-2xl border border-stone-300 bg-white/55 p-6">
+      <h2 class="text-2xl font-semibold mb-5">{{ title }}</h2>
+      {% for group in groups %}
+      <div class="{% if not loop.first %}mt-7{% endif %}">
+        <h3 class="flex justify-between text-sm font-semibold capitalize mb-3">
+          <span>{{ group.name }}</span><span class="text-amber-800">{{ group.items.length }}</span>
+        </h3>
+        <ul class="grid gap-2">
+          {% for item in group.items %}
+          <li class="border-t border-stone-200 pt-2">
+            <strong class="block text-sm">
+              {% if item.href %}
+              <a href="{{ item.href }}"{% if item.external %} target="_blank" rel="noopener"{% endif %} class="text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-700">{{ item.label }}</a>
+              {% else %}
+              {{ item.label }}
+              {% endif %}
+            </strong>
+            <code class="text-xs text-stone-500 break-all">{{ item.slug }}</code>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      <p class="text-stone-500 italic">None</p>
+      {% endfor %}
+    </section>
+    {% endmacro %}
+
+    {{ groupedPanel("Articles by status", localDashboard.articleGroups) }}
+    {{ groupedPanel("Talks by status", localDashboard.talkGroups) }}
+    {{ groupedPanel("Opportunities by status", localDashboard.opportunityGroups) }}
+    {{ groupedPanel("Submissions by talk", localDashboard.submissionsByTalk) }}
+    {{ groupedPanel("Submissions by opportunity", localDashboard.submissionsByOpportunity) }}
+
+    <section class="rounded-2xl border border-amber-400 bg-white/55 p-6">
+      <h2 class="text-2xl font-semibold mb-5">Upcoming CFP deadlines</h2>
+      <ul class="grid gap-3">
+        {% for opportunity in localDashboard.upcomingDeadlines %}
+        <li class="border-t border-stone-200 pt-3">
+          <strong class="block">
+            {% if opportunity.href %}
+            <a href="{{ opportunity.href }}" target="_blank" rel="noopener" class="text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-700">{{ opportunity.name }}</a>
+            {% else %}
+            {{ opportunity.name }}
+            {% endif %}
+          </strong>
+          <time class="text-sm text-stone-500">{{ opportunity.deadline }}</time>
+        </li>
+        {% else %}
+        <li class="text-stone-500 italic">None</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="rounded-2xl border border-stone-300 bg-white/55 p-6">
+      <h2 class="text-2xl font-semibold mb-5">Accepted or delivered</h2>
+      <ul class="grid gap-3">
+        {% for submission in localDashboard.acceptedOrDelivered %}
+        <li class="border-t border-stone-200 pt-3">
+          <strong class="block">
+            {% if submission.talkHref %}
+            <a href="{{ submission.talkHref }}" class="text-amber-900 underline decoration-amber-400 underline-offset-4 hover:text-amber-700">{{ submission.talk }}</a>
+            {% else %}
+            {{ submission.talk }}
+            {% endif %}
+          </strong>
+          <span class="text-sm text-stone-500">
+            {% if submission.opportunityHref %}
+            <a href="{{ submission.opportunityHref }}" target="_blank" rel="noopener" class="underline underline-offset-2 hover:text-amber-800">{{ submission.opportunity }}</a>
+            {% else %}
+            {{ submission.opportunity }}
+            {% endif %}
+            &middot; {{ submission.status }}
+          </span>
+        </li>
+        {% else %}
+        <li class="text-stone-500 italic">None</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="rounded-2xl border border-stone-300 bg-white/55 p-6">
+      <h2 class="text-2xl font-semibold mb-5">Validation errors</h2>
+      <ul class="grid gap-3">
+        {% for issue in localDashboard.errors %}
+        <li class="border-t border-stone-200 pt-3">
+          <strong class="block text-sm">{{ issue.fileName }}</strong>
+          <span class="text-sm text-stone-600">{{ issue.message }}</span>
+        </li>
+        {% else %}
+        <li class="text-stone-500 italic">No errors</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="rounded-2xl border border-stone-300 bg-white/55 p-6">
+      <h2 class="text-2xl font-semibold mb-5">Warnings</h2>
+      <ul class="grid gap-3 max-h-96 overflow-auto">
+        {% for issue in localDashboard.warnings %}
+        <li class="border-t border-stone-200 pt-3">
+          <strong class="block text-sm">{{ issue.fileName }}</strong>
+          <span class="text-sm text-stone-600">{{ issue.message }}</span>
+        </li>
+        {% else %}
+        <li class="text-stone-500 italic">No warnings</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+
+  <p class="mt-10 text-sm text-stone-500">Private data is loaded only when <code>LOCAL_DASHBOARD=true</code>. Production builds do not generate this route.</p>
+</section>
+{% endif %}

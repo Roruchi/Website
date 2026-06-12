@@ -25,10 +25,29 @@ layout: base.njk
       {{ content | safe }}
     </div>
 
+    {%- if originalUrl -%}
     <div class="source-note">
       <span>First published on Medium</span>
       <a href="{{ originalUrl }}" target="_blank" rel="noopener">View the original article</a>
     </div>
+    {%- endif -%}
+
+    {%- set articleTalkSlugs = relatedTalks -%}
+    {%- set relatedPublicTalks = publicTalks | publicTalksBySlugs(articleTalkSlugs) -%}
+    {%- if relatedPublicTalks.length > 0 -%}
+    <section class="related-posts">
+      <div class="eyebrow mb-5">Related talks</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {%- for talk in relatedPublicTalks -%}
+        <a href="/talks/{{ talk.slug }}/" class="related-card">
+          <span>{{ talk.status }}</span>
+          <strong>{{ talk.title }}</strong>
+          <small>Showcased talk</small>
+        </a>
+        {%- endfor -%}
+      </div>
+    </section>
+    {%- endif -%}
 
     {%- set related = collections.post | relatedPosts(page.url, tags, 3) -%}
     {%- if related.length > 0 -%}

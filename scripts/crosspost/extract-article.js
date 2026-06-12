@@ -87,7 +87,7 @@ function evaluateEligibility(attributes, hasFrontmatter) {
     return { eligible: false, reason: 'missing_frontmatter' };
   }
 
-  if (attributes.draft === true) {
+  if (attributes.draft === true || attributes.status === 'draft') {
     return { eligible: false, reason: 'draft_true' };
   }
 
@@ -100,6 +100,9 @@ function extractArticleFromContent(filePath, markdownText) {
   const articleId = toArticleId(filePath);
   const title = typeof frontmatter.title === 'string' ? frontmatter.title.trim() : '';
   const date = typeof frontmatter.date === 'string' ? frontmatter.date : null;
+  const tags = Array.isArray(frontmatter.tags)
+    ? frontmatter.tags.map((tag) => String(tag).trim()).filter(Boolean)
+    : [];
 
   const eligibility = evaluateEligibility(frontmatter, hasFrontmatter);
 
@@ -108,8 +111,12 @@ function extractArticleFromContent(filePath, markdownText) {
     sourcePath: filePath,
     title,
     date,
+    description: typeof frontmatter.description === 'string' ? frontmatter.description.trim() : '',
     bodyMarkdown: body,
-    draft: frontmatter.draft === true,
+    draft: frontmatter.draft === true || frontmatter.status === 'draft',
+    tags,
+    originalUrl: typeof frontmatter.originalUrl === 'string' ? frontmatter.originalUrl.trim() : '',
+    cover: typeof frontmatter.cover === 'string' ? frontmatter.cover.trim() : '',
     eligible: eligibility.eligible,
     skipReason: eligibility.reason,
     parseError: title ? null : 'missing_title',

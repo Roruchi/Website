@@ -1,0 +1,65 @@
+---
+layout: base.njk
+pagination:
+  data: publicTalks
+  size: 1
+  alias: talk
+permalink: "/talks/{{ talk.slug }}/index.html"
+eleventyComputed:
+  title: "{{ talk.title }}"
+  description: "{{ talk.description }}"
+---
+
+<article>
+  <header class="post-hero">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/talks/">Speaking</a>
+        <span>/</span>
+        <span>{{ talk.status }}</span>
+      </nav>
+      <h1>{{ talk.title }}</h1>
+      <p class="post-deck">{{ talk.description }}</p>
+    </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <section class="prose prose-stone prose-lg max-w-none article-body">
+      <h2>Who this is for</h2>
+      <p>{{ talk.audience }}</p>
+
+      <h2>What you will take away</h2>
+      <ul>
+        {%- for takeaway in talk.takeaways -%}
+        <li>{{ takeaway }}</li>
+        {%- endfor -%}
+      </ul>
+    </section>
+
+    {%- if talk.slides or talk.recording -%}
+    <div class="source-note">
+      <span>Talk resources</span>
+      <div class="flex gap-4">
+        {%- if talk.slides -%}<a href="{{ talk.slides }}" rel="noopener">Slides</a>{%- endif -%}
+        {%- if talk.recording -%}<a href="{{ talk.recording }}" rel="noopener">Recording</a>{%- endif -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- set relatedArticles = collections.post | postsBySlugs(talk.relatedArticles) -%}
+    {%- if relatedArticles.length > 0 -%}
+    <section class="related-posts">
+      <div class="eyebrow mb-5">Related writing</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {%- for post in relatedArticles -%}
+        <a href="{{ post.url }}" class="related-card">
+          <span>{{ post.data.pillar }}</span>
+          <strong>{{ post.data.title }}</strong>
+          <small>{{ post.date | readableDate }}</small>
+        </a>
+        {%- endfor -%}
+      </div>
+    </section>
+    {%- endif -%}
+  </div>
+</article>

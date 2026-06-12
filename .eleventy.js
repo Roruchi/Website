@@ -73,7 +73,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("relatedPosts", function(allPosts, currentUrl, currentTags, limit = 3) {
     const safeTags = (Array.isArray(currentTags) ? currentTags : []).filter(t => t !== "post");
     return allPosts
-      .filter(p => p.url !== currentUrl && !p.data.draft)
+      .filter(p => p.url !== currentUrl && p.data.status !== "draft" && !p.data.draft)
       .map(p => {
         const sharedTags = (p.data.tags || []).filter(t => safeTags.includes(t));
         return { post: p, score: sharedTags.length };
@@ -84,15 +84,23 @@ module.exports = function(eleventyConfig) {
       .map(({ post }) => post);
   });
 
-  // Draft filtering — exclude items with draft: true from collections.
-  // Set draft: true in a post's frontmatter to hide it from production builds.
-  const isLive = (item) => !item.data.draft;
+  eleventyConfig.addFilter("publicTalksBySlugs", (talks, slugs) => {
+    const wanted = new Set(Array.isArray(slugs) ? slugs : []);
+    return (Array.isArray(talks) ? talks : []).filter((talk) => wanted.has(talk.slug));
+  });
+
+  eleventyConfig.addFilter("postsBySlugs", (posts, slugs) => {
+    const wanted = new Set(Array.isArray(slugs) ? slugs : []);
+    return (Array.isArray(posts) ? posts : []).filter((post) =>
+      wanted.has(post.data.slug || post.fileSlug),
+    );
+  });
+
+  // New content uses status; draft remains supported for imported legacy posts.
+  const isLive = (item) => item.data.status !== "draft" && !item.data.draft;
 
   eleventyConfig.addCollection("post", (api) =>
     api.getFilteredByTag("post").filter(isLive)
-  );
-  eleventyConfig.addCollection("talk", (api) =>
-    api.getFilteredByTag("talk").filter(isLive)
   );
   eleventyConfig.addCollection("training", (api) =>
     api.getFilteredByTag("training").filter(isLive)

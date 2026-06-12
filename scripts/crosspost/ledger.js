@@ -52,13 +52,12 @@ async function writeLedger(ledgerPath, ledger) {
   await fs.rename(tempPath, ledgerPath);
 }
 
-function hasSuccessfulAttempt(ledger, releaseId, articleId, platform) {
+function hasBlockingAttempt(ledger, articleId, platform, blockingStatuses = ['success']) {
   return ledger.records.some(
     (record) =>
-      record.releaseId === releaseId &&
       record.articleId === articleId &&
       record.platform === platform &&
-      record.status === 'success'
+      blockingStatuses.includes(record.status)
   );
 }
 
@@ -94,7 +93,7 @@ module.exports = {
   createEmptyLedger,
   loadLedger,
   writeLedger,
-  hasSuccessfulAttempt,
+  hasBlockingAttempt,
   buildAttemptRecord,
   recordAttempt,
 };

@@ -1,10 +1,10 @@
 # Contract: Crosspost Workflow And CLI Interface
 
 ## Purpose
-Define the integration contract between GitHub Actions deployment workflow and the crosspost orchestration script.
+Define the CLI contract for the manual crosspost orchestration script.
 
-## Workflow Invocation Contract
-- Trigger point: Post-deploy step in `.github/workflows/deploy.yml` after successful `actions/deploy-pages@v4`.
+## Invocation Contract
+- Trigger point: manual/local invocation after the site owner confirms the article is published on the website.
 - Invocation command shape:
   - `node scripts/crosspost/publish.js --source <path-or-glob> --platform medium --platform linkedin --release-id <id> [--dry-run]`
 
@@ -15,9 +15,10 @@ Define the integration contract between GitHub Actions deployment workflow and t
   - `--release-id` (string): Release identifier, typically GitHub run ID.
   - `--dry-run` (boolean, optional): Disable external API calls while preserving validation/report behavior.
 - Environment variables:
-  - `CROSSPOST_POST_DEPLOY=true` in CI for non-dry-run execution gate.
-  - `CROSSPOST_ALLOW_MANUAL=true` for local/manual non-dry-run override.
-  - `MEDIUM_TOKEN` (required for non-dry-run Medium publishing)
+  - `CROSSPOST_ALLOW_MANUAL=true` for non-dry-run execution.
+  - `CROSSPOST_MEDIUM_TAG` (optional, default `crosspost-medium`)
+  - `MEDIUM_STORAGE_STATE` or `MEDIUM_STORAGE_STATE_PATH` (required for non-dry-run Medium draft creation)
+  - `MEDIUM_HEADLESS` (optional, default `true`)
   - `CROSSPOST_LINKEDIN_SAFE_MODE` (optional, default enabled)
   - `LINKEDIN_ACCESS_TOKEN` (required only when safe mode is disabled and live publish path is implemented)
   - `AI_PROVIDER_API_KEY` (required only when safe mode is disabled and live generation is attempted)
@@ -25,18 +26,23 @@ Define the integration contract between GitHub Actions deployment workflow and t
 
 ## Eligibility Rules Contract
 - Only process posts where frontmatter `draft` is absent or evaluates to `false`.
-- Crossposting MUST execute only when deployment status is successful.
+- Medium processing additionally requires the configured Medium tag to be present.
+- Posts with non-empty `originalUrl` MUST be skipped for Medium.
+- Crossposting MUST be started manually only after the site owner confirms the article is live on the website.
 - Missing/invalid frontmatter MUST mark article as skipped with explicit reason.
 
 ## Idempotency Contract
-- Deduplication key: `releaseId + articleId + platform`.
-- If dedup key already exists with success status in ledger, publish call MUST be skipped and status set to `duplicate_blocked`.
+- Deduplication key: `articleId + platform`.
+- If the article/platform pair already exists in the ledger with status `success` or `prepared`, publish call MUST be skipped and status set to `duplicate_blocked`.
 - Ledger location: `.github/crosspost-ledger.json`.
 
 ## Platform Behavior Contract
 - Medium:
-  - Input: article title + full markdown-derived content.
-  - Output: external post ID or failure reason.
+  - Input: article title + full article body content.
+  - Transport: Playwright browser automation using saved Medium auth state.
+  - Behavior: create or update a Medium draft and stop before final publish.
+  - Output: draft URL or failure reason.
+  - Success-like state MUST be reported as `prepared` with reason `awaiting_manual_publish`.
 - LinkedIn:
   - Input: shortpost generated from article content before publish attempt.
   - Length rule: generated text is constrained to `<= 3000` chars with deterministic truncation.
@@ -60,6 +66,7 @@ Script MUST emit a machine-readable summary JSON to stdout at end of run.
     "articlesEligible": 0,
     "attempted": 0,
     "succeeded": 0,
+    "prepared": 0,
     "failed": 0,
     "skipped": 0,
     "duplicateBlocked": 0
@@ -68,7 +75,7 @@ Script MUST emit a machine-readable summary JSON to stdout at end of run.
     {
       "articleId": "string",
       "platform": "medium|linkedin",
-      "status": "success|failed|skipped|duplicate_blocked",
+      "status": "success|prepared|failed|skipped|duplicate_blocked",
       "externalPostId": "string|null",
       "reason": "string|null"
     }
@@ -77,7 +84,7 @@ Script MUST emit a machine-readable summary JSON to stdout at end of run.
 ```
 
 ## Exit Code Contract
-- `0`: At least one target succeeded, or dry-run completed successfully.
+- `0`: At least one target succeeded or prepared a draft, or dry-run completed successfully.
 - `1`: No targets succeeded due to operational failure, or workflow preconditions not met.
 
 ## Logging Contract

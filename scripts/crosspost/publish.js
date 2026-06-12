@@ -6,7 +6,7 @@ const { extractArticleFromFile } = require('./extract-article');
 const {
   loadLedger,
   writeLedger,
-  hasSuccessfulAttempt,
+  hasBlockingAttempt,
   buildAttemptRecord,
   recordAttempt,
 } = require('./ledger');
@@ -16,6 +16,7 @@ const { generateLinkedInShortpost } = require('./linkedin-shortpost');
 
 const DEFAULT_SOURCE = 'src/blog/*.md';
 const DEFAULT_LEDGER_PATH = path.resolve(process.cwd(), '.github/crosspost-ledger.json');
+const BLOCKING_STATUSES = ['success', 'prepared'];
 
 function parseArgs(argv) {
   const options = {
@@ -130,7 +131,7 @@ async function runCrosspost(options) {
   validateExecutionContext(options);
 
   const startedAt = new Date().toISOString();
-  const ledger = await loadLedger(DEFAULT_LEDGER_PATH);
+  const ledger = options.dryRun ? null : await loadLedger(DEFAULT_LEDGER_PATH);
   const targets = getPlatformTargets(options.platforms);
   const { evaluated, eligible } = await discoverArticles(options.source);
 
@@ -164,13 +165,32 @@ async function runCrosspost(options) {
     }
 
     for (const target of targets) {
-      if (hasSuccessfulAttempt(ledger, options.releaseId, article.articleId, target.name)) {
+      const targetEligibility =
+        typeof target.getEligibility === 'function'
+          ? target.getEligibility(article)
+          : { eligible: true, reason: null };
+
+      if (!targetEligibility.eligible) {
+        results.push({
+          articleId: article.articleId,
+          platform: target.name,
+          status: 'skipped',
+          externalPostId: null,
+          reason: targetEligibility.reason || 'target_ineligible',
+        });
+        continue;
+      }
+
+      if (
+        ledger &&
+        hasBlockingAttempt(ledger, article.articleId, target.name, BLOCKING_STATUSES)
+      ) {
         const duplicateResult = {
           articleId: article.articleId,
           platform: target.name,
           status: 'duplicate_blocked',
           externalPostId: null,
-          reason: 'duplicate_release_article_platform',
+          reason: 'article_platform_already_processed',
         };
         results.push(duplicateResult);
 
@@ -216,19 +236,21 @@ async function runCrosspost(options) {
 
             results.push(result);
 
-            recordAttempt(
-              ledger,
-              buildAttemptRecord({
-                releaseId: options.releaseId,
-                articleId: article.articleId,
-                platform: target.name,
-                status: result.status,
-                reason: result.reason,
-                externalPostId: null,
-                startedAt: attemptStartedAt,
-                completedAt: new Date().toISOString(),
-              })
-            );
+            if (ledger) {
+              recordAttempt(
+                ledger,
+                buildAttemptRecord({
+                  releaseId: options.releaseId,
+                  articleId: article.articleId,
+                  platform: target.name,
+                  status: result.status,
+                  reason: result.reason,
+                  externalPostId: null,
+                  startedAt: attemptStartedAt,
+                  completedAt: new Date().toISOString(),
+                })
+              );
+            }
 
             continue;
           }
@@ -251,19 +273,21 @@ async function runCrosspost(options) {
 
         results.push(result);
 
-        recordAttempt(
-          ledger,
-          buildAttemptRecord({
-            releaseId: options.releaseId,
-            articleId: article.articleId,
-            platform: target.name,
-            status: result.status,
-            reason: result.reason,
-            externalPostId: result.externalPostId,
-            startedAt: attemptStartedAt,
-            completedAt: new Date().toISOString(),
-          })
-        );
+        if (ledger) {
+          recordAttempt(
+            ledger,
+            buildAttemptRecord({
+              releaseId: options.releaseId,
+              articleId: article.articleId,
+              platform: target.name,
+              status: result.status,
+              reason: result.reason,
+              externalPostId: result.externalPostId,
+              startedAt: attemptStartedAt,
+              completedAt: new Date().toISOString(),
+            })
+          );
+        }
       } catch (error) {
         const result = {
           articleId: article.articleId,
@@ -275,24 +299,28 @@ async function runCrosspost(options) {
 
         results.push(result);
 
-        recordAttempt(
-          ledger,
-          buildAttemptRecord({
-            releaseId: options.releaseId,
-            articleId: article.articleId,
-            platform: target.name,
-            status: result.status,
-            reason: result.reason,
-            externalPostId: null,
-            startedAt: attemptStartedAt,
-            completedAt: new Date().toISOString(),
-          })
-        );
+        if (ledger) {
+          recordAttempt(
+            ledger,
+            buildAttemptRecord({
+              releaseId: options.releaseId,
+              articleId: article.articleId,
+              platform: target.name,
+              status: result.status,
+              reason: result.reason,
+              externalPostId: null,
+              startedAt: attemptStartedAt,
+              completedAt: new Date().toISOString(),
+            })
+          );
+        }
       }
     }
   }
 
-  await writeLedger(DEFAULT_LEDGER_PATH, ledger);
+  if (ledger) {
+    await writeLedger(DEFAULT_LEDGER_PATH, ledger);
+  }
 
   const summary = buildRunSummary({
     releaseId: options.releaseId,

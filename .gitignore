@@ -3,6 +3,8 @@
 _site/
 # Local cache for Eleventy Data Cascade
 .eleventy.cache/
+.content-dashboard/
+.speaker-calendar/
 
 # --- Dependencies ---
 node_modules/
@@ -14,6 +16,7 @@ package-lock.json
 .env.local
 .env.*.local
 .env*
+.playwright/
 
 # --- Debug & Logs ---
 npm-debug.log*

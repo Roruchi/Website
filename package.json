@@ -5,8 +5,20 @@
     "build:css": "tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --minify",
     "clean": "node scripts/clean-site.js",
     "build": "npm run clean && npm run build:css && eleventy && npx pagefind --site _site",
-    "serve": "concurrently \"tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --watch\" \"eleventy --serve\"",
-    "crosspost:dry-run": "node scripts/crosspost/publish.js --source \"src/blog/*.md\" --platform medium --platform linkedin --release-id local-dry-run --dry-run"
+    "new:article": "node scripts/new-article.js",
+    "new:talk": "node scripts/new-talk.js",
+    "new:opportunity": "node scripts/new-opportunity.js",
+    "new:submission": "node scripts/new-submission.js",
+    "speaker:discover": "node scripts/discover-opportunities.js",
+    "speaker:calendar": "node scripts/export-speaking-calendar.js",
+    "check:content": "node scripts/validate-content.js",
+    "validate:content": "npm run check:content",
+    "dashboard:content": "node scripts/content-dashboard.js",
+    "publish:check": "npm run check:content && npm run build && node scripts/check-public-output.js",
+    "qa:publish": "npm run publish:check",
+    "serve": "node scripts/serve-local.js",
+    "crosspost:dry-run": "node scripts/crosspost/publish.js --source \"src/blog/*.md\" --platform medium --platform linkedin --release-id local-dry-run --dry-run",
+    "crosspost:medium:auth": "node scripts/crosspost/setup-medium-auth.js"
   },
   "dependencies": {
     "@11ty/eleventy-img": "^3.1.0",
@@ -22,7 +34,9 @@
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "eleventy-plugin-reading-time": "^0.0.1",
+    "gray-matter": "^4.0.3",
     "pagefind": "^1.4.0",
+    "playwright": "^1.54.1",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.4.0"
   }

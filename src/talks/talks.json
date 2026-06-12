@@ -1,5 +1,0 @@
-{
-  "layout": "base.njk",
-  "tags": "talk",
-  "permalink": "/talks/{{ page.fileSlug }}/index.html"
-}
