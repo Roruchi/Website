@@ -32,6 +32,8 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          INTERACTIONS_API_URL: ${{ vars.INTERACTIONS_API_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

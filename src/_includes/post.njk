@@ -25,6 +25,25 @@ layout: base.njk
       {{ content | safe }}
     </div>
 
+    <section class="ripple-panel"
+      data-ripple-panel
+      data-article-key="{{ page.url }}"
+      data-api-url="{{ interactions.apiUrl }}"
+      aria-labelledby="ripple-heading">
+      <div>
+        <div class="eyebrow mb-2">A quiet response</div>
+        <h2 id="ripple-heading">Did this leave a ripple?</h2>
+        <p>No score, no ranking. Just a small sign that the words reached someone.</p>
+      </div>
+      <button class="ripple-button" type="button" data-ripple-button aria-pressed="false">
+        <span class="ripple-mark" aria-hidden="true"></span>
+        <span data-ripple-label>Leave a ripple</span>
+      </button>
+      <p class="ripple-count" aria-live="polite">
+        <span data-ripple-count>0</span> <span data-ripple-label-count>ripples</span> left
+      </p>
+    </section>
+
     {%- if originalUrl -%}
     <div class="source-note">
       <span>First published on Medium</span>
@@ -66,3 +85,4 @@ layout: base.njk
     {%- endif -%}
   </div>
 </article>
+<script src="/assets/js/interactions.js"></script>

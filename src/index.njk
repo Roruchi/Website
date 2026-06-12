@@ -21,7 +21,12 @@ description: Roel van Bergen writes and speaks about software craft, AI, persona
         <a href="/blog/" class="button-primary">Enter the writing garden</a>
         <a href="/talks/" class="button-secondary">Explore speaking topics</a>
       </div>
-      <p class="interaction-hint">Click or tap the pond to feed the koi.</p>
+      <div class="pond-interaction">
+        <p class="interaction-hint">Click or tap the pond to feed the koi.</p>
+        <p class="interaction-count" data-interaction-count="feed" data-api-url="{{ interactions.apiUrl }}" aria-live="polite">
+          <span data-count-value>0</span> mindful <span data-count-label>feedings</span> shared
+        </p>
+      </div>
     </div>
   </div>
 </section>
@@ -108,4 +113,5 @@ description: Roel van Bergen writes and speaks about software craft, AI, persona
   </div>
 </section>
 
+<script src="/assets/js/interactions.js"></script>
 <script src="/assets/js/koi-pond.js"></script>

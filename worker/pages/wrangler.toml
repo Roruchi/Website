@@ -1,0 +1,11 @@
+name = "personal-website-interactions-api"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-06-12"
+
+[vars]
+ALLOWED_ORIGINS = "https://roelvanbergen.nl,http://localhost:8080,http://127.0.0.1:8080"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "personal-website-interactions"
+database_id = "730900eb-724f-4afc-b278-a1a6a6bfdd81"

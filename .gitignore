@@ -9,6 +9,7 @@ _site/
 # --- Dependencies ---
 node_modules/
 package-lock.json
+worker/.wrangler/
 # (Optional: keep lock files if you want deterministic builds across environments)
 
 # --- Environment & Secrets ---

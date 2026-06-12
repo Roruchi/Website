@@ -82,6 +82,7 @@
       food.push({ x, y, id: foodId++, r: 4 });
       ripples.push({ x, y, r: 0, opacity: 0.6, growth: 1.6, fade: 0.007 });
       ripples.push({ x: x + 5, y: y - 5, r: 0, opacity: 0.2, growth: 1.1, fade: 0.006 });
+      window.dispatchEvent(new CustomEvent('pond:fed'));
     }
 
     let lastPaint = 0;

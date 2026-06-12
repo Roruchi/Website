@@ -106,6 +106,10 @@ module.exports = function(eleventyConfig) {
     api.getFilteredByTag("training").filter(isLive)
   );
 
+  eleventyConfig.addGlobalData("interactions", {
+    apiUrl: process.env.INTERACTIONS_API_URL || "",
+  });
+
   const repo = process.env.GITHUB_REPOSITORY;
   const pathPrefix = repo ? `/${repo.split('/')[1]}/` : '/';
 
