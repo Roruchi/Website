@@ -72,7 +72,6 @@
     window.addEventListener('resize', resize, { passive: true });
 
     function dropFood(e) {
-      if (e.type === 'touchstart') e.preventDefault();
       const clientX = e.clientX != null ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : null);
       const clientY = e.clientY != null ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : null);
       if (clientX == null) return;
@@ -103,10 +102,6 @@
     container.addEventListener('mousemove', function(e) {
       if (e.buttons === 1) paintWater(e);
     });
-    container.addEventListener('touchmove', function(e) {
-      e.preventDefault();
-      paintWater(e);
-    }, { passive: false });
 
     const ctx = canvas.getContext('2d');
 
