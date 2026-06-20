@@ -1,0 +1,134 @@
+---
+layout: base.njk
+title: Work with me
+description: Talks, workshops, and facilitated conversations with Roel van Bergen about Mindful Engineering, architecture, AI-assisted development, DevOps, Zen, and technical leadership.
+permalink: /work-with-me/index.html
+eleventyExcludeFromCollections: true
+---
+
+<section class="page-hero workshop-hero">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    <div class="eyebrow mb-6">Work with me</div>
+    <h1>Bring Mindful Engineering into the room.</h1>
+    <p class="page-lead">I speak and facilitate around software architecture, AI-assisted development, DevOps, Zen, and human-centered technical leadership. We start with the question your team keeps circling around, then shape the right talk, workshop, or conversation around it.</p>
+    <div class="flex flex-wrap gap-3 mt-9">
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-primary">Start a conversation</a>
+      <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-secondary">View my Sessionize profile</a>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="help-intro">
+    <div class="eyebrow">Things I keep thinking about</div>
+    <h2>Different entry points, one common thread: helping teams see, decide, and learn together.</h2>
+  </div>
+
+  <div class="help-area-grid mt-12">
+    <article class="help-area-card">
+      <span>01</span>
+      <div>
+        <p class="pillar-label">Mindful Engineering</p>
+        <h3>Attention as engineering practice.</h3>
+        <p>Explore clarity, assumptions, decision-making, feedback loops, craft, and how teams can build software without losing the people inside the system.</p>
+      </div>
+    </article>
+    <article class="help-area-card">
+      <span>02</span>
+      <div>
+        <p class="pillar-label">Architecture and AI</p>
+        <h3>Adopt acceleration without becoming a passenger.</h3>
+        <p>Use AI deliberately, make engineering thinking explicit, keep ownership visible, and treat architecture as shared clarity rather than control.</p>
+      </div>
+    </article>
+    <article class="help-area-card">
+      <span>03</span>
+      <div>
+        <p class="pillar-label">Delivery and leadership</p>
+        <h3>Learn safely while moving quickly.</h3>
+        <p>Work with DevOps, DORA, testing, documentation, communication, ego, trust, and the leadership habits that shape technical outcomes.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+  <div>
+    <div class="section-intro mb-12">
+      <div class="eyebrow">Choose the shape</div>
+      <h2>The format follows the change you want to create.</h2>
+    </div>
+    <div class="help-area-grid">
+      <article class="help-area-card">
+        <span>01</span>
+        <div>
+          <p class="pillar-label">Talks</p>
+          <h3>Create a shared language.</h3>
+          <p>A focused conference or team session that makes a complex idea explicit, practical, and memorable.</p>
+        </div>
+      </article>
+      <article class="help-area-card">
+        <span>02</span>
+        <div>
+          <p class="pillar-label">Workshops</p>
+          <h3>Turn insight into practice.</h3>
+          <p>An interactive session where people explore an idea together, apply it to their work, and leave with experiments to try.</p>
+        </div>
+      </article>
+      <article class="help-area-card">
+        <span>03</span>
+        <div>
+          <p class="pillar-label">Facilitated conversations</p>
+          <h3>Work with what is already in the room.</h3>
+          <p>A guided conversation for teams that need clarity, honest reflection, or a way through a question that has resisted easy answers.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <blockquote class="thought-fragment mt-12">AI does not remove the need for engineering discipline. It reveals where discipline was missing.</blockquote>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+  <div class="section-intro mb-10">
+    <div class="eyebrow">Talks and explorations</div>
+    <h2>Practical, reflective sessions for engineering audiences.</h2>
+    <p>These sessions can be delivered as talks or expanded into more interactive workshops, depending on your audience, time, and desired depth.</p>
+  </div>
+
+  <div class="topic-list">
+    {%- for talk in publicTalks -%}
+    <article class="topic-card">
+      <span class="topic-index">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+      <div>
+        <div class="talk-card-meta">
+          <span class="talk-status">{{ talk.status }}</span>
+          <span>{{ talk.audience }}</span>
+        </div>
+        <h2><a href="/talks/{{ talk.slug }}/">{{ talk.title }}</a></h2>
+        <p>{{ talk.description }}</p>
+        <p class="topic-outcome">{{ talk.takeaways[0] }}</p>
+        <a href="/talks/{{ talk.slug }}/" class="text-link mt-5 inline-flex">View session details</a>
+      </div>
+    </article>
+    {%- else -%}
+    <p>No sessions are currently selected for the public showcase.</p>
+    {%- endfor -%}
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+  <div class="workshop-note">
+    <div>
+      <div class="eyebrow mb-4">Start with your context</div>
+      <h2>Tell me what is happening in your team.</h2>
+    </div>
+    <div>
+      <p>Share what feels stuck, what is changing, or what you want people to see differently. From there, we can discover a useful topic and format together.</p>
+      <div class="flex flex-wrap gap-3 mt-7">
+        <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-primary">Start on LinkedIn</a>
+        <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-secondary">Open Sessionize</a>
+      </div>
+    </div>
+  </div>
+</section>

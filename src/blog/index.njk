@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: Writing
-description: Articles on engineering, AI, leadership, human growth, and the practices that help people build with clarity and care.
+description: Essays and field notes on Mindful Engineering, software architecture, AI-assisted development, DevOps, Zen, and the human side of building systems.
 permalink: /blog/index.html
 tags: []
 eleventyExcludeFromCollections: true
@@ -9,9 +9,9 @@ eleventyExcludeFromCollections: true
 
 <section class="page-hero">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-    <div class="eyebrow mb-6">The writing garden</div>
-    <h1>Notes from the intersection of code and consciousness.</h1>
-    <p class="page-lead">I write about engineering, AI, leadership, and human growth: how disciplined technology and honest attention can help people make better decisions and do better work together.</p>
+    <div class="eyebrow mb-6">Field notes</div>
+    <h1>Essays on Mindful Engineering.</h1>
+    <p class="page-lead">I write about the intersection of software architecture, AI-assisted development, DevOps, Zen, technical leadership, and the human side of building systems.</p>
   </div>
 </section>
 
@@ -28,8 +28,8 @@ eleventyExcludeFromCollections: true
         <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
         <p>{{ post.data.description }}</p>
         <div class="blog-card-footer">
-          <a href="{{ post.url }}" class="text-link">Continue reading</a>
           <span>{{ post.templateContent | readingTime }}</span>
+          <a href="{{ post.url }}" class="text-link">Continue reading</a>
         </div>
       </div>
     </article>

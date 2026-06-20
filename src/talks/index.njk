@@ -1,62 +1,17 @@
 ---
-layout: base.njk
-title: Speaking
-description: Talks by Roel van Bergen about agentic engineering, AI orchestration, mindfulness, and sustainable software development.
+layout: false
 permalink: /talks/index.html
 eleventyExcludeFromCollections: true
 ---
-
-<section class="page-hero speaking-hero">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
-    <div class="eyebrow mb-6">Talks and conference sessions</div>
-    <h1>Making complex technology more explicit, practical, and human.</h1>
-    <p class="page-lead">I speak about agentic software engineering, multi-agent systems, and attention under pressure. This page contains a small curated selection rather than every talk idea or submission.</p>
-    <div class="flex flex-wrap gap-3 mt-9">
-      <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-primary">View my Sessionize profile</a>
-      <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-secondary">Connect on LinkedIn</a>
-    </div>
-  </div>
-</section>
-
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-  <div class="section-intro mb-10">
-    <div class="eyebrow">Showcased talks</div>
-    <h2>Developed, presented, and ready for a new audience.</h2>
-  </div>
-
-  <div class="topic-list">
-    {%- for talk in publicTalks -%}
-    <article class="topic-card">
-      <span class="topic-index">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
-      <div>
-        <div class="talk-card-meta">
-          <span class="talk-status">{{ talk.status }}</span>
-          <span>{{ talk.audience }}</span>
-        </div>
-        <h2><a href="/talks/{{ talk.slug }}/">{{ talk.title }}</a></h2>
-        <p>{{ talk.description }}</p>
-        <p class="topic-outcome">{{ talk.takeaways[0] }}</p>
-        <a href="/talks/{{ talk.slug }}/" class="text-link mt-5 inline-flex">View talk details</a>
-      </div>
-    </article>
-    {%- else -%}
-    <p>No talks are currently selected for the public showcase.</p>
-    {%- endfor -%}
-  </div>
-</section>
-
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-  <div class="invitation-panel">
-    <div>
-      <div class="eyebrow mb-5">Invite me to speak</div>
-      <h2>Conference, meetup, or an engineering team that wants to go deeper.</h2>
-    </div>
-    <div>
-      <p>The sessions can be adapted to the audience, time slot, and technical depth. My Sessionize profile contains the current submission information; LinkedIn is the easiest place to start a conversation.</p>
-      <div class="flex flex-wrap gap-3 mt-7">
-        <a href="{{ site.sessionize }}" target="_blank" rel="noopener" class="button-primary">Open Sessionize</a>
-        <a href="{{ site.linkedin }}" target="_blank" rel="noopener" class="button-secondary">Connect on LinkedIn</a>
-      </div>
-    </div>
-  </div>
-</section>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=/work-with-me/">
+  <link rel="canonical" href="{{ site.url }}/work-with-me/">
+  <title>Work with me | {{ site.title }}</title>
+</head>
+<body>
+  <p><a href="/work-with-me/">Continue to Work with me</a></p>
+</body>
+</html>
