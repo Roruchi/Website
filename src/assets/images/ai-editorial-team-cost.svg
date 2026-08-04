@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cost and observability of the AI editorial team</title>
+  <desc id="desc">The project used 74 recorded sessions and 186.2 million processed tokens, representing about 211 dollars in estimated API-equivalent usage. Only 15.2 percent of Codex tokens went to writing and editing.</desc>
+  <style>
+    text { font-family: Inter, Arial, sans-serif; fill: #1c1917; }
+    .title { font-size: 34px; font-weight: 700; }
+    .subtitle { font-size: 18px; fill: #57534e; }
+    .label { font-size: 16px; fill: #57534e; }
+    .value { font-size: 42px; font-weight: 700; }
+    .context { font-size: 14px; fill: #78716c; }
+    .section { font-size: 20px; font-weight: 700; }
+    .table-head { font-size: 14px; font-weight: 700; fill: #57534e; }
+    .table-cell { font-size: 17px; }
+    .table-value { font-size: 17px; font-weight: 700; }
+    .legend { font-size: 15px; }
+    .legend-value { font-size: 15px; font-weight: 700; }
+    .takeaway { font-size: 20px; font-weight: 700; }
+    .note { font-size: 13px; fill: #78716c; }
+  </style>
+
+  <rect width="1200" height="760" fill="#f8f6f1"/>
+  <text x="54" y="58" class="title">The cost of an AI editorial team</text>
+  <text x="54" y="88" class="subtitle">Telemetry from the production of AI Assisted Development: The Rockstars Way</text>
+
+  <rect x="54" y="120" width="356" height="142" rx="18" fill="#ffffff" stroke="#d6d3d1"/>
+  <text x="80" y="154" class="label">Estimated API equivalent</text>
+  <text x="80" y="211" class="value">≈ $211</text>
+  <text x="80" y="238" class="context">Below $250 at standard GPT-5.6 Sol rates</text>
+
+  <rect x="432" y="120" width="330" height="142" rx="18" fill="#ffffff" stroke="#d6d3d1"/>
+  <text x="458" y="154" class="label">Recorded sessions</text>
+  <text x="458" y="211" class="value">74</text>
+  <text x="458" y="238" class="context">Codex, Claude Code and Copilot</text>
+
+  <rect x="784" y="120" width="362" height="142" rx="18" fill="#ffffff" stroke="#d6d3d1"/>
+  <text x="810" y="154" class="label">Processed tokens</text>
+  <text x="810" y="211" class="value">186.2M</text>
+  <text x="810" y="238" class="context">Mostly cached context</text>
+
+  <text x="54" y="310" class="section">Usage and API equivalent by tool</text>
+  <text x="706" y="310" class="table-head" text-anchor="end">SESSIONS</text>
+  <text x="914" y="310" class="table-head" text-anchor="end">TOKENS</text>
+  <text x="1146" y="310" class="table-head" text-anchor="end">API EQUIVALENT</text>
+
+  <line x1="54" y1="326" x2="1146" y2="326" stroke="#d6d3d1"/>
+  <text x="54" y="365" class="table-cell">Codex</text>
+  <text x="706" y="365" class="table-value" text-anchor="end">54</text>
+  <text x="914" y="365" class="table-value" text-anchor="end">185.2M</text>
+  <text x="1146" y="365" class="table-value" text-anchor="end">$178.36</text>
+  <line x1="54" y1="383" x2="1146" y2="383" stroke="#e7e5e4"/>
+
+  <text x="54" y="422" class="table-cell">Claude Code</text>
+  <text x="706" y="422" class="table-value" text-anchor="end">4</text>
+  <text x="914" y="422" class="table-value" text-anchor="end">893.6K</text>
+  <text x="1146" y="422" class="table-value" text-anchor="end">$30.70</text>
+  <line x1="54" y1="440" x2="1146" y2="440" stroke="#e7e5e4"/>
+
+  <text x="54" y="479" class="table-cell">GitHub Copilot</text>
+  <text x="706" y="479" class="table-value" text-anchor="end">16</text>
+  <text x="914" y="479" class="table-value" text-anchor="end">106.6K</text>
+  <text x="1146" y="479" class="table-value" text-anchor="end">$1.55</text>
+
+  <text x="54" y="538" class="section">Where the Codex tokens went</text>
+  <rect x="54" y="559" width="166" height="32" rx="16" fill="#d97706"/>
+  <rect x="220" y="559" width="561" height="32" fill="#0f766e"/>
+  <rect x="781" y="559" width="218" height="32" fill="#2563eb"/>
+  <rect x="999" y="559" width="147" height="32" rx="16" fill="#78716c"/>
+
+  <circle cx="62" cy="628" r="6" fill="#d97706"/>
+  <text x="76" y="634" class="legend">Writing &amp; editing</text>
+  <text x="254" y="634" class="legend-value">15.2%</text>
+
+  <circle cx="342" cy="628" r="6" fill="#0f766e"/>
+  <text x="356" y="634" class="legend">Review &amp; feedback</text>
+  <text x="544" y="634" class="legend-value">51.4%</text>
+
+  <circle cx="638" cy="628" r="6" fill="#2563eb"/>
+  <text x="652" y="634" class="legend">Publish, export &amp; sync</text>
+  <text x="864" y="634" class="legend-value">20.0%</text>
+
+  <circle cx="946" cy="628" r="6" fill="#78716c"/>
+  <text x="960" y="634" class="legend">Other</text>
+  <text x="1068" y="634" class="legend-value">13.4%</text>
+
+  <text x="54" y="686" class="takeaway">71.4% reviewed, revised, published, exported or synchronized existing content.</text>
+  <text x="54" y="722" class="note">Codex valued at standard GPT-5.6 Sol API rates. Claude Code and Copilot use dashboard API equivalents. Telemetry estimate, not an invoice.</text>
+</svg>
