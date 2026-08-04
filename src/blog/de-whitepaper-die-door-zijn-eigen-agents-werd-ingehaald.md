@@ -14,19 +14,15 @@ tags:
   - writing
 ---
 
-We were writing a whitepaper about keeping humans accountable while agents perform more of the work. So, naturally, we used agents to help write it.
+We were writing a whitepaper about how development teams can use agents without giving up ownership. It seemed logical to use agents in the writing process itself, with the same controls we recommend for software: persistent context, bounded roles, specialist reviews and a human approval boundary.
 
-The first Word export was 41 pages.
+On paper, the setup looked responsible. Each chapter had a brief and a word budget, a writer skill protected my voice from day one, and specialist agents reviewed the work from different perspectives. Yet the first Word export reached 41 pages.
 
-That should have been a warning. We had chapter briefs, word budgets, specialist reviewers and a writer skill protecting my voice from day one.
+Most individual suggestions made sense. One review asked for more consistency, another for more technical detail, and another for clearer organisational consequences. The failure only became visible when we stopped reviewing chapters and read the whitepaper as a whole: the agents had kept improving the section in front of them while the document became longer, less focused and less recognisably ours.
 
-Every chapter was defensible. The whitepaper as a whole was becoming worse.
+We responded with a substantial cut. The structure improved, but the edit exposed a second problem because much of the human tone had disappeared together with the surplus words. Human counter-readers saw what our automated checks had missed: a defensible whitepaper can still feel as though nobody is really willing to own it.
 
-The agents could improve whatever appeared in front of them. They could not decide which ideas deserved to survive. After a substantial cut, the structure was tighter, but much of the human tone had disappeared with the surplus words. Human readers noticed before our automated checks did.
-
-That changed the question for me. How do you use agents to write a whitepaper without outsourcing authorship?
-
-My answer is to build an editorial team, not an AI writer. Give agents bounded editorial jobs. Keep humans in charge of the argument, the exceptions and the final decision to publish.
+That left me with the question behind this article: how do you use agents to improve a whitepaper without outsourcing authorship? My conclusion is that you should build an editorial team rather than an AI writer. Agents can take on bounded editorial work, but humans still have to own the argument, judge the exceptions and decide what deserves to be published.
 
 ## An agent can improve every section and still make the paper worse
 
@@ -43,23 +39,17 @@ Specialist roles handled different questions:
 - The **developer persona** tested technical credibility and practical usefulness.
 - The **engineering-manager persona** tested coherence, team value and organisational consequences.
 
-Each role had a reason to request more context, another example or one more qualification. Every suggestion could be correct while the document lost its point.
-
-AI feedback is cheap. Accepting it is expensive.
+Each role had a reason to request more context, another example or one more qualification. Generating those plausible suggestions cost almost nothing, but deciding whether they deserved space in the paper was where the real editorial work began.
 
 ## The 41-page cut fixed the length and damaged the voice
 
 Our first export reached 41 pages. Across the eight core chapters, we cut 6,557 words down to 5,124. That removed 1,433 words, or 21.9 percent of the core text.
 
-The cut was necessary. The result was shorter, clearer and easier to navigate. It was also too clean.
-
-We removed duplication and background explanation, but also passages where the authors sounded like people who had done the work. Rough edges, doubts and specific consequences became competent AI prose. The argument survived. The sense that somebody stood behind it did not.
+The cut was necessary, and the result was shorter, clearer and easier to navigate. It was also too clean. We removed duplication and background explanation, but also passages where the authors sounded like people who had done the work. Rough edges, doubts and specific consequences became competent AI prose, leaving the argument intact while weakening the sense that somebody genuinely stood behind it.
 
 That became clear through human counter-readers. They did more than check grammar or technical correctness. They asked uncomfortable questions: Does this still sound like you? Where is the experience behind this claim? Would you say this sentence out loud? Why should a reader trust this conclusion?
 
-After that feedback, we added `ai-generated-text-triage`, a read-only inspection step for generic transitions, suspicious symmetry and other AI writing patterns. We also rewrote parts ourselves without AI. Not every weak passage needed a better prompt. Some needed an author back in the room.
-
-The human counter-readers remained essential. A style check can spot a pattern. A person can tell you that the document no longer feels owned.
+After that feedback, we added `ai-generated-text-triage`, a read-only inspection step for generic transitions, suspicious symmetry and other AI writing patterns. We also rewrote parts ourselves without AI, because not every weak passage needed a better prompt. Some needed an author back in the room. The counter-readers remained essential here: a style check can spot a pattern, but a person can tell you that the document no longer feels owned.
 
 ## What 186 million tokens actually bought
 
@@ -69,37 +59,27 @@ This is an order-of-magnitude price tag, not a bill. The tools partly ran throug
 
 ![Cost and observability of the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/ai-editorial-team-cost.svg)
 
-Only 15.2 percent of Codex tokens went to writing and editing.
+Only 15.2 percent of Codex tokens went to writing and editing, while review and feedback implementation consumed 51.4 percent. Add publishing, export and synchronisation, and 71.4 percent of token use happened after text already existed.
 
-Review and feedback implementation consumed 51.4 percent. Add publishing, export and synchronisation, and 71.4 percent of token use happened after text already existed.
-
-The agents were an editorial department: comparing versions, finding inconsistencies, processing feedback, maintaining artefacts and checking whether changes had landed everywhere.
-
-For less than $250, that is remarkable leverage. It also corrects the usual AI-writing story. Producing sentences was cheap. Making them coherent, credible and recognisably ours took most of the system and all of the human judgement.
+In practice, the agents behaved more like an editorial department than a writing machine. They compared versions, found inconsistencies, processed feedback, maintained artefacts and checked whether changes had landed everywhere. For less than $250, that is remarkable leverage, but it also corrects the usual AI-writing story: producing sentences was cheap; making them coherent, credible and recognisably ours took most of the system and all of the human judgement.
 
 ## Divide decision rights, not authorship percentages
 
-People often ask what percentage was written by AI. I think that is the wrong measure.
-
-An agent-assisted commit may change hundreds of sentences without changing the argument. A human decision to remove a chapter may change the entire paper without adding a single word. Counting keystrokes confuses production with authorship.
-
-Our useful dividing line was decision rights.
+People often ask what percentage was written by AI, but I think that is the wrong measure. An agent-assisted commit may change hundreds of sentences without changing the argument, while a human decision to remove a chapter may change the entire paper without adding a single word. Counting keystrokes confuses production with authorship, so our useful dividing line was decision rights.
 
 ![Decision rights between humans and the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/human-agent-editorial-roles.svg)
 
 Agents could draft, compare, challenge, inspect and implement approved changes. Humans owned the thesis, supplied lived experience, judged conflicting feedback, chose what to cut and approved publication.
 
-Human counter-readers formed a second boundary. The editor-in-chief can become too close to both the text and the system. A trusted reader can still say: this is technically sound, but I no longer hear you in it.
-
-No persona agent gave us that intervention at the right moment.
+Human counter-readers formed a second boundary. The editor-in-chief can become too close to both the text and the system, while a trusted reader can still say: this is technically sound, but I no longer hear you in it. No persona agent gave us that intervention at the right moment.
 
 ## Build your own AI editorial team
 
-You do not need 74 sessions. Start with five design choices.
+You do not need 74 sessions to apply this approach; start with five design choices.
 
 ### 1. Appoint a human editor-in-chief
 
-Name one person who owns the audience, thesis, scope and final publication decision. Write the position down in one sentence. If an addition does not strengthen it, the addition needs a very good reason to exist.
+Start by naming one person who owns the audience, thesis, scope and final publication decision, then write the position down in one sentence. Any addition that does not strengthen that position needs a very good reason to exist.
 
 ### 2. Add at least one human counter-reader
 
@@ -120,7 +100,7 @@ Use bounded contracts instead of a room full of vague personas.
 - **Developer:** “Flag claims that sound plausible but lack an example, boundary or verification method.”
 - **Engineering manager:** “Flag advice that ignores team ownership, risk or delivery consequences.”
 
-If two roles keep finding the same problem, improve the shared brief. Do not add a third reviewer.
+If two roles keep finding the same problem, improve the shared brief before adding another reviewer.
 
 ### 5. Separate inspection from modification
 
@@ -136,4 +116,4 @@ You can read [*AI Assisted Development: The Rockstars Way* in English](https://g
 
 On 18 August at 12:00, we will unpack what worked, what nearly failed and how to apply the model inside a real delivery team in the [AI Assisted Development webinar](https://events.teams.microsoft.com/event/449acad2-073e-47db-8982-04783bf26c38%409e8cdb6a-eda5-4cca-8b83-b40f0074d999).
 
-The $250 price tag did not buy us a whitepaper. It bought access to an editorial team. That team still needed an editor, independent human readers and authors willing to put their name behind the result.
+The $250 price tag did not buy us a whitepaper; it bought access to an editorial team. That team still needed an editor, independent human readers and authors willing to put their name behind the result.
