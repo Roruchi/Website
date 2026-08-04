@@ -1,8 +1,8 @@
 ---
-title: "How to write a whitepaper with AI agents: build an editorial team, not a writer"
+title: "Our AI editorial team cost less than $250. The whitepaper still nearly failed"
 slug: "de-whitepaper-die-door-zijn-eigen-agents-werd-ingehaald"
 date: 2026-07-20
-description: "Onze AI-redactie verwerkte 186 miljoen tokens in 74 sessies. Slechts 15 procent ging naar schrijven. Dit is hoe we agents inzetten zonder het auteurschap uit handen te geven."
+description: "We used 74 AI sessions and 186 million tokens to create a whitepaper. The hard part was not generating text. It was protecting authorship."
 status: draft
 pillar: engineering
 relatedTalks: []
@@ -14,185 +14,126 @@ tags:
   - writing
 ---
 
-Voor *AI Assisted Development: The Rockstars Way* wilden Javier Rennola, Timo Koole en ik beschrijven hoe teams coding agents verantwoord door hun deliveryflow krijgen. De whitepaper volgt het proces van intent en work definition tot context engineering, verificatie en pull-requestreview. Het voelde logisch om die principes ook tijdens het schrijven toe te passen.
+We were writing a whitepaper about keeping humans accountable while agents perform more of the work. So, naturally, we used agents to help write it.
 
-We bouwden geen enkele AI-schrijver. ChatGPT hielp argumenten en praktijkvragen verkennen. Claude Code organiseerde schrijfwerk. Codex werkte over de repository heen. Copilot pakte afgebakende reparaties op. Content-checkers en persona-agents beoordeelden de tekst vanuit verschillende perspectieven.
+The first Word export was 41 pages.
 
-Dat systeem werkte. De eerste Word-export telde 41 pagina's.
+That should have been a warning. We had chapter briefs, word budgets, specialist reviewers and a writer skill protecting my voice from day one.
 
-Ieder hoofdstuk was op zichzelf verdedigbaar. Er waren bronnen, voorbeelden, reviews en verbeteringen. Als geheel werd de whitepaper alleen steeds langer en minder herkenbaar als één verhaal. De agents verbeterden lokaal precies wat we vroegen, terwijl mijn eigen stem en centrale argument onder al die productie dreigden te verdwijnen.
+Every chapter was defensible. The whitepaper as a whole was becoming worse.
 
-Hoe zet je agents dan in om een whitepaper beter te maken, zonder het auteurschap aan het systeem over te dragen?
+The agents could improve whatever appeared in front of them. They could not decide which ideas deserved to survive. After a substantial cut, the structure was tighter, but much of the human tone had disappeared with the surplus words. Human readers noticed before our automated checks did.
 
-Mijn antwoord na dit project: bouw een editorial team, geen AI-schrijver. Geef agents verschillende redactionele verantwoordelijkheden, maar houd één mens verantwoordelijk voor richting, betekenis en de beslissing wat niet in het document thuishoort.
+That changed the question for me. How do you use agents to write a whitepaper without outsourcing authorship?
 
-## Het schrijfproces begon niet met schrijven
+My answer is to build an editorial team, not an AI writer. Give agents bounded editorial jobs. Keep humans in charge of the argument, the exceptions and the final decision to publish.
 
-De eerste gesprekken vonden plaats voordat er een repository was. Met ChatGPT onderzocht ik welke vraag de whitepaper moest beantwoorden, waar teams in de praktijk vastlopen en welk standpunt ik zelf wilde verdedigen.
+## An agent can improve every section and still make the paper worse
 
-Daar lag de eerste menselijke verantwoordelijkheid. Een agent kan snel een plausibele outline produceren, maar een outline is nog geen overtuiging. De centrale gedachte moest uit onze ervaring komen: uitvoering kan steeds verder naar agents verschuiven, terwijl eigenaarschap bij het team blijft. Een werkende build of een set groene tests is niet automatisch voldoende bewijs dat een verandering correct is. De reviewer moet kunnen begrijpen wat er is veranderd, waarom dat nodig was en welk bewijs de claim ondersteunt.
+The whitepaper, *AI Assisted Development: The Rockstars Way*, explains how development teams can let coding agents do more while keeping ownership inside the team. Javier Rennola, Timo Koole and I applied the same idea to the writing process.
 
-Pas daarna werd de intent onderhoudbaar gemaakt. De outline ging een repository in. Ieder hoofdstuk kreeg een eigen publicatiebestand en een schrijversbrief in `_meta/`. Een `AGENTS.md` legde onder meer de doelgroep, terminologie, woordbudgetten, bronnen en redactionele grenzen vast.
+I used ChatGPT to explore the problem, test angles and challenge my position. The thesis itself came from experience: execution can move towards agents, but ownership cannot.
 
-Voor softwareontwikkeling noemen we zoiets context engineering en harness engineering. Voor schrijven bleek hetzelfde principe te gelden. Een losse prompt draagt te weinig projectgeheugen. Een repository met expliciete afspraken maakt schrijfwerk reviewbaar, herhaalbaar en overdraagbaar.
+We made that intent persistent. Each chapter had a writer brief in `_meta/`. `AGENTS.md` described the audience, terminology, sources, word limits and editorial boundaries. The `roel-writing-style` skill was part of the setup from the start. It gave every agent the same description of my preference for a clear position, concrete consequences and less corporate filler.
 
-## Eén agent werd een redactie
+Specialist roles handled different questions:
 
-De volgende stap was specialisatie. We gebruikten niet één prompt die tegelijk moest schrijven, controleren, bekritiseren en inkorten. De verschillende taken kregen een eigen rol.
+- The **draft agent** produced or revised one bounded section.
+- The **content-checker** looked across chapters for repetition, style breaks and contradictions.
+- The **developer persona** tested technical credibility and practical usefulness.
+- The **engineering-manager persona** tested coherence, team value and organisational consequences.
 
-- **Draft-agents** maakten eerste versies en verwerkten gerichte opdrachten per hoofdstuk.
-- **De content-checker** las over hoofdstukken heen en controleerde stijl, herhaling en consistentie.
-- **De developer persona** vroeg of een technisch lezer de uitleg geloofwaardig, concreet en toepasbaar zou vinden.
-- **De engineering-manager persona** keek naar samenhang, teamwaarde en de keuzes die een organisatie ermee kon maken.
-- **Claude Code** organiseerde meerdere schrijftaken en reviewrondes.
-- **Codex** verwerkte repositorybrede feedback, synchroniseerde wijzigingen en controleerde het resultaat.
-- **Copilot** bleef bij afgebakende reparaties rond de pull-requestgrens.
+Each role had a reason to request more context, another example or one more qualification. Every suggestion could be correct while the document lost its point.
 
-Dat is ook waarom ik onderscheid maak tussen agents, skills, projectinstructies en scripts.
+AI feedback is cheap. Accepting it is expensive.
 
-Een agent vertegenwoordigt een rol of beoordelingsperspectief. Een skill beschrijft een herhaalbare werkwijze. In dit project beschermde `roel-writing-style` mijn stem en controleerde `ai-generated-text-triage` tekst read-only op herkenbare patronen van generiek AI-proza. `AGENTS.md` bewaarde de afspraken die voor het hele project golden. Scripts controleerden deterministische eigenschappen, zoals links, woordbudgetten, exports en metadata.
+## The 41-page cut fixed the length and damaged the voice
 
-Die onderdelen zijn niet onderling uitwisselbaar. Een persona is nuttig wanneer een tekst een andere professionele lens nodig heeft. Een skill is nuttig wanneer dezelfde taak vaker terugkomt. Een script is beter zodra een controle zonder interpretatie kan worden uitgevoerd.
+Our first export reached 41 pages. Across the eight core chapters, we cut 6,557 words down to 5,124. That removed 1,433 words, or 21.9 percent of the core text.
 
-## De whitepaper werd beter en dreigde tegelijk te mislukken
+The cut was necessary. The result was shorter, clearer and easier to navigate. It was also too clean.
 
-Meer gespecialiseerde agents leverden meer relevante feedback op. Ze vergrootten ook de hoeveelheid tekst, argumenten en lokale verbeteringen die een plek vroegen.
+We removed duplication and background explanation, but also passages where the authors sounded like people who had done the work. Rough edges, doubts and specific consequences became competent AI prose. The argument survived. The sense that somebody stood behind it did not.
 
-Daar zat de fout in onze aanpak: we hadden de productie goed georganiseerd, maar nog onvoldoende vastgelegd wie de samenhang bewaakte en wanneer een suggestie mocht worden afgewezen.
+That became clear through human counter-readers. They did more than check grammar or technical correctness. They asked uncomfortable questions: Does this still sound like you? Where is the experience behind this claim? Would you say this sentence out loud? Why should a reader trust this conclusion?
 
-Ik had voor bijna ieder lokaal tekstprobleem een specialistische rol ontworpen. De beslissing of het geheel nog steeds mijn argument en stem droeg, kwam daardoor te laat in de cyclus terug bij mij. Precies die beslissing had vanaf het begin de vaste menselijke grens moeten zijn.
+After that feedback, we added `ai-generated-text-triage`, a read-only inspection step for generic transitions, suspicious symmetry and other AI writing patterns. We also rewrote parts ourselves without AI. Not every weak passage needed a better prompt. Some needed an author back in the room.
 
-Een developer persona kon terecht om een extra technisch voorbeeld vragen. Een engineering-manager persona kon even terecht om meer organisatorische context vragen. De content-checker kon vervolgens constateren dat beide toevoegingen een nieuw begrip introduceerden dat elders uitleg nodig had. Iedere stap was logisch. Het document als geheel werd er niet automatisch beter van.
+The human counter-readers remained essential. A style check can spot a pattern. A person can tell you that the document no longer feels owned.
 
-Managementfeedback dat delen van de tekst AI-generated aanvoelden maakte dat zichtbaar. Eén passage minder glad formuleren zou het onderliggende probleem laten staan. We pasten daarom het systeem aan. Er kwam een herbruikbare writer skill die mijn standpunt, ritme en voorkeur voor concrete consequenties beter beschermde. Daarnaast werd AI-proza eerst read-only geïnspecteerd voordat een agent wijzigingen mocht voorstellen.
+## What 186 million tokens actually bought
 
-De doorslaggevende verbetering was menselijker en eenvoudiger: feedback werd advies. Niet iedere correcte observatie verdiende een wijziging. Iemand moest bepalen welk probleem werkelijk het verhaal schaadde, welke nuance noodzakelijk was en welke toevoeging vooral meer tekst opleverde.
+We reconstructed 74 recorded sessions across Codex, Copilot and Claude Code, together processing approximately 186.2 million tokens. Using standard API-equivalent pricing, that activity came to roughly $211, and in any case less than $250.
 
-## Wat observability over het schrijfproces liet zien
+This is an order-of-magnitude price tag, not a bill. The tools partly ran through subscriptions, most Codex input was cached and token counts are not perfectly comparable across products.
 
-Na afloop hebben we de beschikbare telemetry langs het opgenomen werkpad gelegd. Over Codex, Claude Code en Copilot vonden we 74 geregistreerde sessies en ongeveer 186,2 miljoen verwerkte tokens. Wanneer we Codex waarderen tegen de [standaardtarieven van GPT-5.6 Sol](https://developers.openai.com/api/docs/models/gpt-5.6-sol) en voor Claude Code en Copilot de API-equivalenten uit het dashboard gebruiken, komt dat uit op ongeveer 211 dollar. Ruim onder de 250 dollar.
+![Cost and observability of the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/ai-editorial-team-cost.svg)
 
-Dat bedrag is een API-equivalent, geen factuur. De tools draaiden deels binnen abonnementen en 171,7 miljoen van de 184,2 miljoen Codex-inputtokens kwamen uit cache. Tokenmetingen tussen producten zijn bovendien niet volledig vergelijkbaar. De waarde van deze cijfers zit daarom vooral in de verdeling van het werk.
+Only 15.2 percent of Codex tokens went to writing and editing.
 
-![Observability van de AI-redactie met sessies, tokens, kosten en werkverdeling](/assets/images/ai-editorial-team-cost.svg)
+Review and feedback implementation consumed 51.4 percent. Add publishing, export and synchronisation, and 71.4 percent of token use happened after text already existed.
 
-Slechts 15,2 procent van de Codex-tokens ging naar schrijven en redigeren. Review en feedbackverwerking waren samen goed voor 51,4 procent. Met publiceren, exporteren en synchroniseren erbij vond 71,4 procent van het tokengebruik plaats nadat er al tekst bestond.
+The agents were an editorial department: comparing versions, finding inconsistencies, processing feedback, maintaining artefacts and checking whether changes had landed everywhere.
 
-Dat past niet bij het beeld van een chatbot die in één keer een whitepaper schrijft. Het systeem functioneerde vooral als een digitale redactie: tekst vergelijken, feedback verzamelen, wijzigingen doorvoeren, consistentie herstellen en het publicatieartefact onderhouden.
+For less than $250, that is remarkable leverage. It also corrects the usual AI-writing story. Producing sentences was cheap. Making them coherent, credible and recognisably ours took most of the system and all of the human judgement.
 
-De overige projectcijfers vertellen hetzelfde verhaal:
+## Divide decision rights, not authorship percentages
 
-- De eerste Word-export telde 41 pagina's.
-- Er waren 51 non-merge commits.
-- De acht kernhoofdstukken gingen van 6.557 naar 5.124 woorden.
-- We verwijderden 1.433 woorden, 21,9 procent van de kerntekst.
-- De menselijke inspanning lag naar schatting rond de 40 uur.
+People often ask what percentage was written by AI. I think that is the wrong measure.
 
-Ongeveer tachtig procent van de commits kwam met ondersteuning van agents tot stand. Dat percentage zegt iets over productie, niet over auteurschap. Eén menselijke beslissing om een hoofdstuk te schrappen kan inhoudelijk zwaarder wegen dan tientallen agent-assisted commits.
+An agent-assisted commit may change hundreds of sentences without changing the argument. A human decision to remove a chapter may change the entire paper without adding a single word. Counting keystrokes confuses production with authorship.
 
-## De mens-agentverdeling gaat over beslissingsrecht
+Our useful dividing line was decision rights.
 
-Ik zou de bijdrage daarom niet verdelen in een percentage mens en een percentage AI. De nuttige scheidslijn loopt tussen redactionele capaciteit en redactionele autoriteit.
+![Decision rights between humans and the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/human-agent-editorial-roles.svg)
 
-Agents kunnen alternatieven produceren, patronen vinden, consistentie controleren en feedback vanuit meerdere rollen simuleren. Mensen bepalen de centrale these, brengen praktijkervaring in, beoordelen de relevantie van bronnen en beslissen welke kritiek werkelijk tot een wijziging leidt.
+Agents could draft, compare, challenge, inspect and implement approved changes. Humans owned the thesis, supplied lived experience, judged conflicting feedback, chose what to cut and approved publication.
 
-![Rolverdeling tussen de menselijke hoofdredacteur en het AI editorial team](/assets/images/human-agent-editorial-roles.svg)
+Human counter-readers formed a second boundary. The editor-in-chief can become too close to both the text and the system. A trusted reader can still say: this is technically sound, but I no longer hear you in it.
 
-De productie was sterk agent-driven. Richting en betekenis bleven human-owned. Ik zie dat als het ontwerpprincipe dat de samenwerking bruikbaar maakte: redactionele capaciteit kan opschalen, beslissingsrecht blijft menselijk.
+No persona agent gave us that intervention at the right moment.
 
-## Bouw je eigen AI editorial team
+## Build your own AI editorial team
 
-Je hebt geen 74 sessies of tientallen miljoenen tokens nodig om deze aanpak te gebruiken. Begin kleiner en voeg alleen een rol toe wanneer die een aantoonbaar ander probleem oplost.
+You do not need 74 sessions. Start with five design choices.
 
-### 1. Benoem één menselijke editor-in-chief
+### 1. Appoint a human editor-in-chief
 
-Leg vast wie de doelgroep, centrale these en publicatiegrens bewaakt. Die persoon hoeft niet alle tekst zelf te schrijven, maar moet wel kunnen uitleggen waarom ieder belangrijk onderdeel in het document staat.
+Name one person who owns the audience, thesis, scope and final publication decision. Write the position down in one sentence. If an addition does not strengthen it, the addition needs a very good reason to exist.
 
-Voor onze whitepaper betekende dit dat mensen eigenaar bleven van:
+### 2. Add at least one human counter-reader
 
-- het standpunt dat uitvoering kan verschuiven, maar teamownership niet;
-- praktijkervaringen en de relevantie van bronnen;
-- het accepteren of afwijzen van feedback;
-- de uiteindelijke samenhang, inkorting en publicatie.
+Do this early and again after the biggest cut. Ask them to review for trust, voice and relevance.
 
-Zonder deze rol gaat een agentsysteem optimaliseren op de meest recente opdracht of review. Dat levert activiteit op, maar geen stabiele redactionele richting.
+A useful brief is: *Mark the point where you stop hearing an author and start hearing a system.*
 
-### 2. Maak de opdracht persistent
+### 3. Make the brief persistent
 
-Zet de belangrijkste afspraken in een projectbestand dat iedere agent leest. Voor een artikel of whitepaper bevat dat minimaal:
+Store the audience, thesis, terminology, sources, word budget and stop rule with the document. Add a writer skill when voice matters across sessions. It will not make prose human, but it makes deviations easier to see.
 
-```text
-Audience: senior developers, tech leads and engineering managers
-Thesis: execution can shift to agents; ownership stays with the team
-Required: concrete practices, limitations and evidence
-Avoid: generic AI claims, invented experience and management filler
-Word budget: defined per section
-Stop rule: report conflicts instead of silently expanding scope
-```
+### 4. Give agents one lens each
 
-Een goede projectbrief voorkomt niet alle afwijkingen. Hij maakt ze wel zichtbaar en bespreekbaar. Dat is het verschil tussen opnieuw prompten en gericht reviewen.
+Use bounded contracts instead of a room full of vague personas.
 
-### 3. Geef iedere agent één duidelijke lens
+- **Draft:** “Write this section from the accepted outline. Mark missing evidence. Do not invent it.”
+- **Content-checker:** “Report repetition, contradictions and style breaks across the document. Do not rewrite.”
+- **Developer:** “Flag claims that sound plausible but lack an example, boundary or verification method.”
+- **Engineering manager:** “Flag advice that ignores team ownership, risk or delivery consequences.”
 
-Begin bijvoorbeeld met drie rollen.
+If two roles keep finding the same problem, improve the shared brief. Do not add a third reviewer.
 
-**Draft-agent**
+### 5. Separate inspection from modification
 
-> Schrijf één sectie op basis van de geaccepteerde outline en aangeleverde bronnotities. Voeg geen nieuwe claims toe. Markeer ontbrekend bewijs in plaats van het zelf aan te vullen.
+Review agents should produce findings first. A human accepts, combines or rejects them. Only then does an agent change the text. When review keeps growing, freeze the content: every remaining change must fix a blocker or remove more complexity than it adds.
 
-**Content-checker**
+Agents are very good at finding more work. Your workflow needs permission to stop.
 
-> Lees het volledige document. Rapporteer stijlbreuken, herhaling, terminologieconflicten en argumenten die elkaar tegenspreken. Herschrijf nog niets.
+## The whitepaper is the proof and the warning
 
-**Developer persona**
+The same principle runs through the finished whitepaper: agents can expand execution, but humans remain accountable for what reaches the reader, user or production environment. In software, evidence and pull-request review form that ownership boundary. In writing, it is a persistent brief, explicit decision rights and humans willing to reject perfectly reasonable AI suggestions.
 
-> Beoordeel welke onderdelen een ervaren developer maandag kan toepassen. Markeer uitleg die technisch aannemelijk klinkt, maar geen concreet voorbeeld, grens of verificatiemethode bevat.
+You can read [*AI Assisted Development: The Rockstars Way* in English](https://go.teamrockstars.nl/ai-assisted-development-handbook-engels) or [download the Dutch edition](https://go.teamrockstars.nl/ai-assisted-development-handbook-nl). The paper contains the complete approach for work definition, context engineering, evidence bundles and human review.
 
-Voor een document dat ook team- of organisatiewaarde moet leveren, kun je een engineering-manager persona toevoegen:
+On 18 August at 12:00, we will unpack what worked, what nearly failed and how to apply the model inside a real delivery team in the [AI Assisted Development webinar](https://events.teams.microsoft.com/event/449acad2-073e-47db-8982-04783bf26c38%409e8cdb6a-eda5-4cca-8b83-b40f0074d999).
 
-> Beoordeel of de tekst helpt om verantwoordelijkheden, risico's en teamafspraken te organiseren. Markeer technische details die geen aantoonbare invloed hebben op delivery of ownership.
-
-Het woord *persona* is hier minder belangrijk dan het contract. De rol heeft een afgebakende vraag, beperkte context en een voorspelbaar resultaat nodig.
-
-### 4. Scheid inspecteren van wijzigen
-
-Laat een reviewer eerst bevindingen opleveren. Laat daarna een mens bepalen welke bevindingen worden geaccepteerd. Pas dan mag een andere agent de geselecteerde wijzigingen uitvoeren.
-
-Deze scheiding voorkomt dat een reviewer zijn eigen voorkeur direct als nieuwe waarheid in de tekst schrijft. Ze levert bovendien een bruikbaar auditspoor op: bevinding, beslissing, wijziging en verificatie.
-
-Een eenvoudige cyclus is voldoende:
-
-1. De mens bepaalt intent en scope.
-2. Een agent produceert of onderzoekt.
-3. Een checker of persona rapporteert bevindingen.
-4. De mens accepteert, combineert of verwerpt die feedback.
-5. Een agent verwerkt alleen de geselecteerde wijzigingen.
-6. Een script of reviewer controleert het eindresultaat.
-
-### 5. Meet werksoorten, niet alleen tokens
-
-Een totaal aantal tokens is aantrekkelijk voor een prijskaartje, maar zegt weinig over waarde. Registreer daarom ook waarvoor een sessie werd gebruikt: onderzoek, schrijven, review, feedbackverwerking, export of onderhoud.
-
-Onze 186 miljoen tokens werden pas interessant toen bleek dat slechts 15 procent naar schrijven ging. Zonder die classificatie was het vooral een groot getal geweest.
-
-Leg daarnaast menselijke uren, reviewrondes, geaccepteerde feedback en verwijderde tekst vast. Daarmee kun je later beoordelen of de agents daadwerkelijk redactionele capaciteit toevoegden of vooral meer werk produceerden.
-
-### 6. Ontwerp een stopregel
-
-Agents stoppen niet vanzelf wanneer een argument voldoende is uitgewerkt. Leg daarom vooraf woordbudgetten, reviewmomenten en een content freeze vast. Bepaal ook wanneer een nieuwe suggestie alleen nog een blocker mag oplossen.
-
-Onze eerste export van 41 pagina's was geen fout van één model. Het was het resultaat van een systeem waarin bijna iedere redelijke verbetering nog welkom was. Een betere generatieprompt had die prikkel niet weggenomen. We moesten explicieter beslissen wanneer de whitepaper klaar was.
-
-## De belangrijkste schrijfskill was redactie
-
-De agents maakten onderzoek, productie en review veel goedkoper. Voor minder dan drie uur professioneel schrijfwerk kregen we tientallen sessies aan specialistische ondersteuning. Ze namen het moeilijkste deel alleen niet over.
-
-Een whitepaper heeft een standpunt nodig. Iemand moet beslissen welke praktijkervaring relevant is, welke bron voldoende sterk is, wanneer twee correcte perspectieven niet tegelijk in het verhaal passen en welke tekst ondanks alle moeite moet verdwijnen.
-
-Dat is de rol van de menselijke editor-in-chief. Die persoon hoeft niet iedere zin beter te formuleren. Auteurschap gaat uiteindelijk over verantwoordelijkheid voor het geheel.
-
-Agents zijn uitstekend in productie. Engineering begint waar je besluit welke productie niet nodig is.
-
-Wil je zien welke aanpak we in de whitepaper zelf beschrijven? Lees [AI Assisted Development: The Rockstars Way in het Nederlands](https://go.teamrockstars.nl/ai-assisted-development-handbook-nl) of [de Engelse editie](https://go.teamrockstars.nl/ai-assisted-development-handbook-engels).
-
-Op 18 augustus om 12.00 uur gaan we tijdens het [webinar over AI Assisted Development](https://events.teams.microsoft.com/event/449acad2-073e-47db-8982-04783bf26c38%409e8cdb6a-eda5-4cca-8b83-b40f0074d999) dieper in op work definition, context engineering, evidence bundles en pull-requestreviews. Daar is ook ruimte om vragen te stellen over de keuzes achter de whitepaper en de manier waarop we agents in de praktijk hebben ingezet.
+The $250 price tag did not buy us a whitepaper. It bought access to an editorial team. That team still needed an editor, independent human readers and authors willing to put their name behind the result.
