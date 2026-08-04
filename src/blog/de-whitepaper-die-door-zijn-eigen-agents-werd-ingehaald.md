@@ -114,6 +114,4 @@ The same principle runs through the finished whitepaper: agents can expand execu
 
 You can read [*AI Assisted Development: The Rockstars Way* in English](https://go.teamrockstars.nl/ai-assisted-development-handbook-engels) or [download the Dutch edition](https://go.teamrockstars.nl/ai-assisted-development-handbook-nl). The paper contains the complete approach for work definition, context engineering, evidence bundles and human review.
 
-On 18 August at 12:00, we will unpack what worked, what nearly failed and how to apply the model inside a real delivery team in the [AI Assisted Development webinar](https://events.teams.microsoft.com/event/449acad2-073e-47db-8982-04783bf26c38%409e8cdb6a-eda5-4cca-8b83-b40f0074d999).
-
 The $250 price tag did not buy us a whitepaper; it bought access to an editorial team. That team still needed an editor, independent human readers and authors willing to put their name behind the result.
