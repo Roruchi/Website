@@ -1,6 +1,6 @@
 # Website Testing Protocol
 
-This document defines the test checklist that **agents must run after every UI change**. Before marking any styling or layout todo as `done`, verify every item below.
+This document defines the test checklist for every UI change. Before marking any styling or layout todo as `done`, verify every item below.
 
 ---
 
@@ -92,20 +92,20 @@ On `/blog/architecture-with-mermaid/`:
 
 ---
 
-## Agent Instructions
+## Contributor Instructions
 
 ### Documentation Maintenance
 
-Every contributor and agent **must** keep the following documentation files up to date:
+Every contributor **must** keep the following documentation files up to date:
 
 - **[architecture.md](./architecture.md)** — Update when you add/remove/upgrade a dependency or plugin, change the build pipeline or deployment workflow, add a new content type or Eleventy collection, change the source directory structure, or change a design system token.
 - **[requirements.md](./requirements.md)** — Update when you add, change, or remove a user-visible feature or page, change the draft system or navigation behaviour, add/change SEO or accessibility requirements, or change the design system rules.
 
-These documents are the canonical reference for the project's architecture and requirements. Failing to keep them current leaves future contributors and agents without accurate context.
+These documents are the canonical reference for the project's architecture and requirements. Failing to keep them current leaves future contributors without accurate context.
 
 ### UI/Style Changes
 
-When an agent completes any task that touches templates or styles, it **must**:
+When a change touches templates or styles:
 
 1. Run `npm run build` — fix all errors before marking done
 2. Grep for `text-slate-900` in modified files — every instance needs a `dark:text-white` or `dark:text-slate-100` counterpart

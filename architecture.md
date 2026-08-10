@@ -101,7 +101,7 @@ Website/
 │   └── crosspost/              # Manual crosspost utility and platform adapters
 ├── architecture.md             # This file
 ├── requirements.md             # Functional and non-functional requirements
-├── TESTING.md                  # Testing checklist and agent instructions
+├── TESTING.md                  # Testing checklist and contributor instructions
 └── README.md                   # Project overview
 ```
 
