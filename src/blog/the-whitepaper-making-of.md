@@ -1,10 +1,11 @@
 ---
-title: "Our AI editorial team cost less than $250. The whitepaper still nearly failed"
-slug: "de-whitepaper-die-door-zijn-eigen-agents-werd-ingehaald"
+title: "Our AI editorial team cost less than $250. The hard part wasn’t writing the whitepaper"
+slug: "the-whitepaper-making-of"
 date: 2026-07-20
-description: "We used 74 AI sessions and 186 million tokens to create a whitepaper. The hard part was not generating text. It was protecting authorship."
-status: draft
+description: "Across 74 AI sessions and 186 million tokens, generating text turned out to be the easy part. Keeping editorial ownership human was harder."
+draft: false
 pillar: engineering
+cover: "/assets/images/the_ship_of_theseus.png"
 relatedTalks: []
 tags:
   - post
@@ -14,11 +15,22 @@ tags:
   - writing
 ---
 
+<figure>
+  <img
+    src="/assets/images/the_ship_of_theseus.png"
+    alt="A sailing ship gradually transforming from weathered timber into a pristine rebuilt vessel, representing the Ship of Theseus problem in AI-assisted authorship."
+    loading="lazy"
+  >
+  <figcaption>
+    If every individual replacement is an improvement, at what point does the whole stop being yours?
+  </figcaption>
+</figure>
+
 We were writing a whitepaper about how development teams can use agents without giving up ownership. It seemed logical to use agents in the writing process itself, with the same controls we recommend for software: persistent context, bounded roles, specialist reviews and a human approval boundary.
 
-On paper, the setup looked responsible. Each chapter had a brief and a word budget, a writer skill protected my voice from day one, and specialist agents reviewed the work from different perspectives. Yet the first Word export reached 41 pages.
+On paper, the setup looked responsible. Each chapter had a brief and a word budget, a writer skill was meant to preserve my voice from day one, and specialist agents reviewed the work from different perspectives. Yet the first Word export reached 41 pages.
 
-Most individual suggestions made sense. One review asked for more consistency, another for more technical detail, and another for clearer organisational consequences. The failure only became visible when we stopped reviewing chapters and read the whitepaper as a whole: the agents had kept improving the section in front of them while the document became longer, less focused and less recognisably ours.
+Most individual suggestions made sense. One review asked for more consistency, another for more technical detail, and another for clearer organisational consequences. The problem only became visible when we stopped reviewing chapters and read the whitepaper as a whole: the agents had kept improving the section in front of them while the document became longer, less focused and less recognisably ours.
 
 We responded with a substantial cut. The structure improved, but the edit exposed a second problem because much of the human tone had disappeared together with the surplus words. Human counter-readers saw what our automated checks had missed: a defensible whitepaper can still feel as though nobody is really willing to own it.
 
@@ -30,11 +42,11 @@ The whitepaper, *AI Assisted Development: The Rockstars Way*, explains how devel
 
 I used ChatGPT to explore the problem, test angles and challenge my position. The thesis itself came from experience: execution can move towards agents, but ownership cannot.
 
-We made that intent persistent. Each chapter had a writer brief in `_meta/`. `AGENTS.md` described the audience, terminology, sources, word limits and editorial boundaries. The `roel-writing-style` skill was part of the setup from the start. It gave every agent the same description of my preference for a clear position, concrete consequences and less corporate filler.
+We made that intent persistent. Each chapter had a writer brief in `_meta/`. `AGENTS.md` described the audience, terminology, sources, word limits and editorial boundaries. The `roel-writing-style` skill was part of the setup from the start. It gave every agent the same description of my preference for a clear position, concrete consequences, tone of voice and less corporate filler. 
 
 Specialist roles handled different questions:
 
-- The **draft agent** produced or revised one bounded section.
+- The **draft agent** produced or revised one bounded section using the `roel-writing-style` skill.
 - The **content-checker** looked across chapters for repetition, style breaks and contradictions.
 - The **developer persona** tested technical credibility and practical usefulness.
 - The **engineering-manager persona** tested coherence, team value and organisational consequences.
@@ -43,9 +55,20 @@ Each role had a reason to request more context, another example or one more qual
 
 ## The 41-page cut fixed the length and damaged the voice
 
-Our first export reached 41 pages. Across the eight core chapters, we cut 6,557 words down to 5,124. That removed 1,433 words, or 21.9 percent of the core text.
+Our first export reached 41 pages. Across the eight core chapters, we cut 6,557 words down to 5,124. 
 
 The cut was necessary, and the result was shorter, clearer and easier to navigate. It was also too clean. We removed duplication and background explanation, but also passages where the authors sounded like people who had done the work. Rough edges, doubts and specific consequences became competent AI prose, leaving the argument intact while weakening the sense that somebody genuinely stood behind it.
+
+It started to feel like a [Ship of Theseus](https://en.wikipedia.org/wiki/Ship_of_Theseus) problem: how much can you replace before something stops being the same thing? If you replace every rough edge with a better AI suggestion, at what point does the document stop sounding like yours?
+
+One change in Git history captures such a problem. After the trimming pass, chapter one stated that:
+ >AI-assisted development only becomes reliable when you treat it as an engineering process.
+
+Correct, but almost anyone could have written it. After the human review, we made the position explicitly ours:
+
+ >We believe an agent is not a smart intern you ‘just ask to do something’. It is an executing force in the development process and therefore needs direction, context, boundaries and control.
+
+The argument had not fundamentally changed. What changed was our willingness to put our own position into the text
 
 That became clear through human counter-readers. They did more than check grammar or technical correctness. They asked uncomfortable questions: Does this still sound like you? Where is the experience behind this claim? Would you say this sentence out loud? Why should a reader trust this conclusion?
 
@@ -57,9 +80,9 @@ We reconstructed 74 recorded sessions across Codex, Copilot and Claude Code, tog
 
 This is an order-of-magnitude price tag, not a bill. The tools partly ran through subscriptions, most Codex input was cached and token counts are not perfectly comparable across products.
 
-![Cost and observability of the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/ai-editorial-team-cost.svg)
+![Cost and observability of the AI editorial team](/assets/images/ai-editorial-team-cost.svg)
 
-Only 15.2 percent of Codex tokens went to writing and editing, while review and feedback implementation consumed 51.4 percent. Add publishing, export and synchronisation, and 71.4 percent of token use happened after text already existed.
+Only 15.2 percent of tokens went to writing and editing. Review and feedback consumed 51.4 percent, publishing, export and synchronisation another 20 percent, and the remaining 13.4 percent covered other work. In other words, 71.4 percent of  token use went into reviewing, revising, publishing or synchronising content that already existed.
 
 In practice, the agents behaved more like an editorial department than a writing machine. They compared versions, found inconsistencies, processed feedback, maintained artefacts and checked whether changes had landed everywhere. For less than $250, that is remarkable leverage, but it also corrects the usual AI-writing story: producing sentences was cheap; making them coherent, credible and recognisably ours took most of the system and all of the human judgement.
 
@@ -67,11 +90,11 @@ In practice, the agents behaved more like an editorial department than a writing
 
 People often ask what percentage was written by AI, but I think that is the wrong measure. An agent-assisted commit may change hundreds of sentences without changing the argument, while a human decision to remove a chapter may change the entire paper without adding a single word. Counting keystrokes confuses production with authorship, so our useful dividing line was decision rights.
 
-![Decision rights between humans and the AI editorial team](https://raw.githubusercontent.com/Roruchi/Website/aece3b3cdc14d2b99d7ad4403768f407c8cdbf6a/src/assets/images/human-agent-editorial-roles.svg)
+![Decision rights between humans and the AI editorial team](/assets/images/human-agent-editorial-roles.svg)
 
 Agents could draft, compare, challenge, inspect and implement approved changes. Humans owned the thesis, supplied lived experience, judged conflicting feedback, chose what to cut and approved publication.
 
-Human counter-readers formed a second boundary. The editor-in-chief can become too close to both the text and the system, while a trusted reader can still say: this is technically sound, but I no longer hear you in it. No persona agent gave us that intervention at the right moment.
+Human counter-readers formed a second boundary. The editor-in-chief can become too close to both the text and the system, while a trusted reader can still say: this is technically sound, but I no longer hear you in it. A persona agent could produce similar criticism, but it could not replace the judgement of an independent human reader.
 
 ## Build your own AI editorial team
 
@@ -108,10 +131,10 @@ Review agents should produce findings first. A human accepts, combines or reject
 
 Agents are very good at finding more work. Your workflow needs permission to stop.
 
-## The whitepaper is the proof and the warning
+## The whitepaper is the result and the warning
 
 The same principle runs through the finished whitepaper: agents can expand execution, but humans remain accountable for what reaches the reader, user or production environment. In software, evidence and pull-request review form that ownership boundary. In writing, it is a persistent brief, explicit decision rights and humans willing to reject perfectly reasonable AI suggestions.
 
-You can read [*AI Assisted Development: The Rockstars Way* in English](https://go.teamrockstars.nl/ai-assisted-development-handbook-engels) or [download the Dutch edition](https://go.teamrockstars.nl/ai-assisted-development-handbook-nl). The paper contains the complete approach for work definition, context engineering, evidence bundles and human review.
+You can read [*AI Assisted Development: The Rockstars Way* in English](https://go.teamrockstars.nl/ai-assisted-development-handbook-engels) or [the Dutch edition](https://go.teamrockstars.nl/ai-assisted-development-handbook-nl). The paper contains the complete approach for work definition, context engineering, evidence bundles and human review.
 
 The $250 price tag did not buy us a whitepaper; it bought access to an editorial team. That team still needed an editor, independent human readers and authors willing to put their name behind the result.
