@@ -49,19 +49,20 @@ EARS puts a small amount of structure around natural-language requirements witho
 For an event-driven requirement, the shape is roughly:
 
 ```text
-WHEN <trigger>,
-THE <system>
-SHALL <response>
+WHEN [trigger],
+THE [system]
+SHALL [response]
 ```
 
 So the authentication example becomes:
 
 ```text
-When authentication fails,
-the API SHALL return HTTP 401 within 200 ms.
+WHEN authentication fails,
+THE API
+SHALL return HTTP 401 within 200 ms.
 ```
 
-It is still plain English, but we have stopped delegating several engineering decisions to the implementation agent.
+It is still readable as plain English, but the structure makes the engineering decisions explicit before the implementation agent starts coding.
 
 There is a trigger. There is an explicit system response. `SHALL` makes the intent normative, and `200 ms` gives us something we can actually verify.
 
