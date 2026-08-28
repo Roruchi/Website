@@ -5,6 +5,7 @@
     "build:css": "tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --minify",
     "clean": "node scripts/clean-site.js",
     "build": "npm run clean && npm run build:css && eleventy && npx pagefind --site _site",
+    "test:ears": "node scripts/test-ears-validator.js",
     "new:article": "node scripts/new-article.js",
     "new:talk": "node scripts/new-talk.js",
     "new:opportunity": "node scripts/new-opportunity.js",

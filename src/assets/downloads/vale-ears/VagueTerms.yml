@@ -1,0 +1,13 @@
+extends: existence
+message: "Vague requirement language: '%s'. Replace it with observable or measurable behaviour."
+level: warning
+ignorecase: true
+scope: text
+tokens:
+  - '\bquickly\b'
+  - '\befficiently\b'
+  - '\bappropriately\b'
+  - '\bas soon as possible\b'
+  - '\bwhere appropriate\b'
+  - '\bif necessary\b'
+  - '\bnormally\b'
