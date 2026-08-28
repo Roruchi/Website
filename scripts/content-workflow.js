@@ -107,7 +107,7 @@ function normalizeInternalHref(href) {
 }
 
 function fileExistsFromSitePath(sitePath) {
-  const cleaned = sitePath.replace(/^\/+/, "");
+  const cleaned = sitePath.replace(/^\/+|\/+$/g, "");
   if (!cleaned) {
     return true;
   }
