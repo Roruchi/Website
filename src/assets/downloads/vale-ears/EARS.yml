@@ -21,32 +21,32 @@ script: |
 
       valid := false
 
-      # Ubiquitous: The <system> shall <response>
+      // Ubiquitous: The <system> shall <response>
       if text.re_match("^the .+ shall .+$", normalized) {
         valid = true
       }
 
-      # State-driven: While <state>, the <system> shall <response>
+      // State-driven: While <state>, the <system> shall <response>
       if text.re_match("^while .+, the .+ shall .+$", normalized) {
         valid = true
       }
 
-      # Event-driven: When <trigger>, the <system> shall <response>
+      // Event-driven: When <trigger>, the <system> shall <response>
       if text.re_match("^when .+, the .+ shall .+$", normalized) {
         valid = true
       }
 
-      # Optional feature: Where <feature>, the <system> shall <response>
+      // Optional feature: Where <feature>, the <system> shall <response>
       if text.re_match("^where .+, the .+ shall .+$", normalized) {
         valid = true
       }
 
-      # Unwanted behaviour: If <trigger>, then the <system> shall <response>
+      // Unwanted behaviour: If <trigger>, then the <system> shall <response>
       if text.re_match("^if .+, then the .+ shall .+$", normalized) {
         valid = true
       }
 
-      # Complex: While <state>, when <trigger>, the <system> shall <response>
+      // Complex: While <state>, when <trigger>, the <system> shall <response>
       if text.re_match("^while .+, when .+, the .+ shall .+$", normalized) {
         valid = true
       }
