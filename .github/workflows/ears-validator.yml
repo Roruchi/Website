@@ -3,6 +3,7 @@ name: EARS Validator
 on:
   pull_request:
     paths:
+      - ".github/workflows/ears-validator.yml"
       - ".vale-ears.ini"
       - "src/assets/downloads/vale-ears/**"
       - "tests/vale-ears/**"
@@ -10,6 +11,7 @@ on:
     branches:
       - main
     paths:
+      - ".github/workflows/ears-validator.yml"
       - ".vale-ears.ini"
       - "src/assets/downloads/vale-ears/**"
       - "tests/vale-ears/**"
