@@ -1,8 +1,8 @@
 ---
-title: "Lint the spec before the agent writes code"
+title: "Executable specifications for Agentic Coding"
 slug: "lint-the-spec-before-the-agent-writes-code"
 date: 2026-08-28
-description: "Use Vale and EARS as a deterministic quality gate in OpenSpec propose before coding agents turn ambiguous specifications into code."
+description: "Using Vale and EARS as a deterministic quality gate in OpenSpec propose before coding agents turn ambiguous specifications into code."
 status: published
 pillar: engineering
 cover: "/assets/images/ears-prose-validation-cover.webp"
