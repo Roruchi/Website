@@ -5,6 +5,7 @@ date: 2026-08-28
 description: "Use Vale and EARS as a deterministic quality gate in OpenSpec propose before coding agents turn ambiguous specifications into code."
 status: draft
 pillar: engineering
+cover: "/assets/images/ears-prose-validation-cover.webp"
 relatedTalks: []
 tags:
   - post
@@ -14,7 +15,14 @@ tags:
   - software-development
 ---
 
-# Lint the spec before the agent writes code
+<figure>
+  <img
+    src="/assets/images/ears-prose-validation-cover.webp"
+    alt="A small robotic scribe reviewing a specification scroll in a quiet workshop before implementation begins."
+    loading="eager"
+  >
+  <figcaption>Before the agent starts building, make the instruction worth executing.</figcaption>
+</figure>
 
 With agentic coding, I keep running into the same problem: agents are very good at executing what we tell them. Unfortunately, that includes the parts we did not think through properly.
 
@@ -59,6 +67,15 @@ There is a trigger. There is an explicit system response. `SHALL` makes the inte
 
 EARS does not tell us whether 200 ms is the right requirement. Someone still has to make that decision. That is kind of the point: I want us to make it before the agent starts writing code.
 
+<figure>
+  <img
+    src="/assets/images/ears-prose-validation-before-after.webp"
+    alt="A side-by-side comparison showing an ambiguous authentication requirement becoming a validated EARS requirement with an explicit trigger, system response and measurable constraint."
+    loading="lazy"
+  >
+  <figcaption>The change is small on paper: make the decisions explicit before the agent gets to make them for you.</figcaption>
+</figure>
+
 ## Make the constraint executable
 
 Writing “use EARS” in `AGENTS.md` helps, but an agent can still ignore it.
@@ -91,6 +108,15 @@ That is really the whole idea. Known smells become deterministic and cheap to de
 The placement matters more than the rules themselves.
 
 I wired Vale into the **OpenSpec propose flow**, directly after the agent generates the specification. If prose validation fails, the agent gets the findings, updates the specification and runs the check again. Propose is not done while those errors remain.
+
+<figure>
+  <img
+    src="/assets/images/ears-prose-validation-quality-gate.webp"
+    alt="A raw requirement passing through a deterministic quality gate, becoming a validated specification before an agent produces code."
+    loading="lazy"
+  >
+  <figcaption>The quality gate sits before implementation: raw intent in, validated specification out, then the agent can run.</figcaption>
+</figure>
 
 That means our original authentication requirement fails while it is still a few lines of Markdown, not after an agent has already built something around `could` and `quickly`.
 
