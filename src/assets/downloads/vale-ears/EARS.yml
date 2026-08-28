@@ -1,0 +1,69 @@
+extends: script
+message: "Requirement statement does not match an accepted EARS pattern."
+level: error
+scope: raw
+script: |
+  text := import("text")
+  matches := []
+  lines := text.split(scope, "\n")
+  expect_requirement := false
+  offset := 0
+
+  for line in lines {
+    trimmed := text.trim_space(line)
+
+    if text.re_match("^###[[:space:]]+Requirement:[[:space:]]+.+$", trimmed) {
+      expect_requirement = true
+    } else if expect_requirement && trimmed != "" {
+      normalized := text.to_lower(trimmed)
+      normalized = text.re_replace("[[:space:]]+", normalized, " ")
+      normalized = text.re_replace("[.!?]+$", normalized, "")
+
+      valid := false
+
+      # Ubiquitous: The <system> shall <response>
+      if text.re_match("^the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      # State-driven: While <state>, the <system> shall <response>
+      if text.re_match("^while .+, the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      # Event-driven: When <trigger>, the <system> shall <response>
+      if text.re_match("^when .+, the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      # Optional feature: Where <feature>, the <system> shall <response>
+      if text.re_match("^where .+, the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      # Unwanted behaviour: If <trigger>, then the <system> shall <response>
+      if text.re_match("^if .+, then the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      # Complex: While <state>, when <trigger>, the <system> shall <response>
+      if text.re_match("^while .+, when .+, the .+ shall .+$", normalized) {
+        valid = true
+      }
+
+      if !valid {
+        local := text.index(line, trimmed)
+        if local < 0 {
+          local = 0
+        }
+        matches = append(matches, {
+          begin: offset + local,
+          end: offset + local + len(trimmed),
+        })
+      }
+
+      expect_requirement = false
+    }
+
+    offset += len(line) + 1
+  }
