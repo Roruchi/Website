@@ -1,1 +1,0 @@
-Temporary marker for image upload troubleshooting. Safe to delete.
