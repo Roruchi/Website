@@ -8,7 +8,7 @@
 
 .ears-playground .ears-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   align-items: stretch;
 }
@@ -220,7 +220,7 @@
 
 .ears-playground .ears-patterns {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.55rem;
 }
 
@@ -301,13 +301,10 @@
   padding: 0.85rem;
 }
 
-@media (min-width: 800px) {
-  .ears-playground .ears-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-
+@media (max-width: 760px) {
+  .ears-playground .ears-grid,
   .ears-playground .ears-patterns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 
