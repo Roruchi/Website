@@ -18,21 +18,21 @@ layout: base.njk
 
 <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ears-playground" data-ears-playground>
   <div class="ears-grid">
-    <div class="ears-card">
+    <div class="ears-card ears-input-card">
       <div class="eyebrow mb-3">Requirement</div>
       <label for="ears-requirement"><strong>Try a requirement</strong></label>
       <textarea id="ears-requirement" data-ears-input>When authentication fails, the API could return an error quickly.</textarea>
       <div class="ears-actions ears-example-actions">
-        <button type="button" class="button-primary" data-ears-validate>Validate</button>
-        <button type="button" data-ears-valid-example>Load valid example</button>
-        <button type="button" data-ears-invalid-example>Load invalid example</button>
+        <button type="button" class="button-primary ears-validate-button" data-ears-validate>Validate requirement</button>
+        <button type="button" class="ears-secondary-button ears-valid-button" data-ears-valid-example>Load passing example</button>
+        <button type="button" class="ears-secondary-button ears-invalid-button" data-ears-invalid-example>Load failing example</button>
       </div>
     </div>
 
-    <div class="ears-card" aria-live="polite">
+    <div class="ears-card ears-result-card" data-ears-result-card aria-live="polite">
       <div class="eyebrow mb-3">Result</div>
       <p class="ears-status" data-ears-status></p>
-      <p><strong>Pattern:</strong> <span data-ears-pattern></span></p>
+      <p class="ears-pattern-line"><strong>Pattern:</strong> <span data-ears-pattern></span></p>
       <div class="ears-clauses" data-ears-clauses></div>
       <h2 class="text-xl font-semibold mt-6">Findings</h2>
       <ul class="ears-findings" data-ears-findings></ul>
