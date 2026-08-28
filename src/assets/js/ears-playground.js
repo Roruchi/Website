@@ -12,11 +12,18 @@
   const pattern = root.querySelector("[data-ears-pattern]");
   const clauses = root.querySelector("[data-ears-clauses]");
   const findings = root.querySelector("[data-ears-findings]");
+  const ruleButtons = Array.from(root.querySelectorAll("[data-ears-rule]"));
+  const ruleTitle = root.querySelector("[data-ears-rule-title]");
+  const ruleCode = root.querySelector("[data-ears-rule-code]");
+  const ruleRaw = root.querySelector("[data-ears-rule-raw]");
+  const ruleError = root.querySelector("[data-ears-rule-error]");
 
   const examples = {
     invalid: "When authentication fails, the API could return an error quickly.",
     valid: "When authentication fails, the API SHALL return HTTP 401 within 200 ms.",
   };
+
+  const ruleCache = new Map();
 
   function render() {
     const result = window.EARSValidator.lint(input.value);
@@ -65,6 +72,38 @@
     }
   }
 
+  async function loadRule(button) {
+    if (!button || !ruleCode) return;
+
+    const source = button.dataset.earsRule;
+    const name = button.dataset.earsRuleName || "Vale rule";
+
+    ruleButtons.forEach((candidate) => {
+      const active = candidate === button;
+      candidate.classList.toggle("is-active", active);
+      candidate.setAttribute("aria-pressed", String(active));
+    });
+
+    ruleTitle.textContent = name;
+    ruleRaw.href = source;
+    ruleCode.textContent = "Loading rule…";
+    ruleError.hidden = true;
+
+    try {
+      let text = ruleCache.get(source);
+      if (!text) {
+        const response = await fetch(source, { cache: "no-cache" });
+        if (!response.ok) throw new Error("Rule request failed");
+        text = await response.text();
+        ruleCache.set(source, text);
+      }
+      ruleCode.textContent = text.trimEnd();
+    } catch (error) {
+      ruleCode.textContent = "";
+      ruleError.hidden = false;
+    }
+  }
+
   validateButton.addEventListener("click", render);
   validButton.addEventListener("click", function () {
     input.value = examples.valid;
@@ -77,6 +116,13 @@
     input.focus();
   });
 
+  ruleButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      loadRule(button);
+    });
+  });
+
   input.addEventListener("input", render);
   render();
+  loadRule(ruleButtons.find((button) => button.classList.contains("is-active")) || ruleButtons[0]);
 })();
