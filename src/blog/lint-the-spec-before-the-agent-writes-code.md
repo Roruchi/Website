@@ -55,7 +55,7 @@ When authentication fails,
 the API SHALL return HTTP 401 within 200 ms.
 ```
 
-The difference looks small, but we have removed several decisions from the implementation agent.
+The difference looks small, but we have stopped delegating several engineering decisions to the implementation agent.
 
 There is now a trigger, a system response and explicit modality. The `200 ms` constraint also gives us something measurable.
 
@@ -69,32 +69,11 @@ Writing “use EARS” in `AGENTS.md` is useful, but an agent can still ignore i
 
 I wanted the constraint to be executable.
 
-Vale lets you define custom prose rules in YAML, including regular expressions. A simplified rule from my experiment looks like this:
+Vale lets you define custom prose rules in YAML. For this experiment I ended up with an OpenSpec-aware EARS rule that checks the requirement statement after each `### Requirement:` heading against the EARS forms we accept. Weak modality and vague language remain separate rules instead of being folded into one giant regular expression.
 
-```yaml
-# .vale/styles/Requirements/EARS.yml
-extends: existence
-message: "Requirement does not match an accepted EARS pattern."
-level: error
-scope: sentence
-ignorecase: true
+You can try the authentication example yourself, see which EARS clauses are detected, and inspect the actual Vale rules inline in the **[EARS Requirement Playground](https://roelvanbergen.nl/labs/ears/)**.
 
-tokens:
-  - >-
-    ^(?=.*\bshall\b)
-    (?!
-      (?:the .+ shall .+|
-         when .+, the .+ shall .+|
-         while .+, the .+ shall .+|
-         where .+, the .+ shall .+|
-         if .+, then the .+ shall .+)
-      [.!?]?$
-    ).+$
-```
-
-The idea is deliberately simple: when something presents itself as a normative requirement using `shall`, it must match one of the EARS structures we accept.
-
-I combine that with smaller rules for other requirement smells:
+For example, weak modality stays deliberately simple:
 
 ```yaml
 # Requirements/WeakModality.yml
@@ -107,19 +86,9 @@ tokens:
   - '\bmight\b'
 ```
 
-And another rule can flag vague language such as `quickly`, `efficiently` or `as soon as possible`.
+A separate rule flags vague language such as `quickly`, `efficiently` or `as soon as possible`.
 
-The repository config then enables our requirement rules for Markdown:
-
-```ini
-StylesPath = .vale/styles
-MinAlertLevel = error
-
-[*.md]
-BasedOnStyles = Requirements
-```
-
-Vale supports regex-based custom rules and document-aware scopes, so this remains a normal repository-level linting setup rather than another AI review step.
+The repository config then enables the requirement rules for the specification Markdown. The point is not to add another AI review step. It is to make known specification smells deterministic and cheap to detect.
 
 ## Put the feedback in propose
 
