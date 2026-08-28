@@ -1,0 +1,30 @@
+name: EARS Validator
+
+on:
+  pull_request:
+    paths:
+      - ".vale-ears.ini"
+      - "src/assets/downloads/vale-ears/**"
+      - "tests/vale-ears/**"
+  push:
+    branches:
+      - main
+    paths:
+      - ".vale-ears.ini"
+      - "src/assets/downloads/vale-ears/**"
+      - "tests/vale-ears/**"
+
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate EARS rule with Vale
+        uses: vale-cli/vale-action@v3
+        with:
+          config: .vale-ears.ini
+          files: tests/vale-ears/valid.md
+          sync: false
+          fail_on_error: true
