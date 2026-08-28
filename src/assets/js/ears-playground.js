@@ -1,0 +1,82 @@
+(function () {
+  "use strict";
+
+  const root = document.querySelector("[data-ears-playground]");
+  if (!root || !window.EARSValidator) return;
+
+  const input = root.querySelector("[data-ears-input]");
+  const validateButton = root.querySelector("[data-ears-validate]");
+  const validButton = root.querySelector("[data-ears-valid-example]");
+  const invalidButton = root.querySelector("[data-ears-invalid-example]");
+  const status = root.querySelector("[data-ears-status]");
+  const pattern = root.querySelector("[data-ears-pattern]");
+  const clauses = root.querySelector("[data-ears-clauses]");
+  const findings = root.querySelector("[data-ears-findings]");
+
+  const examples = {
+    invalid: "When authentication fails, the API could return an error quickly.",
+    valid: "When authentication fails, the API SHALL return HTTP 401 within 200 ms.",
+  };
+
+  function render() {
+    const result = window.EARSValidator.lint(input.value);
+    const classification = result.classification;
+
+    status.textContent = result.valid ? "Pass" : "Needs work";
+    status.dataset.state = result.valid ? "valid" : "invalid";
+
+    pattern.textContent = classification.valid
+      ? classification.label + " requirement"
+      : "No accepted EARS pattern matched";
+
+    clauses.replaceChildren();
+    if (classification.valid) {
+      Object.entries(classification.clauses).forEach(([name, value]) => {
+        const row = document.createElement("div");
+        row.className = "ears-clause";
+
+        const label = document.createElement("strong");
+        label.textContent = name.replace(/-/g, " ");
+
+        const content = document.createElement("span");
+        content.textContent = value;
+
+        row.append(label, content);
+        clauses.append(row);
+      });
+    } else {
+      const empty = document.createElement("p");
+      empty.textContent = "Fix the structure first, then the playground can identify the clauses.";
+      clauses.append(empty);
+    }
+
+    findings.replaceChildren();
+    if (!result.findings.length) {
+      const item = document.createElement("li");
+      item.textContent = "No structural, modality, or vague-language findings.";
+      findings.append(item);
+    } else {
+      result.findings.forEach((finding) => {
+        const item = document.createElement("li");
+        const prefix = finding.level === "error" ? "Error: " : "Warning: ";
+        item.textContent = prefix + finding.message;
+        findings.append(item);
+      });
+    }
+  }
+
+  validateButton.addEventListener("click", render);
+  validButton.addEventListener("click", function () {
+    input.value = examples.valid;
+    render();
+    input.focus();
+  });
+  invalidButton.addEventListener("click", function () {
+    input.value = examples.invalid;
+    render();
+    input.focus();
+  });
+
+  input.addEventListener("input", render);
+  render();
+})();
