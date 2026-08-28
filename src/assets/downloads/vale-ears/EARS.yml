@@ -56,10 +56,7 @@ script: |
         if local < 0 {
           local = 0
         }
-        matches = append(matches, {
-          begin: offset + local,
-          end: offset + local + len(trimmed),
-        })
+        matches = append(matches, {begin: offset + local, end: offset + local + len(trimmed)})
       }
 
       expect_requirement = false
