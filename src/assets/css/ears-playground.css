@@ -1,43 +1,66 @@
 .ears-playground {
   display: grid;
   gap: 1.25rem;
-  max-width: 960px;
+  width: 100%;
+  max-width: 1080px;
   margin: 0 auto;
 }
 
 .ears-playground .ears-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
 }
 
 .ears-playground .ears-card {
-  border: 1px solid var(--border-color, #d8d8d8);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  background: var(--surface-color, transparent);
+  border: 1px solid rgba(120, 113, 108, 0.24);
+  border-radius: 0.85rem;
+  padding: 1.15rem;
+  background: rgba(255, 255, 255, 0.34);
   min-width: 0;
+  box-shadow: 0 1px 0 rgba(28, 25, 23, 0.03);
 }
 
 .ears-playground .ears-card > p {
   line-height: 1.65;
 }
 
+.ears-playground .ears-input-card,
+.ears-playground .ears-result-card {
+  height: 100%;
+}
+
+.ears-playground label {
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
 .ears-playground textarea {
   width: 100%;
-  min-height: 9rem;
+  min-height: 8rem;
   resize: vertical;
   font: inherit;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color, #bbb);
-  border-radius: 0.5rem;
+  line-height: 1.5;
+  padding: 0.8rem 0.85rem;
+  border: 1px solid rgba(120, 113, 108, 0.42);
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.ears-playground textarea:focus {
+  outline: none;
+  border-color: rgba(146, 64, 14, 0.65);
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.11);
 }
 
 .ears-playground button,
 .ears-playground .ears-actions a {
   min-height: 44px;
-  padding: 0.65rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.55rem;
+  font-weight: 600;
 }
 
 .ears-playground button {
@@ -48,7 +71,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
   align-items: center;
 }
 
@@ -57,21 +80,124 @@
   align-items: center;
 }
 
+.ears-playground .ears-example-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ears-playground .ears-validate-button {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ears-playground .ears-secondary-button {
+  width: 100%;
+  border: 1px solid rgba(120, 113, 108, 0.36);
+  background: rgba(255, 255, 255, 0.62);
+  color: #292524;
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+}
+
+.ears-playground .ears-secondary-button:hover {
+  background: rgba(245, 245, 244, 0.95);
+  border-color: rgba(87, 83, 78, 0.52);
+}
+
+.ears-playground .ears-valid-button::before {
+  content: "✓";
+  margin-right: 0.4rem;
+  color: #166534;
+}
+
+.ears-playground .ears-invalid-button::before {
+  content: "×";
+  margin-right: 0.4rem;
+  color: #b42318;
+}
+
+.ears-playground .ears-result-card {
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.ears-playground .ears-result-card[data-state="valid"] {
+  border-color: rgba(22, 101, 52, 0.32);
+  background: linear-gradient(180deg, rgba(240, 253, 244, 0.72), rgba(255, 255, 255, 0.3) 45%);
+  box-shadow: inset 3px 0 0 rgba(22, 101, 52, 0.55);
+}
+
+.ears-playground .ears-result-card[data-state="invalid"] {
+  border-color: rgba(180, 35, 24, 0.42);
+  background: linear-gradient(180deg, rgba(254, 242, 242, 0.86), rgba(255, 255, 255, 0.3) 48%);
+  box-shadow: inset 3px 0 0 rgba(180, 35, 24, 0.72);
+}
+
 .ears-playground .ears-status {
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 0.55rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 750;
 }
 
 .ears-playground .ears-status[data-state="valid"] {
-  color: #137333;
+  color: #166534;
+  background: rgba(220, 252, 231, 0.9);
+  border: 1px solid rgba(22, 101, 52, 0.2);
 }
 
 .ears-playground .ears-status[data-state="invalid"] {
-  color: #b3261e;
+  color: #991b1b;
+  background: rgba(254, 226, 226, 0.96);
+  border: 1px solid rgba(185, 28, 28, 0.22);
+}
+
+.ears-playground .ears-pattern-line {
+  margin-top: 0.15rem;
 }
 
 .ears-playground .ears-findings {
-  margin: 0.75rem 0 0;
-  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.55rem;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ears-playground .ears-finding {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid transparent;
+  line-height: 1.45;
+}
+
+.ears-playground .ears-finding-ok {
+  color: #14532d;
+  background: rgba(240, 253, 244, 0.76);
+  border-color: rgba(22, 101, 52, 0.16);
+}
+
+.ears-playground .ears-finding-error {
+  color: #7f1d1d;
+  background: rgba(254, 226, 226, 0.84);
+  border-color: rgba(185, 28, 28, 0.22);
+}
+
+.ears-playground .ears-finding-warning {
+  color: #92400e;
+  background: rgba(255, 247, 237, 0.94);
+  border-color: rgba(194, 65, 12, 0.2);
+}
+
+.ears-playground .ears-structure-hint {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.55rem;
+  color: #7f1d1d;
+  background: rgba(254, 226, 226, 0.7);
 }
 
 .ears-playground .ears-clauses {
@@ -82,7 +208,7 @@
 
 .ears-playground .ears-clause {
   display: grid;
-  grid-template-columns: minmax(7rem, 0.35fr) 1fr;
+  grid-template-columns: minmax(7rem, 0.32fr) 1fr;
   gap: 0.75rem;
   align-items: start;
 }
@@ -94,6 +220,7 @@
 
 .ears-playground .ears-patterns {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 0.55rem;
 }
 
@@ -102,6 +229,7 @@
   padding: 0.65rem 0.75rem;
   border: 1px solid rgba(120, 113, 108, 0.18);
   border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.42);
   font-size: 0.88rem;
   line-height: 1.5;
   white-space: normal;
@@ -115,7 +243,8 @@
 .ears-playground .ears-rule-button {
   width: 100%;
   border: 1px solid rgba(120, 113, 108, 0.32);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
+  color: #292524;
   font-weight: 600;
   text-align: center;
 }
@@ -172,6 +301,16 @@
   padding: 0.85rem;
 }
 
+@media (min-width: 800px) {
+  .ears-playground .ears-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .ears-playground .ears-patterns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 640px) {
   .ears-hero > div {
     padding-top: 2.5rem;
@@ -202,12 +341,11 @@
   }
 
   .ears-playground .ears-example-actions {
-    display: grid;
     grid-template-columns: 1fr;
   }
 
-  .ears-playground .ears-example-actions button {
-    width: 100%;
+  .ears-playground .ears-validate-button {
+    grid-column: auto;
   }
 
   .ears-playground .ears-reference-actions {
