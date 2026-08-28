@@ -16,31 +16,29 @@ tags:
 
 # Lint the spec before the agent writes code
 
-With agentic coding, I keep running into the same problem: agents are very good at executing what we tell them, including the parts we did not think through properly.
+With agentic coding, I keep running into the same problem: agents are very good at executing what we tell them. Unfortunately, that includes the parts we did not think through properly.
 
-That becomes especially interesting with Specification-Driven Development. A specification is no longer just documentation. It becomes input for an agent that may generate a significant amount of code from it.
+That gets more interesting once you start working with Specification-Driven Development. The specification is no longer just documentation for humans. It becomes input for an agent that can turn a few lines of prose into quite a lot of code.
 
-Consider this requirement:
+Take this requirement:
 
 ```text
 When authentication fails, the API could return an error quickly.
 ```
 
-It reads reasonably well. But for an agent it leaves several decisions open.
-
-What does `could` mean? Is returning the error optional? What does `quickly` mean? And how do we verify afterwards that the requirement was implemented correctly?
+It sounds reasonable enough at first glance. But what does `could` mean? Is the response optional? What is `quickly`? And how do we verify afterwards that the agent implemented what we actually meant?
 
 The Markdown is valid. The instruction is not.
 
-So I started experimenting with **prose validation inside the agentic coding flow**.
+That is what got me experimenting with prose validation inside the agentic coding flow.
 
-## Structuring requirements with EARS
+## Give the requirement some structure
 
-One part of the experiment is EARS, the **Easy Approach to Requirements Syntax**.
+One of the things I use for this is EARS, the **Easy Approach to Requirements Syntax**.
 
-EARS gently constrains natural-language requirements using a small number of patterns. Requirements can, for example, describe behaviour that always applies, behaviour triggered by an event, behaviour while the system is in a particular state, or responses to unwanted situations.
+EARS puts a small amount of structure around natural-language requirements without trying to turn them into a programming language. A requirement can describe behaviour that always applies, something triggered by an event, behaviour while a state is active, an optional feature, or an unwanted situation.
 
-An event-driven requirement follows this pattern:
+For an event-driven requirement, the shape is roughly:
 
 ```text
 WHEN <trigger>,
@@ -48,32 +46,30 @@ THE <system>
 SHALL <response>
 ```
 
-Our authentication requirement can therefore become:
+So the authentication example becomes:
 
 ```text
 When authentication fails,
 the API SHALL return HTTP 401 within 200 ms.
 ```
 
-The difference looks small, but we have stopped delegating several engineering decisions to the implementation agent.
+It is still plain English, but we have stopped delegating several engineering decisions to the implementation agent.
 
-There is now a trigger, a system response and explicit modality. The `200 ms` constraint also gives us something measurable.
+There is a trigger. There is an explicit system response. `SHALL` makes the intent normative, and `200 ms` gives us something we can actually verify.
 
-EARS does not tell us whether 200 ms is the right requirement. That remains an engineering decision.
+EARS does not tell us whether 200 ms is the right requirement. Someone still has to make that decision. That is kind of the point: I want us to make it before the agent starts writing code.
 
-It helps make sure we actually make that decision before implementation.
+## Make the constraint executable
 
-## Actually validating EARS with Vale
+Writing “use EARS” in `AGENTS.md` helps, but an agent can still ignore it.
 
-Writing “use EARS” in `AGENTS.md` is useful, but an agent can still ignore it.
+My first instinct was that this would need another agent or some clever semantic validation. It did not. Most of the problems I wanted to catch were boring enough for a linter.
 
-I wanted the constraint to be executable.
+I ended up using Vale with an OpenSpec-aware EARS rule. It checks the requirement statement after each `### Requirement:` heading against the EARS forms I accept. Weak modality and vague language are separate rules instead of one giant regex pretending to understand English.
 
-Vale lets you define custom prose rules in YAML. For this experiment I ended up with an OpenSpec-aware EARS rule that checks the requirement statement after each `### Requirement:` heading against the EARS forms we accept. Weak modality and vague language remain separate rules instead of being folded into one giant regular expression.
+You can try the authentication example yourself and inspect the actual rules in the **[EARS Requirement Playground](https://roelvanbergen.nl/labs/ears/)**.
 
-You can try the authentication example yourself, see which EARS clauses are detected, and inspect the actual Vale rules inline in the **[EARS Requirement Playground](https://roelvanbergen.nl/labs/ears/)**.
-
-For example, weak modality stays deliberately simple:
+The weak-modality rule is deliberately boring:
 
 ```yaml
 # Requirements/WeakModality.yml
@@ -86,40 +82,24 @@ tokens:
   - '\bmight\b'
 ```
 
-A separate rule flags vague language such as `quickly`, `efficiently` or `as soon as possible`.
+Another rule catches vague terms such as `quickly`, `efficiently` and `as soon as possible`.
 
-The repository config then enables the requirement rules for the specification Markdown. The point is not to add another AI review step. It is to make known specification smells deterministic and cheap to detect.
+That is really the whole idea. Known smells become deterministic and cheap to detect. No extra model call needed.
 
-## Put the feedback in propose
+## Fail during propose, not after implementation
 
-The placement is important.
+The placement matters more than the rules themselves.
 
-I wired Vale into the **OpenSpec propose flow**, immediately after the agent generates the specification.
+I wired Vale into the **OpenSpec propose flow**, directly after the agent generates the specification. If prose validation fails, the agent gets the findings, updates the specification and runs the check again. Propose is not done while those errors remain.
 
-Conceptually, the extension is this small:
+That means our original authentication requirement fails while it is still a few lines of Markdown, not after an agent has already built something around `could` and `quickly`.
 
-```markdown
-After generating the specification:
+This is the part I like most about the experiment. The feedback happens while the agent is still defining the work.
 
-1. Run Vale against the generated specs.
-2. If prose validation fails, inspect the findings.
-3. Update the specification.
-4. Run Vale again.
-5. Do not complete propose while errors remain.
-```
+I have a working use case now, but I am deliberately not claiming this produces better software yet. I still want to see which rules survive real usage, where the false positives are, and whether this actually reduces corrections later in apply and review.
 
-So the agent itself gets feedback while it is still defining the work.
+What I do know is that agentic coding makes ambiguity scale surprisingly well.
 
-Our original authentication requirement now fails before implementation because of `could` and `quickly`. The agent has to tighten the specification first.
-
-That is exactly where I want the failure.
-
-## A quality gate for agent input
-
-We put linters, tests and static analysis around the output of coding agents because we do not blindly trust generated code.
-
-Why would we blindly trust the prose we use to generate it?
-
-As coding agents become more autonomous, specification quality stops being a documentation problem. It becomes part of the control system.
+We already put linters, tests and static analysis around generated code because we do not blindly trust the output. I think the input deserves the same treatment.
 
 **If the specification is executable input, ambiguity is a defect. Catch it before the agent turns it into code.**
