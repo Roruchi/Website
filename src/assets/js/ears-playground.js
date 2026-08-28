@@ -8,6 +8,7 @@
   const validateButton = root.querySelector("[data-ears-validate]");
   const validButton = root.querySelector("[data-ears-valid-example]");
   const invalidButton = root.querySelector("[data-ears-invalid-example]");
+  const resultCard = root.querySelector("[data-ears-result-card]");
   const status = root.querySelector("[data-ears-status]");
   const pattern = root.querySelector("[data-ears-pattern]");
   const clauses = root.querySelector("[data-ears-clauses]");
@@ -28,9 +29,11 @@
   function render() {
     const result = window.EARSValidator.lint(input.value);
     const classification = result.classification;
+    const state = result.valid ? "valid" : "invalid";
 
     status.textContent = result.valid ? "Pass" : "Needs work";
-    status.dataset.state = result.valid ? "valid" : "invalid";
+    status.dataset.state = state;
+    if (resultCard) resultCard.dataset.state = state;
 
     pattern.textContent = classification.valid
       ? classification.label + " requirement"
@@ -53,6 +56,7 @@
       });
     } else {
       const empty = document.createElement("p");
+      empty.className = "ears-structure-hint";
       empty.textContent = "Fix the structure first, then the playground can identify the clauses.";
       clauses.append(empty);
     }
@@ -60,11 +64,13 @@
     findings.replaceChildren();
     if (!result.findings.length) {
       const item = document.createElement("li");
+      item.className = "ears-finding ears-finding-ok";
       item.textContent = "No structural, modality, or vague-language findings.";
       findings.append(item);
     } else {
       result.findings.forEach((finding) => {
         const item = document.createElement("li");
+        item.className = "ears-finding " + (finding.level === "error" ? "ears-finding-error" : "ears-finding-warning");
         const prefix = finding.level === "error" ? "Error: " : "Warning: ";
         item.textContent = prefix + finding.message;
         findings.append(item);
