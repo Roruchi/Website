@@ -1,7 +1,8 @@
 ---
 layout: base.njk
 title: Home
-description: Roel van Bergen writes and speaks about software, AI, Zen, and the human side of building systems.
+seoTitle: Roel van Bergen | Software Engineer, Speaker & Zen Teacher
+description: Roel van Bergen writes and speaks about software engineering, AI, architecture, Zen, and the human work of building better systems together.
 ---
 
 <section class="hero-pond">
@@ -81,8 +82,8 @@ description: Roel van Bergen writes and speaks about software, AI, Zen, and the 
     <div class="featured-post-grid">
       {%- for post in collections.post | reverse | head(3) -%}
       <article class="featured-post">
-        <a href="{{ post.url }}" class="featured-image">
-          <img src="{{ post.data.cover }}" alt="" loading="lazy">
+        <a href="{{ post.url }}" class="featured-image" aria-label="Read {{ post.data.title }}">
+          <img src="{{ post.data.cardCover or post.data.cover }}" alt="{{ post.data.title }} article cover" width="640" height="400" loading="lazy" decoding="async">
         </a>
         <div class="featured-body">
           <div class="post-meta">
@@ -134,13 +135,15 @@ description: Roel van Bergen writes and speaks about software, AI, Zen, and the 
           href="https://go.teamrockstars.nl/ai-assisted-development-handbook-eng?utm_source=referral&utm_medium=roelvanbergen.nl&utm_campaign=roelvanbergen"
           target="_blank"
           rel="noopener"
-          aria-label="Read AI Assisted Development – The Rockstars Way"
           class="group block w-full max-w-[15rem] sm:max-w-[18rem] lg:max-w-[20rem] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
         >
           <img
             src="/assets/images/ai-assisted-development-cover.png"
             alt="AI-Assisted Development Handbook, From Intent to Pull Request"
+            width="1000"
+            height="1000"
             loading="lazy"
+            decoding="async"
             class="block w-full h-auto rounded-xl shadow-2xl ring-1 ring-white/10 transition-transform duration-300 group-hover:-translate-y-2"
           >
           <span class="mt-3 flex items-center justify-center gap-2 text-xs font-semibold text-stone-400 transition-colors group-hover:text-amber-400">Open the handbook <span aria-hidden="true">→</span></span>

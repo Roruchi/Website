@@ -5,7 +5,8 @@ date: 2026-07-20
 description: "Across 74 AI sessions and 186 million tokens, generating text turned out to be the easy part. Keeping editorial ownership human was harder."
 draft: false
 pillar: engineering
-cover: "/assets/images/the_ship_of_theseus.png"
+cover: "/assets/images/the-ship-of-theseus.webp"
+cardCover: "/assets/images/the-ship-of-theseus-card.webp"
 relatedTalks: []
 tags:
   - post
@@ -17,7 +18,7 @@ tags:
 
 <figure>
   <img
-    src="/assets/images/the_ship_of_theseus.png"
+    src="/assets/images/the-ship-of-theseus.webp"
     alt="A sailing ship gradually transforming from weathered timber into a pristine rebuilt vessel, representing the Ship of Theseus problem in AI-assisted authorship."
     loading="lazy"
   >

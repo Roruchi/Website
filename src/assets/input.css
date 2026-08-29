@@ -105,6 +105,10 @@
     @apply hover:text-amber-300 transition-colors;
   }
 
+  .site-footer .eyebrow {
+    @apply text-amber-400;
+  }
+
   .footer-heading {
     @apply text-xs font-semibold uppercase tracking-[0.25em] text-stone-200 mb-4;
   }
@@ -244,11 +248,15 @@
   }
 
   .pillar-number {
-    @apply text-xs font-mono opacity-50;
+    @apply text-xs font-mono opacity-75;
   }
 
   .pillar-engineering {
     @apply bg-stone-950 text-stone-200 border-stone-800;
+  }
+
+  .pillar-engineering .pillar-label {
+    @apply text-amber-400;
   }
 
   .pillar-coaching {
@@ -303,7 +311,7 @@
   }
 
   .featured-body > .text-link {
-    @apply self-end mt-auto;
+    @apply self-end mt-auto text-amber-500 hover:text-amber-300;
   }
 
   .post-meta {
@@ -312,6 +320,14 @@
 
   .post-meta span:first-child {
     @apply text-amber-700 font-bold;
+  }
+
+  .featured-post .post-meta {
+    @apply text-stone-400;
+  }
+
+  .featured-post .post-meta span:first-child {
+    @apply text-amber-500;
   }
 
   .invitation-panel,

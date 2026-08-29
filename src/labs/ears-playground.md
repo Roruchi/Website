@@ -2,7 +2,6 @@
 title: "EARS Requirement Playground"
 description: "Test EARS requirement structure, weak modality, and vague language before an agent turns a specification into code."
 permalink: "/labs/ears/"
-eleventyExcludeFromCollections: true
 layout: base.njk
 ---
 

@@ -2,7 +2,6 @@ const { DateTime } = require("luxon");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const readingTime = require("eleventy-plugin-reading-time");
-const pluginSitemap = require("@quasibit/eleventy-plugin-sitemap");
 const pluginTOC = require("eleventy-plugin-toc");
 const Image = require("@11ty/eleventy-img");
 const path = require("path");
@@ -33,17 +32,82 @@ async function imageShortcode(src, alt, sizes = "100vw") {
   return Image.generateHTML(metadata, imageAttributes);
 }
 
+function absoluteUrl(value, siteUrl) {
+  const normalized = typeof value === "string" ? value.trim() : "";
+  if (!normalized || ["undefined", "null"].includes(normalized.toLowerCase())) {
+    return `${siteUrl}/assets/images/og-default.png`;
+  }
+  if (/^https?:\/\//i.test(normalized)) return normalized;
+  return `${siteUrl}${normalized.startsWith("/") ? normalized : `/${normalized}`}`;
+}
+
+function isoDate(value) {
+  if (!value) return undefined;
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.valueOf()) ? undefined : date.toISOString().slice(0, 10);
+}
+
+function seoSchema(title, description, url, image, article, date, pillar, tags, site) {
+  const personId = `${site.url}/#person`;
+  const websiteId = `${site.url}/#website`;
+  const person = {
+    "@type": "Person",
+    "@id": personId,
+    name: site.author,
+    url: site.url,
+    jobTitle: "Software engineer, coach and speaker",
+    sameAs: [site.linkedin, site.sessionize, site.medium, site.github],
+  };
+  const website = {
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: site.url,
+    name: site.title,
+    description: site.description,
+    inLanguage: "en",
+    publisher: { "@id": personId },
+  };
+  const page = article
+    ? {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        mainEntityOfPage: { "@id": url },
+        headline: title,
+        description,
+        image,
+        datePublished: isoDate(date),
+        dateModified: isoDate(date),
+        articleSection: pillar,
+        keywords: (Array.isArray(tags) ? tags : [])
+          .filter((tag) => tag !== "post")
+          .join(", "),
+        inLanguage: "en",
+        author: { "@id": personId },
+        publisher: { "@id": personId },
+        isPartOf: { "@id": websiteId },
+      }
+    : {
+        "@type": "WebPage",
+        "@id": url,
+        url,
+        name: title,
+        description,
+        inLanguage: "en",
+        isPartOf: { "@id": websiteId },
+        about: { "@id": personId },
+      };
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [person, website, page],
+  }).replace(/</g, "\\u003c");
+}
+
 module.exports = function(eleventyConfig) {
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(pluginTOC, { tags: ['h2', 'h3'] });
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(readingTime);
-  eleventyConfig.addPlugin(pluginSitemap, {
-    sitemap: {
-      hostname: "https://roelvanbergen.nl",
-    },
-  });
 
   // Image shortcode
   eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
@@ -62,6 +126,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("htmlDateString", (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
   });
+  eleventyConfig.addFilter("absoluteUrl", absoluteUrl);
+  eleventyConfig.addFilter("seoSchema", seoSchema);
   eleventyConfig.addFilter("head", (array, n) => {
     if (!Array.isArray(array) || array.length === 0) return [];
     if (n < 0) return array.slice(n);

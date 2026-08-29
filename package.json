@@ -4,7 +4,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/assets/input.css -o ./src/assets/style.css --minify",
     "clean": "node scripts/clean-site.js",
-    "build": "npm run clean && npm run build:css && eleventy && npx pagefind --site _site",
+    "build": "npm run clean && npm run build:css && eleventy && node scripts/generate-sitemap.js && npx pagefind --site _site",
     "test:ears": "node scripts/test-ears-validator.js",
     "new:article": "node scripts/new-article.js",
     "new:talk": "node scripts/new-talk.js",
@@ -15,7 +15,8 @@
     "check:content": "node scripts/validate-content.js",
     "validate:content": "npm run check:content",
     "dashboard:content": "node scripts/content-dashboard.js",
-    "publish:check": "npm run check:content && npm run build && node scripts/check-public-output.js",
+    "check:seo": "node scripts/check-seo-output.js",
+    "publish:check": "npm run check:content && npm run build && node scripts/check-public-output.js && npm run check:seo",
     "qa:publish": "npm run publish:check",
     "serve": "node scripts/serve-local.js",
     "crosspost:dry-run": "node scripts/crosspost/publish.js --source \"src/blog/*.md\" --platform medium --platform linkedin --release-id local-dry-run --dry-run",
@@ -30,7 +31,6 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-    "@quasibit/eleventy-plugin-sitemap": "^2.1.4",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",

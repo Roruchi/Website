@@ -1597,6 +1597,11 @@ code, pre, kbd, samp {
   color: rgb(252 211 77 / var(--tw-text-opacity, 1));
 }
 
+.site-footer .eyebrow {
+  --tw-text-opacity: 1;
+  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
+}
+
 .footer-heading {
   margin-bottom: 1rem;
   font-size: 0.75rem;
@@ -1927,7 +1932,7 @@ code, pre, kbd, samp {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.75rem;
   line-height: 1rem;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .pillar-engineering {
@@ -1937,6 +1942,11 @@ code, pre, kbd, samp {
   background-color: rgb(12 10 9 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
   color: rgb(231 229 228 / var(--tw-text-opacity, 1));
+}
+
+.pillar-engineering .pillar-label {
+  --tw-text-opacity: 1;
+  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
 }
 
 .pillar-coaching {
@@ -2034,6 +2044,13 @@ code, pre, kbd, samp {
 .featured-body > .text-link {
   margin-top: auto;
   align-self: flex-end;
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
+}
+
+.featured-body > .text-link:hover {
+  --tw-text-opacity: 1;
+  color: rgb(252 211 77 / var(--tw-text-opacity, 1));
 }
 
 .post-meta {
@@ -2052,6 +2069,16 @@ code, pre, kbd, samp {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+}
+
+.featured-post .post-meta {
+  --tw-text-opacity: 1;
+  color: rgb(168 162 158 / var(--tw-text-opacity, 1));
+}
+
+.featured-post .post-meta span:first-child {
+  --tw-text-opacity: 1;
+  color: rgb(245 158 11 / var(--tw-text-opacity, 1));
 }
 
 .invitation-panel,
