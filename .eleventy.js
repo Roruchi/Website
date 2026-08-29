@@ -176,11 +176,9 @@ module.exports = function(eleventyConfig) {
     apiUrl: process.env.INTERACTIONS_API_URL || "",
   });
 
-  const repo = process.env.GITHUB_REPOSITORY;
-  const pathPrefix = repo ? `/${repo.split('/')[1]}/` : '/';
-
   return {
-    pathPrefix,
+    // The site is published at the root of its custom domain via src/CNAME.
+    pathPrefix: "/",
     dir: {
       input: "src",
       output: "_site",
