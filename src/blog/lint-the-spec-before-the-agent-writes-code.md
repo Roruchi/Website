@@ -6,6 +6,7 @@ description: "Using Vale and EARS as a deterministic quality gate in OpenSpec pr
 status: published
 pillar: engineering
 cover: "/assets/images/ears-prose-validation-cover.webp"
+cardCover: "/assets/images/ears-prose-validation-cover-card.webp"
 relatedTalks: []
 tags:
   - post

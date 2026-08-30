@@ -18,7 +18,7 @@ Eleventy (`src/` → `_site/`) static site deployed to GitHub Pages via `.github
 - **Search**: Pagefind — run as a post-build step over `_site/`. No server-side search.
 - **Global data**: `src/_data/site.json` provides `site.title`, `site.url`, `site.author`, `site.twitter`, `site.github` to all templates.
 - **Collections**: `post`, `talk`, `training` — defined in `.eleventy.js`, filtered to exclude `draft: true` items.
-- **pathPrefix**: Derived at build time from `GITHUB_REPOSITORY` env var in `.eleventy.js` for GitHub Pages sub-path hosting.
+- **pathPrefix**: Always `/` because GitHub Pages publishes through the custom domain in `src/CNAME`.
 
 ### Content Types & Frontmatter
 
@@ -49,7 +49,7 @@ Get-ChildItem src -Recurse -Include *.njk,*.md | Select-String 'bg-white' | Wher
 ```
 
 ### URL / Path Handling
-Always pipe absolute paths through Eleventy's `url` filter so pathPrefix is applied correctly:
+Always pipe absolute paths through Eleventy's `url` filter so URL handling stays consistent:
 ```njk
 <link rel="stylesheet" href="{{ '/assets/style.css' | url }}">
 <a href="{{ post.url | url }}">...</a>

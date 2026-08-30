@@ -11,6 +11,7 @@ pagination:
     - training
     - tagList
 permalink: /tags/{{ tag | slug }}/index.html
+robots: noindex, follow
 eleventyComputed:
   title: "Posts tagged: {{ tag }}"
 ---
@@ -27,7 +28,7 @@ eleventyComputed:
   </h1>
   <div class="grid grid-cols-1 gap-6 mt-10">
     {%- for post in collections[tag] | reverse -%}
-    {%- if post.data.tags and "post" in post.data.tags -%}
+    {%- if post.data.tags and "post" in post.data.tags and post.data.status != "draft" and not post.data.draft -%}
     <article class="bg-white rounded-xl border border-stone-200 p-6 hover:border-amber-300 hover:shadow-md transition-all">
       <h2 class="font-bold text-stone-900 text-lg mb-2">
         <a href="{{ post.url | url }}" class="hover:text-amber-700 transition-colors">{{ post.data.title }}</a>
