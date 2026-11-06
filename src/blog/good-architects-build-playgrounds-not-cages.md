@@ -15,23 +15,21 @@ tags:
 
 *Why governance doesn't have to restrict creativity. It can be what makes creativity possible.*
 
-Imagine a group of children playing on a grassy plateau high above the sea.
+In 1908, G. K. Chesterton proposed a thought experiment in his book *Orthodoxy*.
 
-A sturdy wall surrounds the playground. The children run, chase one another, explore, and make use of every corner.
+Imagine children playing on a grassy island surrounded by steep cliffs. A wall protects the edge. Inside that boundary, the children run, play, and explore freely.
 
-One day, the wall is removed.
+Now imagine removing the wall. There is nothing left to restrict their movement.
 
-The children now have complete freedom. No boundaries. No restrictions. Nothing stopping them from going wherever they want.
+Yet in Chesterton's imagined scene, the children do not become more adventurous. They huddle in the centre, frightened of the unprotected drop.
 
-But something unexpected happens.
+They have fewer physical barriers, but feel less free to play.
 
-Instead of playing more freely, the children huddle near the centre of the plateau, afraid to venture towards the edge.
+Chesterton was writing about religious authority and liberty, not software architecture. And this wasn't an actual event. It's a philosophical illustration, not evidence that boundaries automatically make people more creative.
 
-They have gained space, yet lost the freedom to use it.
+Still, it raises a question that stayed with me during my Solution Architecture training:
 
-This is a retelling of an illustration by G. K. Chesterton. It captures a paradox that has stayed with me during my Solution Architecture training:
-
-**Boundaries can create freedom.**
+**Can the right boundaries create more freedom than having none at all?**
 
 ## Isn't governance the enemy of creativity?
 
@@ -63,7 +61,13 @@ It doesn't need approval for every technical choice. It knows which decisions it
 
 **Governance doesn't just define what a team cannot do. Done well, it makes clear what a team can do without asking permission.**
 
-That clarity creates room for experimentation and creativity.
+That clarity can create room for experimentation and creativity.
+
+Consider a practical example: a team is allowed to deploy whenever its automated tests, security checks, monitoring, and rollback strategy meet agreed standards. The team doesn't need a separate approval for every release, because the critical safeguards are already part of the delivery process.
+
+This is not governance disappearing. It is governance making independent action possible.
+
+Of course, it depends on the risks involved. A production change affecting sensitive customer data may need a different level of oversight from a reversible experiment. The point is not to remove judgement, but to place decision-making where it can happen responsibly.
 
 ## What does that mean for an architect?
 
@@ -103,4 +107,4 @@ So perhaps the question we should ask is:
 
 ---
 
-*Draft note: The opening parable is freely adapted from G. K. Chesterton's discussion of walls and a cliff in* Orthodoxy *(1908). Review attribution and wording before publication.*
+*Source: G. K. Chesterton, [Orthodoxy (1908), Chapter IX: "Authority and the Adventurer"](https://www.gutenberg.org/cache/epub/130/pg130.html). The playground scene is a thought experiment, and its application to software governance is my interpretation.*
