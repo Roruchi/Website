@@ -75,8 +75,21 @@ On `/blog/architecture-with-mermaid/`:
 ### ✅ Responsive / Mobile
 - [ ] Hamburger menu appears on narrow screens (<768px)
 - [ ] Hamburger menu opens/closes correctly
+- [ ] Menu button's `aria-controls` identifies the mobile menu and `aria-expanded` matches its state
 - [ ] No horizontal scroll on any page at 375px width
+- [ ] At 390 × 844, navigation, focus indicators, contrast, and search remain usable
 - [ ] ToC sidebar is hidden on mobile (not broken layout)
+
+### ✅ Keyboard Navigation
+- [ ] The first Tab reveals the skip-to-content link
+- [ ] Activating the skip link moves focus to the main content
+- [ ] Navigation, menu button, and search work with the keyboard and show visible focus
+
+### ✅ Homepage Motion
+- [ ] Reduced motion shows a still pond without continuously scheduling animation frames
+- [ ] Animation pauses when the pond is offscreen or the document is hidden
+- [ ] Animation resumes only when visible and reduced motion is disabled, including after preference changes
+- [ ] Mouse and touch feeding still work
 
 ---
 

@@ -81,7 +81,7 @@ This document defines the functional and non-functional requirements of the pers
 
 | ID | Requirement |
 |---|---|
-| FR-8.2 | Sitemap `lastmod` **must** use only explicit per-page source `updated` or `date`; omit it when absent or invalid. |
+| FR-8.2 | Sitemap `lastmod` **must** follow the source-date rules in [README authoring guidance](./README.md#create-an-article). |
 | FR-8.1 | The site **must** generate an XML sitemap at `/sitemap.xml` listing all published pages. |
 
 ### FR-9 — Navigation
@@ -165,7 +165,7 @@ This document defines the functional and non-functional requirements of the pers
 |---|---|
 | NFR-5.1 | `npm run build` **must** exit with code 0 with no errors. |
 | NFR-5.2 | The build **must** complete successfully in the GitHub Actions CI environment on every push to `main`. |
-| NFR-5.3 | All absolute URL paths in templates **must** pass through the Eleventy `url` filter to support GitHub Pages sub-path deployment. |
+| NFR-5.3 | Template URL paths **must** work with the deployment configuration defined in [architecture.md](./architecture.md#deployment-pipeline). |
 | NFR-5.4 | The manual crosspost script **must** tolerate partial platform failures and **must not** block unrelated platform attempts. |
 | NFR-5.5 | Pull requests **must** run the same publishing QA command used locally so content validation and builds stay aligned across local and CI environments. |
 
