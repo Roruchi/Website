@@ -81,6 +81,7 @@ This document defines the functional and non-functional requirements of the pers
 
 | ID | Requirement |
 |---|---|
+| FR-8.2 | Sitemap `lastmod` **must** use only explicit per-page source `updated` or `date`; omit it when absent or invalid. |
 | FR-8.1 | The site **must** generate an XML sitemap at `/sitemap.xml` listing all published pages. |
 
 ### FR-9 — Navigation
@@ -90,6 +91,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-9.1 | Every page **must** include a persistent top navigation bar with links to: Blog, Talks, Trainings, About, Search, and GitHub. |
 | FR-9.2 | On screens narrower than 768 px, the navigation **must** collapse to a hamburger menu. |
 | FR-9.3 | The hamburger menu **must** open and close correctly on tap/click. |
+| FR-9.5 | Every page **must** offer a visible-on-focus skip link to the focusable main content; the mobile menu button **must** identify its controlled region with `aria-controls`. |
 | FR-9.4 | Every page **must** include a footer with navigation links and social links (GitHub, Twitter/X, RSS). |
 
 ### FR-10 — Homepage
@@ -99,6 +101,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-10.1 | The homepage **must** display a hero section with the site owner's name, tagline, and CTAs to Blog and Talks pages. |
 | FR-10.2 | The homepage **must** display summary statistics: number of blog posts, talks, workshops, and years of experience. |
 | FR-10.3 | The homepage **must** show the 3 most recent blog posts. |
+| FR-10.5 | The pond **must** show a still frame under reduced motion and pause animation while offscreen or the document is hidden, resuming only when all conditions allow motion. Feeding semantics remain unchanged. |
 | FR-10.4 | The homepage **must** include the interactive koi pond canvas animation. |
 
 ### FR-11 — SEO & Social Sharing
@@ -106,6 +109,7 @@ This document defines the functional and non-functional requirements of the pers
 | ID | Requirement |
 |---|---|
 | FR-11.1 | Every page **must** include `<meta name="description">`, Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`), and Twitter Card tags. |
+| FR-11.3 | The writing index **must** use `CollectionPage` structured data; real articles retain `BlogPosting`. Preview alt text **must** describe the image, with SVG, PNG, ICO and Apple touch icons available. |
 | FR-11.2 | Open Graph and Twitter Card images **must** default to a standard OG image when no post-specific image is provided. |
 
 ### FR-12 — Responsive Images

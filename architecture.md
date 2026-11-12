@@ -259,3 +259,10 @@ This document must be kept up to date. Update `architecture.md` whenever you:
 - Change a significant design system token or font
 
 See also: [requirements.md](./requirements.md) for functional and non-functional requirements.
+
+SEO output uses `CollectionPage` for the writing index and `BlogPosting` for articles.
+The base template exposes a `last-modified` meta value via `scripts/source-lastmod.js`,
+which reads only each page's own front matter `updated` or `date`. The sitemap
+generator consumes that value and omits `lastmod` for undated pages.
+SVG favicon assets have PNG and root-level Apple touch/ICO fallbacks generated
+with the existing transitive `sharp` dependency; no new dependency is required.
