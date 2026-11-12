@@ -1,11 +1,10 @@
 const assert = require("node:assert/strict");
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
 const vm = require("vm");
 const sourceLastmod = require("./source-lastmod");
 
-const temporary = fs.mkdtempSync(path.join(os.tmpdir(), "site-dates-"));
+const temporary = fs.mkdtempSync(path.join(__dirname, "../.site-dates-"));
 try {
   const file = path.join(temporary, "page.md");
   for (const [frontmatter, expected] of [
@@ -14,6 +13,14 @@ try {
     ["date: 2024-01-02\nupdated: 2025-03-04", "2025-03-04"],
     ["date: Last Modified", ""],
     ['date: "2025-02-30"', ""],
+    ["date: 2025-02-30", ""],
+    ["updated: 2025-02-30\ndate: 2024-01-02", ""],
+    ["date: 2025-02-29", ""],
+    ["updated: 2025-02-30T12:00:00Z", ""],
+    ["date: 2025-02-30T12:00:00Z", ""],
+    ["date: 2024-02-29", "2024-02-29"],
+    ["updated: 2024-02-29T23:30:00-02:00", "2024-03-01"],
+    ['date: "2024-02-29T23:30:00-02:00"', "2024-03-01"],
     ['updated: "invalid"\ndate: 2024-01-02', ""],
   ]) {
     fs.writeFileSync(file, `---\n${frontmatter}\n---\nBody`);

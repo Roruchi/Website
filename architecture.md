@@ -28,6 +28,7 @@ The repository also includes a **lightweight content and speaking workflow**. Ar
 | Search | [Pagefind](https://pagefind.app/) | ^1.4.0 |
 | Browser Automation | [Playwright](https://playwright.dev/) | ^1.54.1 |
 | Front Matter Parsing | [gray-matter](https://github.com/jonschlinkert/gray-matter) | ^4.0.3 |
+| Source Date YAML Schema | [js-yaml](https://github.com/nodeca/js-yaml) | ^3.14.2 |
 | Hosting | GitHub Pages | — |
 | CI/CD | GitHub Actions | — |
 | Image Processing | [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/) | ^3.1.0 |
