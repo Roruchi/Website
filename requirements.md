@@ -19,7 +19,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-1.7 | Code blocks **must** be syntax-highlighted server-side. |
 | FR-1.8 | A copy-to-clipboard button **must** appear on hover over code blocks. |
 | FR-1.9 | Mermaid code blocks (` ```mermaid `) **must** render as SVG diagrams client-side. |
-| FR-1.10 | Each post **must** support a featured image (`image` field) used in Open Graph and Twitter Card meta tags. |
+| FR-1.10 | Each post **must** support a featured image used in Open Graph and Twitter Card meta tags; see [README authoring guidance](./README.md#create-an-article) for front matter fields. |
 | FR-1.11 | A blog post tagged `crosspost-medium` **must** be eligible for manual Medium draft creation through the crosspost script, unless `originalUrl` is already present. |
 | FR-1.12 | Content authors **must** be able to scaffold a new article from a single local command that captures title, slug, description, pillar/tags, and draft/published status. |
 | FR-1.13 | The scaffolded article **must** be created in `src/blog/` with valid front matter and a sensible starting template that does not duplicate the rendered page title. |
