@@ -27,6 +27,10 @@ npm run new:article -- --title "A Practical Note on Calm Systems" --slug "a-prac
 
 New articles use `status: draft` or `status: published`. Imported legacy posts using `draft: true` or `draft: false` remain supported.
 
+For sitemap modification dates, set `updated` (preferred) or `date` in the page's own YAML front matter to a valid ISO date or timestamp. Timestamps are converted to a UTC calendar date. Missing or invalid values omit `lastmod`; an invalid nonempty `updated` does not fall back to `date`. Inherited dates, file timestamps, and deployment times are never used.
+
+Set `cover` to use a post-specific social preview image and `coverAlt` to describe it. Without `coverAlt`, the preview text is “Cover illustration for” followed by the title; pages without `cover` use the shared preview image and its description.
+
 ### Create a talk
 
 ```bash
@@ -192,7 +196,7 @@ Run the complete publishing gate:
 npm run publish:check
 ```
 
-This runs content validation, the production build, and a built-output privacy scan. The privacy scan checks generated HTML, XML, and JSON for private talk, opportunity, and submission values. CI runs the same command through `npm run qa:publish`.
+This runs content validation, the production build, a built-output privacy scan, and SEO output checks. The privacy scan checks generated HTML, XML, and JSON for private talk, opportunity, and submission values. CI runs the same command through `npm run qa:publish`.
 
 ## Local Dashboard
 

@@ -91,6 +91,31 @@ for (const filePath of htmlFiles) {
     }
   }
 
+  // Standalone legacy redirect stubs do not render the shared layout.
+  if (/<meta[^>]*http-equiv="refresh"/i.test(html)) continue;
+
+  if (!/class="skip-link"[^>]*href="#main-content"/.test(html) ||
+      !/<main[^>]*id="main-content"[^>]*tabindex="-1"/.test(html)) {
+    report(`${route} is missing the skip link or focusable target.`);
+  }
+  if (!/id="menu-toggle"[^>]*aria-controls="mobile-menu"/.test(html)) {
+    report(`${route} mobile menu must identify its controlled region.`);
+  }
+  const types = schemas.flatMap((block) => {
+    try { return (JSON.parse(block)["@graph"] || []).map((item) => item["@type"]); }
+    catch { return []; }
+  });
+  if (route === "/blog/" && (!types.includes("CollectionPage") || types.includes("BlogPosting"))) {
+    report("The writing index must use CollectionPage, not BlogPosting.");
+  }
+  if (route.startsWith("/blog/") && route !== "/blog/" && !noindex && !types.includes("BlogPosting")) {
+    report(`${route} must retain BlogPosting structured data.`);
+  }
+  for (const property of ["og:image:alt", "twitter:image:alt"]) {
+    const alt = match(html, new RegExp(`<meta (?:property|name)="${property}" content="([^"]*)"`));
+    if (!alt || ["Home", "Writing"].includes(alt)) report(`${route} needs descriptive ${property}.`);
+  }
+
   if (noindex) continue;
 
   if (!description) report(`${route} is missing a meta description.`);
@@ -154,6 +179,15 @@ if (fs.existsSync(sitemapPath)) {
     entry[1].replace(/&amp;/g, "&"),
   );
   const locationSet = new Set(locations);
+  for (const entry of sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const url = match(entry[1], /<loc>([^<]+)<\/loc>/);
+    const route = url.slice(siteUrl.length);
+    const htmlPath = path.join(siteRoot, route, "index.html");
+    if (!fs.existsSync(htmlPath)) continue;
+    const sourceDate = match(fs.readFileSync(htmlPath, "utf8"), /name="last-modified" content="([^"]+)"/);
+    const lastmod = match(entry[1], /<lastmod>([^<]+)<\/lastmod>/);
+    if (lastmod !== sourceDate) report(`${route} sitemap date differs from explicit source date.`);
+  }
 
   if (locations.length !== locationSet.size) report("sitemap.xml contains duplicate URLs.");
   for (const route of indexableRoutes) {

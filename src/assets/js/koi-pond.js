@@ -120,7 +120,25 @@
       ctx.restore();
     }
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frameId = null;
+    let inView = !('IntersectionObserver' in window);
+
+    function shouldAnimate() {
+      return !reducedMotion.matches && inView && !document.hidden;
+    }
+
+    function syncAnimation() {
+      if (shouldAnimate()) {
+        if (frameId === null) frameId = requestAnimationFrame(render);
+      } else if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+    }
+
     function render() {
+      frameId = null;
       const W = canvas.width, H = canvas.height;
       const t = Date.now();
       const weather = (Math.sin(t / 9000) + 1) * 0.5;
@@ -336,10 +354,23 @@
         ctx.fill();
       });
 
-      requestAnimationFrame(render);
+      if (shouldAnimate()) frameId = requestAnimationFrame(render);
     }
 
+    // Paint a still pond even when motion is reduced; feeding handlers stay intact.
     render();
+    document.addEventListener('visibilitychange', syncAnimation);
+    reducedMotion.addEventListener('change', syncAnimation);
+    window.addEventListener('resize', function() {
+      if (!shouldAnimate()) render();
+    }, { passive: true });
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(function(entries) {
+        inView = entries[0].isIntersecting;
+        syncAnimation();
+      });
+      observer.observe(canvas);
+    }
   }
 
   if (document.readyState === 'loading') {

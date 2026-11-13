@@ -34,15 +34,18 @@ const locations = walk(outputRoot)
     );
     return !robots.toLowerCase().includes("noindex");
   })
-  .map((html) => extract(
-    html,
-    /<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i,
-  ))
-  .filter((url) => url.startsWith(canonicalOrigin))
-  .filter((url, index, all) => all.indexOf(url) === index)
-  .sort();
+  .map((html) => ({
+    url: extract(html, /<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i),
+    lastmod: extract(html, /<meta\s+name=["']last-modified["']\s+content=["']([^"']+)["']/i),
+  }))
+  .filter(({ url }) => url.startsWith(canonicalOrigin))
+  .filter(({ url }, index, all) => all.findIndex((entry) => entry.url === url) === index)
+  .sort((a, b) => a.url.localeCompare(b.url));
 
-const body = locations.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`).join("\n");
+const body = locations.map(({ url, lastmod }) => {
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(lastmod) ? `<lastmod>${lastmod}</lastmod>` : "";
+  return `  <url><loc>${escapeXml(url)}</loc>${date}</url>`;
+}).join("\n");
 const xml = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

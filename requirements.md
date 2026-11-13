@@ -19,7 +19,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-1.7 | Code blocks **must** be syntax-highlighted server-side. |
 | FR-1.8 | A copy-to-clipboard button **must** appear on hover over code blocks. |
 | FR-1.9 | Mermaid code blocks (` ```mermaid `) **must** render as SVG diagrams client-side. |
-| FR-1.10 | Each post **must** support a featured image (`image` field) used in Open Graph and Twitter Card meta tags. |
+| FR-1.10 | Each post **must** support a featured image used in Open Graph and Twitter Card meta tags; see [README authoring guidance](./README.md#create-an-article) for front matter fields. |
 | FR-1.11 | A blog post tagged `crosspost-medium` **must** be eligible for manual Medium draft creation through the crosspost script, unless `originalUrl` is already present. |
 | FR-1.12 | Content authors **must** be able to scaffold a new article from a single local command that captures title, slug, description, pillar/tags, and draft/published status. |
 | FR-1.13 | The scaffolded article **must** be created in `src/blog/` with valid front matter and a sensible starting template that does not duplicate the rendered page title. |
@@ -81,6 +81,7 @@ This document defines the functional and non-functional requirements of the pers
 
 | ID | Requirement |
 |---|---|
+| FR-8.2 | Sitemap `lastmod` **must** follow the source-date rules in [README authoring guidance](./README.md#create-an-article). |
 | FR-8.1 | The site **must** generate an XML sitemap at `/sitemap.xml` listing all published pages. |
 
 ### FR-9 — Navigation
@@ -90,6 +91,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-9.1 | Every page **must** include a persistent top navigation bar with links to: Blog, Talks, Trainings, About, Search, and GitHub. |
 | FR-9.2 | On screens narrower than 768 px, the navigation **must** collapse to a hamburger menu. |
 | FR-9.3 | The hamburger menu **must** open and close correctly on tap/click. |
+| FR-9.5 | Every page **must** offer a visible-on-focus skip link to the focusable main content; the mobile menu button **must** identify its controlled region with `aria-controls`. |
 | FR-9.4 | Every page **must** include a footer with navigation links and social links (GitHub, Twitter/X, RSS). |
 
 ### FR-10 — Homepage
@@ -99,6 +101,7 @@ This document defines the functional and non-functional requirements of the pers
 | FR-10.1 | The homepage **must** display a hero section with the site owner's name, tagline, and CTAs to Blog and Talks pages. |
 | FR-10.2 | The homepage **must** display summary statistics: number of blog posts, talks, workshops, and years of experience. |
 | FR-10.3 | The homepage **must** show the 3 most recent blog posts. |
+| FR-10.5 | The pond **must** show a still frame under reduced motion and pause animation while offscreen or the document is hidden, resuming only when all conditions allow motion. Feeding semantics remain unchanged. |
 | FR-10.4 | The homepage **must** include the interactive koi pond canvas animation. |
 
 ### FR-11 — SEO & Social Sharing
@@ -106,6 +109,7 @@ This document defines the functional and non-functional requirements of the pers
 | ID | Requirement |
 |---|---|
 | FR-11.1 | Every page **must** include `<meta name="description">`, Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`), and Twitter Card tags. |
+| FR-11.3 | The writing index **must** use `CollectionPage` structured data; real articles retain `BlogPosting`. Preview alt text **must** describe the image, with SVG, PNG, ICO and Apple touch icons available. |
 | FR-11.2 | Open Graph and Twitter Card images **must** default to a standard OG image when no post-specific image is provided. |
 
 ### FR-12 — Responsive Images
@@ -161,7 +165,7 @@ This document defines the functional and non-functional requirements of the pers
 |---|---|
 | NFR-5.1 | `npm run build` **must** exit with code 0 with no errors. |
 | NFR-5.2 | The build **must** complete successfully in the GitHub Actions CI environment on every push to `main`. |
-| NFR-5.3 | All absolute URL paths in templates **must** pass through the Eleventy `url` filter to support GitHub Pages sub-path deployment. |
+| NFR-5.3 | Template URL paths **must** work with the deployment configuration defined in [architecture.md](./architecture.md#deployment-pipeline). |
 | NFR-5.4 | The manual crosspost script **must** tolerate partial platform failures and **must not** block unrelated platform attempts. |
 | NFR-5.5 | Pull requests **must** run the same publishing QA command used locally so content validation and builds stay aligned across local and CI environments. |
 

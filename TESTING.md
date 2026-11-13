@@ -36,49 +36,37 @@ Every check must be verified on **all** of the following URLs (run `npm run serv
 - [ ] Body text is readable (not invisible or too low contrast)
 - [ ] Cards/panels have visible background (white or light grey)
 - [ ] Card borders are visible
-- [ ] Links are violet/coloured, not default blue or invisible
+- [ ] Links match the [design system](./architecture.md#design-system) and are readable
 - [ ] Nav bar is present and all links visible
 - [ ] Footer is present and readable
 - [ ] No unstyled / raw HTML visible
 
-### ✅ Dark Mode
-Toggle dark mode via the moon icon in the navbar, then verify:
-- [ ] `<html>` element has `class="dark"` in DevTools
-- [ ] Page background is dark (`bg-slate-900`)
-- [ ] **Page heading (h1) is white/light** — most common failure point
-- [ ] Body text is light (`text-slate-300` or similar), not invisible black-on-dark
-- [ ] Cards/panels have dark background (`bg-slate-800`), not white
-- [ ] Card borders are visible in dark (`border-slate-700`)
-- [ ] Navbar and footer remain dark (they already are `bg-slate-900`)
-- [ ] Reading progress bar gradient is visible
-- [ ] Dark mode preference persists on page reload (`localStorage.theme === 'dark'`)
+The supported appearance is defined by the [design system](./architecture.md#design-system).
 
 ### ✅ Blog Post Specific
 - [ ] Title appears **exactly once** (not duplicated from markdown h1 + layout h1)
 - [ ] Code blocks are syntax-highlighted
 - [ ] Copy-to-clipboard button appears on hover over code blocks
 - [ ] Table of Contents appears in right sidebar on wide screens (≥1024px)
-- [ ] ToC links are readable in both light and dark mode
+- [ ] ToC links are readable
 - [ ] Related posts section shows ≤3 cards at the bottom
 - [ ] Reading time is shown in the post header
 
 ### ✅ Mermaid Diagrams
 On `/blog/architecture-with-mermaid/`:
 - [ ] Mermaid code blocks render as SVG diagrams (not raw text)
-- [ ] Diagrams are visible in both light and dark mode
+- [ ] Diagrams are visible against the page background
 
 ### ✅ Search Page
 - [ ] Pagefind UI search input is visible and styled
-- [ ] In **dark mode**: input has dark background, light placeholder text
-- [ ] In **dark mode**: result titles use violet/light colour (not invisible)
-- [ ] In **dark mode**: result excerpts are readable (`text-slate-400`)
+- [ ] Input, placeholder text, result titles, and excerpts are readable
 - [ ] Typing a query returns results
 
 ### ✅ Tag Pages
 - [ ] `/tags/` lists all tags with correct post counts
 - [ ] Each tag links to `/tags/<slug>/`
 - [ ] Individual tag pages list correct posts
-- [ ] All text readable in dark mode
+- [ ] All text is readable
 
 ### ✅ RSS Feed
 - [ ] `/feed/feed.xml` returns valid XML
@@ -87,8 +75,21 @@ On `/blog/architecture-with-mermaid/`:
 ### ✅ Responsive / Mobile
 - [ ] Hamburger menu appears on narrow screens (<768px)
 - [ ] Hamburger menu opens/closes correctly
+- [ ] Menu button's `aria-controls` identifies the mobile menu and `aria-expanded` matches its state
 - [ ] No horizontal scroll on any page at 375px width
+- [ ] At 390 × 844, navigation, focus indicators, contrast, and search remain usable
 - [ ] ToC sidebar is hidden on mobile (not broken layout)
+
+### ✅ Keyboard Navigation
+- [ ] The first Tab reveals the skip-to-content link
+- [ ] Activating the skip link moves focus to the main content
+- [ ] Navigation, menu button, and search work with the keyboard and show visible focus
+
+### ✅ Homepage Motion
+- [ ] Reduced motion shows a still pond without continuously scheduling animation frames
+- [ ] Animation pauses when the pond is offscreen or the document is hidden
+- [ ] Animation resumes only when visible and reduced motion is disabled, including after preference changes
+- [ ] Mouse and touch feeding still work
 
 ---
 
@@ -108,22 +109,6 @@ These documents are the canonical reference for the project's architecture and r
 When an agent completes any task that touches templates or styles, it **must**:
 
 1. Run `npm run build` — fix all errors before marking done
-2. Grep for `text-slate-900` in modified files — every instance needs a `dark:text-white` or `dark:text-slate-100` counterpart
-3. Grep for `bg-white` in modified files — every instance needs a `dark:bg-slate-800` counterpart
-4. Grep for `border-slate-200` in modified files — every instance needs a `dark:border-slate-700` counterpart
-5. Grep for `text-slate-600` or `text-slate-700` in modified files — needs `dark:text-slate-400` / `dark:text-slate-300`
-6. Check the search page if base layout was modified
-7. Report which pages from the checklist above were verified
-
-### Quick grep commands to run after any template change:
-```powershell
-# Find text colors missing dark variants
-Get-ChildItem src -Recurse -Include *.njk,*.md |
-  Select-String "text-slate-[89]00|text-slate-700" |
-  Where-Object { $_.Line -notmatch "dark:" }
-
-# Find white backgrounds missing dark variants  
-Get-ChildItem src -Recurse -Include *.njk,*.md |
-  Select-String 'bg-white' |
-  Where-Object { $_.Line -notmatch "dark:" }
-```
+2. Check modified styles against the [design system](./architecture.md#design-system)
+3. Check the search page if base layout was modified
+4. Report which pages from the checklist above were verified

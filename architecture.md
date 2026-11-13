@@ -28,6 +28,7 @@ The repository also includes a **lightweight content and speaking workflow**. Ar
 | Search | [Pagefind](https://pagefind.app/) | ^1.4.0 |
 | Browser Automation | [Playwright](https://playwright.dev/) | ^1.54.1 |
 | Front Matter Parsing | [gray-matter](https://github.com/jonschlinkert/gray-matter) | ^4.0.3 |
+| Source Date YAML Schema | [js-yaml](https://github.com/nodeca/js-yaml) | ^3.14.2 |
 | Hosting | GitHub Pages | — |
 | CI/CD | GitHub Actions | — |
 | Image Processing | [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/) | ^3.1.0 |
@@ -109,12 +110,16 @@ Website/
 
 ## Build Pipeline
 
-The build runs in three sequential steps via `npm run build`:
+The build runs the following sequential steps via `npm run build`:
 
 ```
+npm run clean       →   removes the previous _site/ output
+                            ↓
 npm run build:css   →   tailwindcss -i src/assets/input.css -o src/assets/style.css --minify
                             ↓
 eleventy            →   reads src/, compiles Nunjucks + Markdown → _site/
+                            ↓
+generate-sitemap.js →   generates _site/sitemap.xml from rendered canonical URLs
                             ↓
 npx pagefind        →   indexes _site/ → generates _site/pagefind/ (search index)
 ```
@@ -126,7 +131,7 @@ Tailwind scans all `.njk`, `.md`, `.html`, and `.js` files under `src/` for clas
 Eleventy reads all source files and applies the following:
 - **Templates** (`.njk`): compiled using Nunjucks with global data from `src/_data/`
 - **Markdown** (`.md`): converted to HTML via markdown-it, front matter parsed as page data
-- **Plugins**: syntax highlighting, RSS, reading time, sitemap, table of contents (see below)
+- **Plugins**: see [Key Eleventy Configuration](#key-eleventy-configuration-eleventyjs)
 - **Collections**: `post` and `training`, filtered to exclude draft content
 - **Public talk data**: `src/_data/publicTalks.js` loads only talks with `visibility: public` and `showcase: true`, then removes private fields
 - **Filters**: `readableDate`, `htmlDateString`, `head`, `relatedPosts`
@@ -134,6 +139,11 @@ Eleventy reads all source files and applies the following:
 
 ### Pagefind Index
 After the Eleventy build, Pagefind crawls the `_site/` directory and produces a static search index at `_site/pagefind/`. The search page loads the Pagefind UI from this index at runtime.
+
+### Sitemap and Icons
+The base template exposes a `last-modified` meta value through the `sourceLastmod` filter in `scripts/source-lastmod.js`. Its YAML schema preserves timestamp scalars as strings for calendar validation before normalization. `scripts/generate-sitemap.js` consumes the rendered metadata; [README authoring guidance](./README.md#create-an-article) owns the date selection rules.
+
+The base template links the SVG favicon alongside PNG, root-level ICO, and Apple touch fallbacks. These committed raster assets were generated from the existing SVG using the transitive `sharp` dependency.
 
 ### Crosspost Automation
 Crossposting is intentionally kept outside the visitor-facing build and outside the GitHub Pages pipeline. `scripts/crosspost/publish.js` is meant to be run manually after a post is live and:
@@ -158,7 +168,7 @@ The authoring workflow is intentionally small and local-first:
 - Production builds leave `LOCAL_DASHBOARD` unset, so private dashboard data is not loaded and the route has `permalink: false`
 - `content/discovery-sources.json` is the explicit allowlist and mapping registry for public discovery sources
 - `.speaker-calendar/` contains local calendar exports and is excluded from version control and deployment
-- `npm run publish:check` runs validation, a full site build, and the built-output privacy scan
+- See [README publishing guidance](./README.md#validation-and-publishing) for the checks run by `npm run publish:check`
 - `npm run qa:publish` aliases the publishing gate used in CI
 
 ---
@@ -181,7 +191,7 @@ GitHub Actions: deploy job
     └── Deploy artifact to GitHub Pages
 ```
 
-The live site URL is the GitHub Pages URL for the repository. The Eleventy `pathPrefix` is automatically derived from the `GITHUB_REPOSITORY` environment variable in `.eleventy.js` so that all asset and page paths work correctly under the repository sub-path.
+The site is published at `https://roelvanbergen.nl` using the custom domain in `src/CNAME`. Eleventy's `pathPrefix` is fixed to `/` in `.eleventy.js`.
 
 The crosspost utility is not part of the static site runtime or deployment workflow. It depends on local environment variables for LinkedIn generation/publishing configuration and on Playwright storage state for Medium authentication.
 
@@ -193,12 +203,12 @@ Separate from deployment, `.github/workflows/quality.yml` runs on pull requests 
 
 | Concern | Detail |
 |---|---|
-| **Plugins** | syntaxHighlight, TOC (h2/h3), RSS, readingTime, sitemap |
+| **Plugins** | syntaxHighlight, TOC (h2/h3), RSS, readingTime |
 | **Image shortcode** | `{% image src, alt, sizes %}` — async, multi-format, lazy-loaded |
 | **Collections** | `post`, `training` — filtered by `status: draft` or legacy `draft: true` |
 | **`relatedPosts` filter** | Scores posts by shared tags; returns top N matching posts |
 | **Speaking privacy** | Only public showcased talks enter sanitized global data; opportunities and submissions never enter Eleventy |
-| **pathPrefix** | Derived from `GITHUB_REPOSITORY` env var; defaults to `/` locally |
+| **pathPrefix** | See [Deployment Pipeline](#deployment-pipeline) |
 | **Input/Output dirs** | `src/` → `_site/` |
 
 ---

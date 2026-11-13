@@ -47,7 +47,7 @@ function isoDate(value) {
   return Number.isNaN(date.valueOf()) ? undefined : date.toISOString().slice(0, 10);
 }
 
-function seoSchema(title, description, url, image, article, date, pillar, tags, site) {
+function seoSchema(title, description, url, image, article, date, pillar, tags, site, schemaType) {
   const personId = `${site.url}/#person`;
   const websiteId = `${site.url}/#website`;
   const person = {
@@ -87,7 +87,7 @@ function seoSchema(title, description, url, image, article, date, pillar, tags, 
         isPartOf: { "@id": websiteId },
       }
     : {
-        "@type": "WebPage",
+        "@type": schemaType === "CollectionPage" ? "CollectionPage" : "WebPage",
         "@id": url,
         url,
         name: title,
@@ -115,6 +115,8 @@ module.exports = function(eleventyConfig) {
   // Passthrough
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addPassthroughCopy("src/favicon.ico");
+  eleventyConfig.addPassthroughCopy("src/apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy({
     "node_modules/prismjs/themes/prism-tomorrow.css": "assets/prism-tomorrow.css"
   });
@@ -128,6 +130,7 @@ module.exports = function(eleventyConfig) {
   });
   eleventyConfig.addFilter("absoluteUrl", absoluteUrl);
   eleventyConfig.addFilter("seoSchema", seoSchema);
+  eleventyConfig.addFilter("sourceLastmod", require("./scripts/source-lastmod"));
   eleventyConfig.addFilter("head", (array, n) => {
     if (!Array.isArray(array) || array.length === 0) return [];
     if (n < 0) return array.slice(n);

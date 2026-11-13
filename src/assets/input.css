@@ -32,6 +32,18 @@
 }
 
 @layer components {
+  .skip-link {
+    @apply fixed left-4 top-4 px-4 py-3 bg-washi text-stone-900 border border-stone-700 rounded;
+    z-index: 100;
+    transform: translateY(calc(-100% - 1rem));
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid var(--color-cinnabar);
+    outline-offset: 3px;
+  }
+
   .site-header {
     background: rgba(251, 249, 244, 0.9);
     border-bottom: 1px solid rgba(87, 83, 78, 0.12);
