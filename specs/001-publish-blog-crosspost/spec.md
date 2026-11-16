@@ -17,7 +17,7 @@ As a site owner, I want the system to publish a selected blog article to externa
 
 **Acceptance Scenarios**:
 
-1. **Given** a website publish has completed successfully and the target article has `draft: false`, **When** the post-publish publishing step runs, **Then** the article is submitted for publication to each enabled platform target.
+1. **Given** a website publish has completed successfully and the target article meets the [workflow contract's eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract), **When** the post-publish publishing step runs, **Then** the article is submitted for publication to each enabled platform target.
 2. **Given** a website publish has not completed successfully, **When** a release attempt ends, **Then** no external publication is started.
 
 ---
@@ -64,7 +64,7 @@ As a site owner, I want draft content excluded and duplicate publishing prevente
 
 - **FR-001**: The system MUST provide a post-publish publishing step that runs only after a successful website publish event.
 - **FR-002**: The system MUST accept article source content from the canonical blog markdown source (default path `src/blog/blog.md`, or an explicitly provided blog markdown file path).
-- **FR-003**: The system MUST evaluate the article `draft` state and publish externally only when `draft` is `false`.
+- **FR-003**: The system MUST gate external publishing using the [workflow contract's eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract).
 - **FR-004**: The system MUST support publishing the same eligible article to multiple platform targets in one run, including Medium and LinkedIn.
 - **FR-005**: The system MUST generate a short-form, AI-written LinkedIn post from the source article when LinkedIn target publishing is enabled.
 - **FR-006**: The system MUST preserve article fidelity for long-form platform targets by using the source article title and body content.
@@ -97,7 +97,7 @@ As a site owner, I want draft content excluded and duplicate publishing prevente
 - **URL Safety**: No template URL changes are required; existing website links continue to use Eleventy `url` filter where applicable.
 - **Build Verification Plan**: Validate `npm run build` completes successfully and confirm post-publish invocation behavior in release verification.
 - **Manual Verification Scope**: Verify published site renders normally, then verify post-publish distribution outcomes for draft and non-draft scenarios using the checklist process in `TESTING.md`.
-- **Content Model Impact**: No new collection type is required; existing blog frontmatter `draft` flag is used as the publication gate.
+- **Content Model Impact**: No new collection type is required; publication eligibility follows the [workflow contract](contracts/crosspost-workflow-contract.md#eligibility-rules-contract).
 - **Search & Performance Impact**: No change to page rendering path, Pagefind indexing logic, or visitor-facing runtime performance.
 
 ## Success Criteria *(mandatory)*

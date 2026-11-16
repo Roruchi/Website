@@ -15,8 +15,8 @@
 - Rationale: Keeps one source of truth and aligns with existing content model conventions.
 - Alternatives considered: Parse generated HTML from `_site/` (fragile and lossy), maintain duplicate publish-specific content files (drifts from canonical content).
 
-## Decision 4: Gate eligibility with frontmatter `draft: false`
-- Decision: Explicitly parse and enforce frontmatter draft rules so only non-draft posts are crossposted.
+## Decision 4: Gate eligibility with frontmatter publication state
+- Decision: Apply the [workflow contract's eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract) to the parsed frontmatter.
 - Rationale: Directly maps to feature requirement and repository constitution content-integrity principle.
 - Alternatives considered: Filename/date heuristics (not reliable), manual allowlist file (extra operational burden and error-prone).
 
