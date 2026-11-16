@@ -5,7 +5,7 @@ description: Rate one or all roelvanbergen.nl blog posts against the repository'
 
 # Rate a blog post
 
-Read the complete requested `src/blog/*.md` files, including HTML imports. For an unspecified target, rate all posts. Read the rubric in [the quality review](../../../specs/002-blog-quality-review/report.md#rubric) relative to the repository root: the actual file is `specs/002-blog-quality-review/report.md`. The historical scores there are calibration examples, not results to copy.
+Read the complete requested `src/blog/*.md` files, including HTML imports. For an unspecified target, rate all posts. Read the bundled [editorial rubric](references/rubric.md). When working in the website repository, historical scores in `specs/002-blog-quality-review/report.md` are calibration examples, not results to copy. All repository paths below are relative to the website checkout, not this skill's installation directory. If reviewing supplied text outside that checkout, apply the rubric and explicitly report unavailable comparison sources and repository checks; do not invent their results.
 
 Compare voice with `the-lotus-on-stage-bccd43294de1.md`, the perfectionism series and `your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d.md`; compare technical specificity and caveats with `lint-the-spec-before-the-agent-writes-code.md`. These live in `src/blog/`. Do not force a personal reflection into an engineering tutorial or treat idea briefs as finished examples.
 
