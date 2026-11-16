@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-labelledby="title desc">
+  <title id="title">Three tools for independent decisions</title>
+  <desc id="desc">Architecture principles show the boundary. Architecture Decision Records preserve the reason behind it. Quality attributes make expectations checkable. Together they help a team decide without guessing.</desc>
+  <rect width="960" height="760" fill="#f4f1e8"/>
+  <g font-family="system-ui, sans-serif" fill="#183b34">
+    <text x="480" y="78" text-anchor="middle" font-size="38" font-weight="700">Decide without guessing</text>
+    <g fill="#e2eee6" stroke="#286352" stroke-width="3">
+      <rect x="60" y="120" width="840" height="160" rx="22"/>
+      <rect x="60" y="310" width="840" height="160" rx="22"/>
+      <rect x="60" y="500" width="840" height="160" rx="22"/>
+    </g>
+    <g font-size="34" font-weight="700">
+      <text x="100" y="180">Principles</text>
+      <text x="100" y="370">Decision records (ADRs)</text>
+      <text x="100" y="560">Quality attributes</text>
+    </g>
+    <g font-size="30">
+      <text x="100" y="235">Where is the boundary?</text>
+      <text x="100" y="425">Why did we choose it?</text>
+      <text x="100" y="615">What can we discuss and check?</text>
+    </g>
+    <text x="480" y="717" text-anchor="middle" font-size="29">Make the agreement visible to the team.</text>
+  </g>
+</svg>

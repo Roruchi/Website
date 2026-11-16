@@ -87,6 +87,8 @@ But: *What agreements do teams need so they can make good decisions independentl
 
 Architecture principles can make the boundaries visible. Architecture Decision Records (ADRs) can preserve the reasons behind a decision, so the next team doesn't have to guess. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
 
+![Three tools for independent decisions: principles show the boundary, ADRs preserve why it exists, and quality attributes make expectations checkable.](/assets/images/governance-decision-tools.svg)
+
 This connects to what I wrote about [making implicit engineering knowledge explicit](/blog/your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d/). A boundary that only exists in someone's head is difficult to work within, whether you're a new developer or an AI agent.
 
 And just as importantly, we should regularly challenge the boundaries we've created.
