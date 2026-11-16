@@ -1,0 +1,11 @@
+flowchart TD
+    accTitle: A clear release boundary
+    accDescr: Teams deploy independently within agreed safeguards. Changes outside those agreements need a conversation with the risk owner.
+    A["A change to release"] --> B{"Within the agreed<br/>release boundary?"}
+    B -->|Yes| C["Team deploys independently"]
+    B -->|No| D["Discuss with the risk owner"]
+    E["Tests · Security<br/>Monitoring · Rollback"] -.-> B
+    classDef action fill:#e7eee9,stroke:#477263,color:#233f35,stroke-width:1.5px,rx:12,ry:12;
+    classDef note fill:#f6f2e9,stroke:#c4b59a,color:#655846,stroke-width:1px,rx:12,ry:12;
+    class A,C,D action;
+    class E note;

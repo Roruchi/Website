@@ -41,7 +41,7 @@ That experience gives me a concrete way to think about governance. A gate can be
 
 For a team that wants to deploy independently, agreements about tests, security, monitoring and rollback can make the release boundary clear. People need to know what they can decide themselves and who to involve when a change falls outside those agreements. The checks and level of oversight depend on the risks involved; a change affecting sensitive customer data needs different consideration from a reversible experiment.
 
-![Tests, security, monitoring and rollback form a shared boundary. Inside it, teams can experiment, choose an implementation and deploy independently.](/assets/images/governance-playground.svg)
+![Within agreed safeguards, the team deploys independently. A change outside the release boundary needs a conversation with the risk owner.](/assets/images/governance-release-mermaid.svg)
 
 Within that boundary, the team still has technical choices to make. It can try a different implementation without renegotiating the entire release process. That's the room I want governance to leave open.
 
@@ -51,7 +51,7 @@ For me, part of the architect's job is helping a team work out which boundaries 
 
 Architecture principles can make the boundaries visible. Architecture Decision Records (ADRs) can preserve the reasons behind a decision, so the next team doesn't have to guess. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
 
-![Three tools for independent decisions: principles show the boundary, ADRs preserve why it exists, and quality attributes make expectations checkable.](/assets/images/governance-decision-tools.svg)
+![Principles define boundaries, decision records explain why, and quality attributes make expectations checkable. Together they support independent team decisions.](/assets/images/governance-decisions-mermaid.svg)
 
 This connects to what I wrote about [making implicit engineering knowledge explicit](/blog/your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d/). A boundary that only exists in someone's head is difficult to work within, whether you're a new developer or an AI agent.
 

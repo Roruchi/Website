@@ -2,6 +2,10 @@
 
 ## PR #13 author feedback, 2026-11-16
 
+Later visual follow-up: Roel requested replacing the two body diagrams with Mermaid. The old hand-authored SVGs were removed. Their replacements are `governance-release-mermaid.svg` and `governance-decisions-mermaid.svg`, generated from the editable `.mmd` sources in `src/assets/diagrams/`. `mermaid-config.json` retains the theme and layout settings. The illustrated cover remains. These static exports need no client-side Mermaid runtime. To regenerate with Mermaid CLI, use `mmdc -i src/assets/diagrams/governance-release.mmd -o src/assets/images/governance-release-mermaid.svg -c src/assets/diagrams/mermaid-config.json -b transparent`, and the equivalent command for `governance-decisions.mmd`.
+
+Visual follow-up validation: production publishing QA passed with all five drafts excluded. The two exports parse as XML and loaded in Chrome at 1440px and 375px without horizontal overflow; both diagrams were inspected at their mobile display size. A separate local preview serves the article while its source retains draft status. An initial parallel production/preview build shared a temporary source-status change; that run was discarded and production QA was rerun sequentially after restoration. Initial SVG serialization was also corrected before these checks.
+
 This follow-up supersedes the playgrounds assessment and open author questions below; the original review is retained as history. Roel's seven inline comments requested a more natural paragraph rhythm, removal of defensive caveats, a better cover, his own customer example and a direct call to action.
 
 - Reworked the opening and transitions into connected paragraphs. Removed the subtitle, staged reversals and bold closing slogan.
