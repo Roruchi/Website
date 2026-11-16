@@ -2,7 +2,7 @@
 title: "Good Architects Build Playgrounds, Not Cages"
 slug: "good-architects-build-playgrounds-not-cages"
 date: 2026-11-06
-description: "Clear boundaries can give software teams room to experiment. How architects can use governance to enable decisions instead of collecting approvals."
+description: "Architecture and governance can give teams the confidence to act independently. How clear boundaries create room for ownership and experimentation."
 status: draft
 pillar: engineering
 cover: "/assets/images/governance-playground-cover.webp"
@@ -15,13 +15,13 @@ tags:
   - philosophy
 ---
 
-During my Solution Architecture training, one question stayed with me: **can the right boundaries create more freedom than having none at all?** Governance often means giving up some autonomy. There are rules to follow and decisions you can no longer make on your own. Yet I've also been in a team where adding a release process helped us release faster. That tension is what interests me.
+During my Solution Architecture training, one question stayed with me: **can the right boundaries create more freedom than having none at all?** Architecture and governance are often experienced as restrictions on what a team can do. I think they can be a powerful enabler: knowing what matters and where your responsibility lies gives you a basis for making your own decisions.
 
 ![Children play in an open grassy meadow, with a low stone wall protecting the cliff edge above the sea.](/assets/images/governance-playground-cover.webp)
 
 In *Orthodoxy* (1908), G. K. Chesterton imagines children playing on a grassy island surrounded by steep cliffs. A wall protects the edge, leaving them free to explore the space inside. When the wall is removed, they huddle in the centre, afraid of falling. Removing the boundary has made their world smaller.
 
-I keep coming back to that image when I think about architecture. We spend a lot of time discussing which boundaries a team needs. I think we should spend just as much time asking whether people have room to work within them.
+That image captures what interests me about governance. A boundary can feel limiting while also creating the conditions for people to act with confidence. When a team understands which risks it needs to account for and which choices it owns, there is room to experiment without having to renegotiate that responsibility every time.
 
 ## Isn't governance the enemy of creativity?
 
@@ -29,7 +29,9 @@ Architecture principles, security requirements and decisions that need documenti
 
 Sometimes that feeling is justified. If every choice needs approval, people have little room to try something themselves. Even a small change becomes a discussion about who is allowed to decide. Calling a team autonomous doesn't help much if it still has to ask permission at every step.
 
-But removing the rules doesn't necessarily resolve that uncertainty. When nobody knows which decisions belong to the team, the same discussions keep coming back. Can we use this technology? Who owns security? Are we allowed to deploy independently? Clear agreements can help people answer those questions themselves.
+But removing the rules doesn't necessarily resolve that uncertainty. When nobody knows which decisions belong to the team, the same discussions keep coming back. Can we use this technology? Who owns security? Clear agreements can help people answer those questions themselves and take responsibility for the choices they make.
+
+Governance also gives those choices direction. Architectural principles and quality expectations help a team weigh alternatives against what the organisation needs. The team can choose an implementation while understanding what it must protect and where its decisions affect others. That shared understanding is part of what makes autonomy workable.
 
 ## From control to confidence
 
@@ -37,33 +39,29 @@ At one of my customers, I was part of a team that kept spending hours fixing rel
 
 The team could release faster, though, because we spent less time fixing things on the spot. We gave up some freedom in how we released and gained time back from the repairs.
 
-That experience gives me a concrete way to think about governance. A gate can be useful when it helps a team deal with a recurring problem. Whether it does that matters more to me than whether the process looks complete on paper.
-
-For a team that wants to deploy independently, agreements about tests, security, monitoring and rollback can make the release boundary clear. People need to know what they can decide themselves and who to involve when a change falls outside those agreements. The checks and level of oversight depend on the risks involved; a change affecting sensitive customer data needs different consideration from a reversible experiment.
+In that case, governance became tangible through the release process. The broader architectural question is which decisions a team can own and under what conditions. For releases, agreements about tests, security, monitoring and rollback can define that space. A technology choice or a change to a shared interface needs its own boundaries, with attention to the people and systems affected.
 
 ![Within agreed safeguards, the team deploys independently. A change outside the release boundary needs a conversation with the risk owner.](/assets/images/governance-release-mermaid.svg)
 
-Within that boundary, the team still has technical choices to make. It can try a different implementation without renegotiating the entire release process. That's the room I want governance to leave open.
-
 ## What does that mean for an architect?
 
-For me, part of the architect's job is helping a team work out which boundaries it needs and why. What agreements would let people make good decisions independently? Where do they need help, and where are we asking them to wait for approval they could do without?
+For me, part of the architect's job is helping a team understand the intent behind the boundaries. What are we trying to achieve? Which choices belong to the team, and where does it share responsibility with others? People need enough context to use their judgement, including when a new situation calls an existing agreement into question.
 
-Architecture principles can make the boundaries visible. Architecture Decision Records (ADRs) can preserve the reasons behind a decision, so the next team doesn't have to guess. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
+Architecture principles can make the boundaries visible. [Architecture Decision Records (ADRs), as described in arc42](https://docs.arc42.org/section-9/), preserve the context, reasoning and consequences of important decisions, so the next team doesn't have to guess why a choice was made. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
 
 ![Principles define boundaries, decision records explain why, and quality attributes make expectations checkable. Together they support independent team decisions.](/assets/images/governance-decisions-mermaid.svg)
 
 This connects to what I wrote about [making implicit engineering knowledge explicit](/blog/your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d/). A boundary that only exists in someone's head is difficult to work within, whether you're a new developer or an AI agent.
 
-We also need to revisit those agreements. A rule may have addressed a real problem when it was introduced, but does it still help? Does this approval reduce risk, or are we keeping it because it has always been there? A playground with fences at every turn leaves very little room to play.
+We also need to revisit those agreements. A principle may have served a clear purpose when it was introduced, but does it still help the team make good decisions? Can people explain why it matters, or do they follow it because it has always been there? A playground with fences at every turn leaves very little room to play.
 
 ## Freedom within boundaries
 
-I recognise this tension from [finding a balance between control and letting go](/blog/my-journey-with-perfectionism-finding-balance-104b4b4a1ce6/). When mentoring interns, I sometimes gave too little guidance and other times held on too tightly. Working out how much support someone needs takes attention. I think architecture asks something similar of us: enough structure to help people move forward, with room for them to make their own choices.
+Working out how much guidance a team needs takes attention. Too much control leaves little room for ownership; too little direction leaves people guessing. I think architecture asks us to stay involved in finding that balance: enough structure to help people move forward, with room for them to make their own choices.
 
-At your next team or architecture discussion, pick one release gate or recurring approval and look at what it actually does. What problem was it introduced to solve? Does it still help the team? Agree on one change to try, whether that's automating a check, making an agreement clearer or removing an approval that no longer serves a purpose. Then come back to it together and see whether it helped.
+At your next architecture discussion, bring a decision the team keeps referring back to you. Work through the intent and risks together, then agree on the boundaries within which the team can own that decision. Write down the reasoning and let the team act on it. If every choice still comes back to the architect, the work of enabling that team is unfinished.
 
-Which boundary in your team gives you room to work, and which one would you change? I'd like to hear your experience. You can [send me a message on LinkedIn](https://www.linkedin.com/in/roelvanbergen/).
+**Which decision can your team now make for itself because of the governance you've put in place?**
 
 ---
 
