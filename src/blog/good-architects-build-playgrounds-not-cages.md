@@ -19,7 +19,9 @@ During my Solution Architecture training, one question stayed with me: **can the
 
 ![Children play in an open grassy meadow, with a low stone wall protecting the cliff edge above the sea.](/assets/images/governance-playground-cover.webp)
 
-In *Orthodoxy* (1908), G. K. Chesterton imagines children playing on a grassy island surrounded by steep cliffs. A wall protects the edge, leaving them free to explore the space inside. When the wall is removed, they huddle in the centre, afraid of falling. Removing the boundary has made their world smaller.
+Imagine a grassy island high above the sea, with children running and playing across it. Along the cliff edge stands a wall. With that boundary around them, the children can give themselves over to their games; the whole space inside is theirs to explore. This is the scene G. K. Chesterton asks us to imagine in *Orthodoxy* (1908).
+
+Now picture the same island without the wall. The grass still stretches to the edge, but beyond it is an unprotected drop into the sea. The children draw back and huddle in the centre. There is nothing left to stop them going wherever they want, yet they use less of the island than before. The wall had given them the confidence to play.
 
 That image captures what interests me about governance. A boundary can feel limiting while also creating the conditions for people to act with confidence. When a team understands which risks it needs to account for and which choices it owns, there is room to experiment without having to renegotiate that responsibility every time.
 
