@@ -1,0 +1,10 @@
+flowchart LR
+    accTitle: Making architectural agreements usable
+    accDescr: Principles define boundaries, decision records explain why, and quality attributes make expectations checkable. All three support independent team decisions.
+    A["Principles<br/>Where is the boundary?"] --> D["Team makes an<br/>informed decision"]
+    B["Decision records<br/>Why did we choose this?"] --> D
+    C["Quality attributes<br/>What can we check?"] --> D
+    classDef tool fill:#f6f2e9,stroke:#c4b59a,color:#655846,stroke-width:1px,rx:12,ry:12;
+    classDef outcome fill:#e7eee9,stroke:#477263,color:#233f35,stroke-width:1.5px,rx:12,ry:12;
+    class A,B,C tool;
+    class D outcome;

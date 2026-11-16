@@ -4,7 +4,7 @@
 - Node.js dependencies installed: `npm ci`
 - Site builds successfully: `npm run build`
 - A blog markdown source exists under `src/blog/`
-- Target article frontmatter includes `draft: false`
+- Target article meets the [workflow contract's eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract)
 - Target article includes tag `crosspost-medium` if it should be drafted on Medium
 - For local Medium runs, save auth once with `npm run crosspost:medium:auth`
 
@@ -88,7 +88,7 @@ Expected result:
 - Build gate passes: `npm run build`
 - Website publish completes before you run crosspost
 - Crosspost runs only when invoked manually
-- `draft: true` posts are not externally published
+- Articles excluded by the [eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract) are not externally published
 - Medium drafts are created only for posts tagged for Medium and missing `originalUrl`
 - Final Medium publish is still performed manually in Medium
 - LinkedIn receives generated shortpost (safe-mode deterministic by default)

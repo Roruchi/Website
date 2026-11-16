@@ -8,15 +8,15 @@
   - `title` (string): Article title extracted from frontmatter.
   - `bodyMarkdown` (string): Markdown content body excluding frontmatter.
   - `publishedDate` (datetime): Article date from frontmatter.
-  - `draft` (boolean): Draft flag from frontmatter.
+  - `draft` (boolean): Normalized publication state derived by the [article extractor](../../scripts/crosspost/extract-article.js).
   - `canonicalUrl` (string, optional): Published URL after deployment.
 - Validation rules:
   - `sourcePath` MUST exist and be readable.
   - `title` MUST be non-empty.
-  - `draft` MUST be explicitly treated as boolean (`true` blocks publishing).
+  - Publication state MUST be evaluated using the [workflow contract's eligibility rules](contracts/crosspost-workflow-contract.md#eligibility-rules-contract).
 - State transitions:
-  - `discovered` -> `eligible` when parsed successfully and `draft=false`.
-  - `discovered` -> `ineligible` when `draft=true` or parsing fails.
+  - `discovered` -> `eligible` when parsed successfully and the eligibility rules permit processing.
+  - `discovered` -> `ineligible` when the eligibility rules exclude the article or parsing fails.
 
 ## Entity: ReleaseEvent
 - Description: A successful website deployment event used as a gate for external publishing.

@@ -25,7 +25,7 @@ Define the CLI contract for the manual crosspost orchestration script.
   - `GITHUB_RUN_ID` (recommended fallback for release ID)
 
 ## Eligibility Rules Contract
-- Only process posts where frontmatter `draft` is absent or evaluates to `false`.
+- Skip posts where frontmatter `status` is `draft` or legacy `draft` is `true`.
 - Medium processing additionally requires the configured Medium tag to be present.
 - Posts with non-empty `originalUrl` MUST be skipped for Medium.
 - Crossposting MUST be started manually only after the site owner confirms the article is live on the website.
