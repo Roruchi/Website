@@ -5,8 +5,8 @@ date: 2026-11-06
 description: "Clear boundaries can give software teams room to experiment. How architects can use governance to enable decisions instead of collecting approvals."
 status: draft
 pillar: engineering
-cover: "/assets/images/governance-playground.svg"
-coverAlt: "A shared boundary around tests, security, monitoring and rollback leaves room for teams to experiment and deploy independently."
+cover: "/assets/images/governance-playground-cover.webp"
+coverAlt: "Children play in an open grassy meadow, with a low stone wall protecting the cliff edge above the sea."
 relatedTalks: []
 tags:
   - post
@@ -15,75 +15,39 @@ tags:
   - philosophy
 ---
 
-*Why governance doesn't have to restrict creativity. It can be what makes creativity possible.*
+During my Solution Architecture training, one question stayed with me: **can the right boundaries create more freedom than having none at all?** Governance often means giving up some autonomy. There are rules to follow and decisions you can no longer make on your own. Yet I've also been in a team where adding a release process helped us release faster. That tension is what interests me.
 
-During my Solution Architecture training, one question stayed with me: **can the right boundaries create more freedom than having none at all?**
+![Children play in an open grassy meadow, with a low stone wall protecting the cliff edge above the sea.](/assets/images/governance-playground-cover.webp)
 
-In 1908, G. K. Chesterton proposed a thought experiment in his book *Orthodoxy*.
+In *Orthodoxy* (1908), G. K. Chesterton imagines children playing on a grassy island surrounded by steep cliffs. A wall protects the edge, leaving them free to explore the space inside. When the wall is removed, they huddle in the centre, afraid of falling. Removing the boundary has made their world smaller.
 
-Imagine children playing on a grassy island surrounded by steep cliffs. A wall protects the edge. Inside that boundary, the children run, play, and explore freely.
-
-Now imagine removing the wall. There is nothing left to restrict their movement.
-
-Yet in Chesterton's imagined scene, the children do not become more adventurous. They huddle in the centre, frightened of the unprotected drop.
-
-They have fewer physical barriers, but feel less free to play.
-
-Chesterton was writing about religious authority and liberty, not software architecture. And this wasn't an actual event. It's a philosophical illustration, not evidence that boundaries automatically make people more creative.
-
-I find it a useful way to think about governance. The wall matters because of the freedom it leaves inside.
+I keep coming back to that image when I think about architecture. We spend a lot of time discussing which boundaries a team needs. I think we should spend just as much time asking whether people have room to work within them.
 
 ## Isn't governance the enemy of creativity?
 
-In many organisations, governance is seen as something restrictive.
+Architecture principles, security requirements and decisions that need documenting all ask something of a team. Add an architect questioning a technology choice, and it's understandable that governance can feel restrictive. Every new rule seems to take another decision out of your hands.
 
-Architecture principles you have to comply with. Security requirements you have to meet. Decisions you have to document. An architect asking why you chose a particular technology.
+Sometimes that feeling is justified. If every choice needs approval, people have little room to try something themselves. Even a small change becomes a discussion about who is allowed to decide. Calling a team autonomous doesn't help much if it still has to ask permission at every step.
 
-Every new rule can feel like another piece of freedom taken away. Sometimes, that feeling is justified. A maze of approvals and instructions for every step really does get in the way. You end up building a cage.
-
-But I think governance earns its place when it helps teams act independently.
+But removing the rules doesn't necessarily resolve that uncertainty. When nobody knows which decisions belong to the team, the same discussions keep coming back. Can we use this technology? Who owns security? Are we allowed to deploy independently? Clear agreements can help people answer those questions themselves.
 
 ## From control to confidence
 
-Imagine two software teams. This is an illustration, not a comparison of measured team outcomes.
+At one of my customers, I was part of a team that kept spending hours fixing releases outside the agreed change window. We added a release checklist and more automated checks and balances to the process. That took away some autonomy: there were now gates we had to pass before releasing.
 
-The first team has very few explicit architectural principles. Every significant decision triggers another discussion. Can we use this technology? Who owns security? Are we allowed to deploy independently?
+The team could release faster, though, because we spent less time fixing things on the spot. We gave up some freedom in how we released and gained time back from the repairs.
 
-Because the boundaries are unclear, the team repeatedly needs alignment or permission. On paper, it has freedom. In practice, uncertainty makes it hesitant.
+That experience gives me a concrete way to think about governance. A gate can be useful when it helps a team deal with a recurring problem. Whether it does that matters more to me than whether the process looks complete on paper.
 
-The second team works within clear architectural principles. Security expectations are explicit, ownership is understood, and there are agreements about monitoring, quality, and rollback.
-
-Within those boundaries, the team has autonomy.
-
-It doesn't need approval for every technical choice. It knows which decisions it can make, which risks it can take, and when it needs to involve others.
-
-**Governance doesn't just define what a team cannot do. Done well, it makes clear what a team can do without asking permission.**
-
-Consider a possible release agreement: a team can deploy independently when its automated tests and security checks pass, monitoring is in place, and it has a rollback strategy that meets agreed standards. A change outside those boundaries needs a conversation with the people who own the affected risk.
-
-The agreement needs to name those people and make the standards available to the team. Otherwise, "you have autonomy" can still mean "ask around until someone says yes."
+For a team that wants to deploy independently, agreements about tests, security, monitoring and rollback can make the release boundary clear. People need to know what they can decide themselves and who to involve when a change falls outside those agreements. The checks and level of oversight depend on the risks involved; a change affecting sensitive customer data needs different consideration from a reversible experiment.
 
 ![Tests, security, monitoring and rollback form a shared boundary. Inside it, teams can experiment, choose an implementation and deploy independently.](/assets/images/governance-playground.svg)
 
-The team still has technical choices to make. It can try a different implementation without renegotiating the entire release process. The safeguards define where it can act independently and where it needs help.
-
-This is not governance disappearing. It is governance making independent action possible.
-
-Of course, it depends on the risks involved. A production change affecting sensitive customer data may need a different level of oversight from a reversible experiment. The point is not to remove judgement, but to place decision-making where it can happen responsibly.
+Within that boundary, the team still has technical choices to make. It can try a different implementation without renegotiating the entire release process. That's the room I want governance to leave open.
 
 ## What does that mean for an architect?
 
-This changes how I think about the architect's role.
-
-An architect isn't there to build as many walls as possible.
-
-The job is to help identify which boundaries are necessary, why they exist, and how much freedom teams should have within them.
-
-That means asking a different question.
-
-Not: *How do we make sure everyone follows our rules?*
-
-But: *What agreements do teams need so they can make good decisions independently?*
+For me, part of the architect's job is helping a team work out which boundaries it needs and why. What agreements would let people make good decisions independently? Where do they need help, and where are we asking them to wait for approval they could do without?
 
 Architecture principles can make the boundaries visible. Architecture Decision Records (ADRs) can preserve the reasons behind a decision, so the next team doesn't have to guess. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
 
@@ -91,28 +55,16 @@ Architecture principles can make the boundaries visible. Architecture Decision R
 
 This connects to what I wrote about [making implicit engineering knowledge explicit](/blog/your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d/). A boundary that only exists in someone's head is difficult to work within, whether you're a new developer or an AI agent.
 
-And just as importantly, we should regularly challenge the boundaries we've created.
-
-Does this rule still protect something important? Does this approval step genuinely reduce risk? Or are we keeping a wall simply because it has always been there?
-
-A playground surrounded by fences at every turn is just a maze.
+We also need to revisit those agreements. A rule may have addressed a real problem when it was introduced, but does it still help? Does this approval reduce risk, or are we keeping it because it has always been there? A playground with fences at every turn leaves very little room to play.
 
 ## Freedom within boundaries
 
-Good governance does not make every decision for you.
+I recognise this tension from [finding a balance between control and letting go](/blog/my-journey-with-perfectionism-finding-balance-104b4b4a1ce6/). When mentoring interns, I sometimes gave too little guidance and other times held on too tightly. Working out how much support someone needs takes attention. I think architecture asks something similar of us: enough structure to help people move forward, with room for them to make their own choices.
 
-It creates an environment where you can make decisions confidently, without constantly worrying about crossing an invisible line.
+At your next team or architecture discussion, pick one release gate or recurring approval and look at what it actually does. What problem was it introduced to solve? Does it still help the team? Agree on one change to try, whether that's automating a check, making an agreement clearer or removing an approval that no longer serves a purpose. Then come back to it together and see whether it helped.
 
-**The best governance isn't the governance that controls the most decisions. It's the governance that enables the most good decisions without intervention.**
-
-That also means resisting the urge to solve uncertainty by adding another rule. I recognise the tension from [finding a balance between control and letting go](/blog/my-journey-with-perfectionism-finding-balance-104b4b4a1ce6/): too much control leaves no room to grow, but no guidance isn't much help either.
-
-At your next architecture discussion, pick one recurring approval. What risk does it protect against? Could a clear agreement let the team make that decision itself? If it still needs review, make clear who should be involved and why.
-
-Then ask:
-
-*Are we using governance to build a safe playground, or have we accidentally built a cage?*
+Which boundary in your team gives you room to work, and which one would you change? I'd like to hear your experience. You can [send me a message on LinkedIn](https://www.linkedin.com/in/roelvanbergen/).
 
 ---
 
-*Source: G. K. Chesterton, [Orthodoxy (1908), Chapter IX: "Authority and the Adventurer"](https://www.gutenberg.org/cache/epub/130/pg130.html). The playground scene is a thought experiment, and its application to software governance is my interpretation.*
+*Source: G. K. Chesterton, [Orthodoxy (1908), Chapter IX: "Authority and the Adventurer"](https://www.gutenberg.org/cache/epub/130/pg130.html), on religious authority and liberty.*

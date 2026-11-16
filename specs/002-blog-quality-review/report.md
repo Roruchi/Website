@@ -1,5 +1,28 @@
 # Blog quality review
 
+## PR #13 author feedback, 2026-11-16
+
+This follow-up supersedes the playgrounds assessment and open author questions below; the original review is retained as history. Roel's seven inline comments requested a more natural paragraph rhythm, removal of defensive caveats, a better cover, his own customer example and a direct call to action.
+
+- Reworked the opening and transitions into connected paragraphs. Removed the subtitle, staged reversals and bold closing slogan.
+- Removed the two caveats Roel flagged. The Chesterton passage uses "imagines" and retains a source note naming its religious context.
+- Replaced the hypothetical two-team comparison and release agreement with Roel's supplied account: hours fixing releases outside the change window, a release checklist and automated checks, and faster releases because less time went into repairs. No customer identity, metrics or additional incident details were added. General release guidance remains separate from that account.
+- Added an illustrated cover and an opening body image so readers see it on the article page as well as in previews. The two explanatory diagrams remain in the body.
+- Made the ending actionable: examine one gate or approval, agree on a change and revisit whether it helped. Invited readers to share their experience through Roel's existing LinkedIn profile from `src/_data/site.json`.
+- Applied the write-like-roel final cadence pass against the complete revised article and the published Finding Balance and Becoming More Human articles. This is editorial inspection; author acceptance of the voice remains Roel's judgment.
+
+The article retains `status: draft` and its 2026-11-06 date. Publication and crossposting are separate decisions.
+
+Validation for this follow-up: `npm run publish:check` passed, including content validation, production build, output privacy and SEO checks. The same 21 imported-image warnings remain; five drafts remain private. An isolated local published preview passed Chrome checks at 1440px and 375px: all three images loaded with alternatives, the LinkedIn CTA was present and there was no horizontal overflow. The mobile screenshot was inspected. Preview status was restored in a `finally` block; the committed source remains a draft. `git diff --check` passed. No publisher was invoked.
+
+### Cover provenance
+
+Generated with the built-in image generation tool and exported as a 1774 × 887 WebP at quality 88 to `src/assets/images/governance-playground-cover.webp`. The image is conceptual artwork. Prompt:
+
+> Use case: illustration-story. Asset type: wide editorial cover banner for the engineering essay 'Good Architects Build Playgrounds, Not Cages'. Create a beautiful, mature painterly illustration: a grassy clifftop island with a low protective stone wall following its perimeter, leaving a generous open meadow inside where a few small distant children play freely. The wall protects the dangerous edge without dividing the meadow. Warm late-afternoon light, atmospheric blue-green landscape and sea beyond, hand-painted texture, considered architectural composition, sophisticated literary magazine cover quality. Wide landscape 2:1 composition, focal subjects within central area so the image crops gracefully on mobile. Show the openness and freedom inside the boundary. No typography, labels, diagrams, boxes, logos or watermark. This is conceptual artwork, not a historical reconstruction.
+
+## Original review
+
 Reviewed 2026-11-16. Scope: all 18 Markdown posts in `src/blog/`, not just published articles. Only the playgrounds article was edited. This is an editorial assessment of repository sources, not a claim that every external source or the live website was audited. No publication, crossposting, date change or ledger update is part of this work.
 
 ## Rubric
