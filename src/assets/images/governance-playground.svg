@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Room to act within clear boundaries</title>
+  <desc id="desc">Tests, security, monitoring and rollback form a shared boundary. Inside it, teams can experiment, choose an implementation and deploy independently. Decisions outside the agreement need a conversation with the risk owner.</desc>
+  <rect width="1200" height="630" fill="#f4f1e8"/>
+  <g font-family="system-ui, sans-serif" text-anchor="middle" fill="#183b34">
+    <text x="600" y="76" font-size="38" font-weight="700">Clear boundaries. Room to act.</text>
+    <rect x="100" y="118" width="1000" height="362" rx="50" fill="#e2eee6" stroke="#286352" stroke-width="8"/>
+    <g font-size="27" font-weight="600">
+      <text x="300" y="175">Tests</text>
+      <text x="900" y="175">Security</text>
+      <text x="300" y="443">Monitoring</text>
+      <text x="900" y="443">Rollback</text>
+    </g>
+    <g font-size="30">
+      <text x="600" y="255">Experiment</text>
+      <text x="600" y="315">Choose an implementation</text>
+      <text x="600" y="375">Deploy independently</text>
+    </g>
+    <text x="600" y="548" font-size="25">Outside the agreement?</text>
+    <text x="600" y="586" font-size="25">Talk to the people who own the risk.</text>
+  </g>
+</svg>

@@ -2,9 +2,11 @@
 title: "Good Architects Build Playgrounds, Not Cages"
 slug: "good-architects-build-playgrounds-not-cages"
 date: 2026-11-06
-description: "Why good governance can enable creativity, giving teams the clarity, safety, and autonomy to make decisions and experiment."
+description: "Clear boundaries can give software teams room to experiment. How architects can use governance to enable decisions instead of collecting approvals."
 status: draft
 pillar: engineering
+cover: "/assets/images/governance-playground.svg"
+coverAlt: "A shared boundary around tests, security, monitoring and rollback leaves room for teams to experiment and deploy independently."
 relatedTalks: []
 tags:
   - post
@@ -14,6 +16,8 @@ tags:
 ---
 
 *Why governance doesn't have to restrict creativity. It can be what makes creativity possible.*
+
+During my Solution Architecture training, one question stayed with me: **can the right boundaries create more freedom than having none at all?**
 
 In 1908, G. K. Chesterton proposed a thought experiment in his book *Orthodoxy*.
 
@@ -27,9 +31,7 @@ They have fewer physical barriers, but feel less free to play.
 
 Chesterton was writing about religious authority and liberty, not software architecture. And this wasn't an actual event. It's a philosophical illustration, not evidence that boundaries automatically make people more creative.
 
-Still, it raises a question that stayed with me during my Solution Architecture training:
-
-**Can the right boundaries create more freedom than having none at all?**
+I find it a useful way to think about governance. The wall matters because of the freedom it leaves inside.
 
 ## Isn't governance the enemy of creativity?
 
@@ -37,17 +39,13 @@ In many organisations, governance is seen as something restrictive.
 
 Architecture principles you have to comply with. Security requirements you have to meet. Decisions you have to document. An architect asking why you chose a particular technology.
 
-Every new rule can feel like another piece of freedom taken away.
+Every new rule can feel like another piece of freedom taken away. Sometimes, that feeling is justified. A maze of approvals and instructions for every step really does get in the way. You end up building a cage.
 
-And sometimes, that feeling is justified.
-
-When governance becomes a maze of approvals, bureaucracy, and instructions for every step, it really does get in the way. You end up building a cage.
-
-But good governance should do something fundamentally different.
+But I think governance earns its place when it helps teams act independently.
 
 ## From control to confidence
 
-Imagine two software teams.
+Imagine two software teams. This is an illustration, not a comparison of measured team outcomes.
 
 The first team has very few explicit architectural principles. Every significant decision triggers another discussion. Can we use this technology? Who owns security? Are we allowed to deploy independently?
 
@@ -61,9 +59,13 @@ It doesn't need approval for every technical choice. It knows which decisions it
 
 **Governance doesn't just define what a team cannot do. Done well, it makes clear what a team can do without asking permission.**
 
-That clarity can create room for experimentation and creativity.
+Consider a possible release agreement: a team can deploy independently when its automated tests and security checks pass, monitoring is in place, and it has a rollback strategy that meets agreed standards. A change outside those boundaries needs a conversation with the people who own the affected risk.
 
-Consider a practical example: a team is allowed to deploy whenever its automated tests, security checks, monitoring, and rollback strategy meet agreed standards. The team doesn't need a separate approval for every release, because the critical safeguards are already part of the delivery process.
+The agreement needs to name those people and make the standards available to the team. Otherwise, "you have autonomy" can still mean "ask around until someone says yes."
+
+![Tests, security, monitoring and rollback form a shared boundary. Inside it, teams can experiment, choose an implementation and deploy independently.](/assets/images/governance-playground.svg)
+
+The team still has technical choices to make. It can try a different implementation without renegotiating the entire release process. The safeguards define where it can act independently and where it needs help.
 
 This is not governance disappearing. It is governance making independent action possible.
 
@@ -83,7 +85,9 @@ Not: *How do we make sure everyone follows our rules?*
 
 But: *What agreements do teams need so they can make good decisions independently?*
 
-Architecture principles, Architecture Decision Records (ADRs), and quality attributes become more than ways to exercise control. They become tools for enabling autonomy.
+Architecture principles can make the boundaries visible. Architecture Decision Records (ADRs) can preserve the reasons behind a decision, so the next team doesn't have to guess. Quality attributes can turn "make it reliable" into an expectation people can discuss and check.
+
+This connects to what I wrote about [making implicit engineering knowledge explicit](/blog/your-ai-agent-isnt-the-problem-your-engineering-discipline-is-634b706d776d/). A boundary that only exists in someone's head is difficult to work within, whether you're a new developer or an AI agent.
 
 And just as importantly, we should regularly challenge the boundaries we've created.
 
@@ -97,11 +101,13 @@ Good governance does not make every decision for you.
 
 It creates an environment where you can make decisions confidently, without constantly worrying about crossing an invisible line.
 
-That's one of the insights I find most interesting from my architecture training.
-
 **The best governance isn't the governance that controls the most decisions. It's the governance that enables the most good decisions without intervention.**
 
-So perhaps the question we should ask is:
+That also means resisting the urge to solve uncertainty by adding another rule. I recognise the tension from [finding a balance between control and letting go](/blog/my-journey-with-perfectionism-finding-balance-104b4b4a1ce6/): too much control leaves no room to grow, but no guidance isn't much help either.
+
+At your next architecture discussion, pick one recurring approval. What risk does it protect against? Could a clear agreement let the team make that decision itself? If it still needs review, make clear who should be involved and why.
+
+Then ask:
 
 *Are we using governance to build a safe playground, or have we accidentally built a cage?*
 
