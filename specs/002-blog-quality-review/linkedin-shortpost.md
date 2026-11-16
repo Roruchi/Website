@@ -3,22 +3,19 @@ title: "Playgrounds: LinkedIn share draft"
 status: draft
 ---
 
-Replace `[ARTICLE_URL_ONCE_LIVE]` with the live article URL before sharing. This is a short share-later post, separate from the full article's Medium crosspost. Nothing has been posted.
+Prepared for sharing on 2026-11-17 with the website article URL. This is a short share-later post, separate from the full article's Medium crosspost. Nothing has been posted to LinkedIn.
 
 ## Copy to share later
 
-Does governance give your team room to move, or just another reason to ask permission?
+Can the right boundaries create more freedom than having none at all? That question stayed with me during my Solution Architecture training.
 
-During my Solution Architecture training, I kept coming back to that question.
+At one customer, our team kept spending hours fixing releases outside the change window. People were frustrated by calls at five in the afternoon because it was unclear what was working. A release checklist and automated checks took away some autonomy, but helped us release faster: we spent less time fixing things on the spot.
 
-I think good governance should make clear which decisions a team can make independently. Tests, security expectations, monitoring and rollback can create a boundary within which people are free to experiment.
+I think architecture and governance can give teams that kind of room to work. People need to understand why the boundaries exist, which decisions they own, and have a voice in shaping those boundaries themselves.
 
-But the agreement needs to say what happens outside that boundary too: who owns the risk, and when do we involve them?
+In my new article, I connect that experience to Chesterton's story of children playing on an island protected by a wall.
 
-At the next architecture discussion, I'd start with one recurring approval. What does it protect? Could a clear agreement let the team make that decision itself?
+Good Architects Build Playgrounds, Not Cages:
+https://roelvanbergen.nl/blog/good-architects-build-playgrounds-not-cages/
 
-That's the kind of playground I want architects to build: clear enough that people feel free to use it.
-
-I wrote more about it here: [ARTICLE_URL_ONCE_LIVE]
-
-Which rule in your team creates room to act, and which one mainly creates a queue?
+Which decision can your team now make for itself because of the governance you've put in place?
