@@ -1,9 +1,9 @@
 ---
 title: "Good Architects Build Playgrounds, Not Cages"
 slug: "good-architects-build-playgrounds-not-cages"
-date: 2026-11-06
+date: 2026-11-16
 description: "Architecture and governance can give teams the confidence to act independently. How clear boundaries create room for ownership and experimentation."
-status: draft
+status: published
 pillar: engineering
 cover: "/assets/images/governance-playground-cover.webp"
 coverAlt: "Children play in an open grassy meadow, with a low stone wall protecting the cliff edge above the sea."
