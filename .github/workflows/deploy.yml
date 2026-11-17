@@ -36,7 +36,7 @@ jobs:
           INTERACTIONS_API_URL: ${{ vars.INTERACTIONS_API_URL }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
