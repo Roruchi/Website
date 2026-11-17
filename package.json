@@ -24,7 +24,7 @@
     "crosspost:medium:auth": "node scripts/crosspost/setup-medium-auth.js"
   },
   "dependencies": {
-    "@11ty/eleventy-img": "^3.1.0",
+    "@11ty/eleventy-img": "^7.1.1",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "eleventy-plugin-toc": "^1.1.5",
     "luxon": "^3.4.4"
